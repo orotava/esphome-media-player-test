@@ -327,7 +327,6 @@
     content.appendChild(nightScheduleCard());
     content.appendChild(screenBrightnessCard());
     content.appendChild(dayNightCard());
-    content.appendChild(screenToneCard());
 
     wrap.appendChild(content);
   }
@@ -517,6 +516,7 @@
     var wrap = els.deviceWrap;
     wrap.innerHTML = "";
     wrap.appendChild(clockCard());
+    wrap.appendChild(screenToneCard());
     if (supportsScreenRotation()) wrap.appendChild(rotationCard());
     wrap.appendChild(firmwareCard());
   }
