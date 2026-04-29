@@ -323,6 +323,7 @@
     content.appendChild(playbackCard());
     content.appendChild(volumeCard());
     content.appendChild(idleScreenCard());
+    content.appendChild(screenSaverCard());
     content.appendChild(nightScheduleCard());
     content.appendChild(screenBrightnessCard());
     content.appendChild(dayNightCard());
@@ -385,9 +386,14 @@
   }
 
   function idleScreenCard() {
-    var badge = badgeFor(true, idleSummary());
     var body = el("div");
     body.appendChild(numberField("Dim After", "dim_timeout"));
+    return card("Idle Screen", body, true);
+  }
+
+  function screenSaverCard() {
+    var badge = badgeFor(true, idleSummary());
+    var body = el("div");
     body.appendChild(numberField("Then After", "screen_saver_timeout"));
     body.appendChild(divider());
     body.appendChild(idleActionField("Day Action", "day_idle_action", function () {
@@ -402,7 +408,7 @@
     details.style.display = usesClockAction() ? "" : "none";
     details.appendChild(rangeField("Clock Brightness", "clock_brightness"));
     body.appendChild(details);
-    return card("Idle Screen", body, true, badge);
+    return card("Screen Saver", body, true, badge);
   }
 
   function nightScheduleCard() {
