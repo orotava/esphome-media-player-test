@@ -2,9 +2,10 @@
 # BACKLIGHT & SCREENSAVER
 # =============================================================================
 # Two-stage screensaver with day/night awareness:
-#   1. After dim_timeout seconds of inactivity → dim to day or night brightness
-#   2. After a further screen_saver_timeout seconds → show clock, turn off,
-#      or stay dimmed based on the day/night idle action
+#   1. If paused dimming is enabled, after dim_timeout seconds of inactivity
+#      → dim to day or night brightness
+#   2. After a further screen_saver_timeout seconds → show clock or turn off
+#      based on the day/evening screen saver action
 #   Any touch or media-stop event restarts the cycle at 100%.
 #
 # All settings (brightness levels, timeouts) are exposed to Home Assistant
@@ -205,6 +206,19 @@ number:
     entity_category: config
 
   - platform: template
+    name: "Screen Saver: Evening Clock Brightness"
+    id: evening_clock_brightness
+    min_value: 1
+    max_value: 100
+    step: 1
+    initial_value: 35
+    optimistic: true
+    restore_value: true
+    unit_of_measurement: "%"
+    icon: "mdi:clock-outline"
+    entity_category: config
+
+  - platform: template
     name: "Screen: Schedule On Hour"
     id: schedule_on_hour
     internal: ${screen_schedule_internal}
@@ -262,6 +276,43 @@ number:
 # -----------------------------------------------------------------------------
 switch:
   - platform: template
+    name: "Screen Saver: Dim When Paused"
+    id: backlight_dim_when_paused
+    optimistic: true
+    restore_mode: RESTORE_DEFAULT_ON
+    icon: "mdi:brightness-5"
+    entity_category: config
+    on_turn_on:
+      then:
+        - if:
+            condition:
+              lambda: |-
+                std::string state = "";
+                if (id(is_tv_mode)) {
+                  if (id(tv_media_player_state_sensor).has_state()) state = id(tv_media_player_state_sensor).state;
+                } else if (id(media_player_state_sensor).has_state()) {
+                  state = id(media_player_state_sensor).state;
+                }
+                return state == "paused";
+            then:
+              - script.execute: backlight_wake_timeout
+    on_turn_off:
+      then:
+        - if:
+            condition:
+              lambda: |-
+                std::string state = "";
+                if (id(is_tv_mode)) {
+                  if (id(tv_media_player_state_sensor).has_state()) state = id(tv_media_player_state_sensor).state;
+                } else if (id(media_player_state_sensor).has_state()) {
+                  state = id(media_player_state_sensor).state;
+                }
+                return state == "paused";
+            then:
+              - script.stop: backlight_wake_timeout
+              - script.execute: backlight_wake_timeout
+
+  - platform: template
     name: "Screen: Schedule Enabled"
     id: schedule_enabled
     internal: ${screen_schedule_internal}
@@ -295,7 +346,6 @@ select:
     options:
       - "Show Clock"
       - "Turn Screen Off"
-      - "Stay Dimmed"
 
   - platform: template
     name: "Screen: Night Idle Action"
@@ -308,7 +358,6 @@ select:
     options:
       - "Show Clock"
       - "Turn Screen Off"
-      - "Stay Dimmed"
 
 
 # -----------------------------------------------------------------------------
@@ -424,7 +473,11 @@ script:
                 then:
                   - light.turn_on:
                       id: backlight
-                      brightness: !lambda 'return id(clock_brightness).state / 100.0f;'
+                      brightness: !lambda |-
+                        bool is_day = id(day_night_sensor_entity).state.empty()
+                            ? (id(sun_state_sensor).has_state() && id(sun_state_sensor).state == "above_horizon")
+                            : id(custom_day_night_is_day);
+                        return (is_day ? id(clock_brightness).state : id(evening_clock_brightness).state) / 100.0f;
                       transition_length: 500ms
                 else:
                   - light.turn_on:
@@ -499,11 +552,15 @@ script:
       - if:
           condition:
             lambda: >-
-              return id(is_tv_mode)
-                ? (!id(tv_media_player_state_sensor).has_state() ||
-                   id(tv_media_player_state_sensor).state != "playing")
-                : (!id(media_player_state_sensor).has_state() ||
-                   id(media_player_state_sensor).state != "playing");
+              std::string state = "";
+              if (id(is_tv_mode)) {
+                if (id(tv_media_player_state_sensor).has_state()) state = id(tv_media_player_state_sensor).state;
+              } else if (id(media_player_state_sensor).has_state()) {
+                state = id(media_player_state_sensor).state;
+              }
+              if (state == "playing") return false;
+              if (state == "paused" && !id(backlight_dim_when_paused).state) return false;
+              return true;
           then:
             - lambda: 'id(is_screen_dimmed) = true;'
             - light.turn_on:
@@ -521,11 +578,15 @@ script:
             - if:
                 condition:
                   lambda: >-
-                    return id(is_tv_mode)
-                      ? (!id(tv_media_player_state_sensor).has_state() ||
-                         id(tv_media_player_state_sensor).state != "playing")
-                      : (!id(media_player_state_sensor).has_state() ||
-                         id(media_player_state_sensor).state != "playing");
+                    std::string state = "";
+                    if (id(is_tv_mode)) {
+                      if (id(tv_media_player_state_sensor).has_state()) state = id(tv_media_player_state_sensor).state;
+                    } else if (id(media_player_state_sensor).has_state()) {
+                      state = id(media_player_state_sensor).state;
+                    }
+                    if (state == "playing") return false;
+                    if (state == "paused" && !id(backlight_dim_when_paused).state) return false;
+                    return true;
                 then:
                   - if:
                       condition:
@@ -616,7 +677,11 @@ script:
       - lvgl.widget.redraw:
       - light.turn_on:
           id: backlight
-          brightness: !lambda 'return id(clock_brightness).state / 100.0f;'
+          brightness: !lambda |-
+            bool is_day = id(day_night_sensor_entity).state.empty()
+                ? (id(sun_state_sensor).has_state() && id(sun_state_sensor).state == "above_horizon")
+                : id(custom_day_night_is_day);
+            return (is_day ? id(clock_brightness).state : id(evening_clock_brightness).state) / 100.0f;
           transition_length: 3s
 
   - id: hide_clock_view

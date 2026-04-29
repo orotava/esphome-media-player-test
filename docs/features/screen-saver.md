@@ -1,22 +1,21 @@
 # Screen Saver
 
-When playback is paused, the device uses a two-stage screen saver to reduce power consumption and prevent burn-in. All settings are configurable from the device page in Home Assistant (**Settings → Devices & Services → ESPHome** → your device).
+When playback is paused and paused dimming is enabled, the device uses a two-stage screen saver to reduce power consumption and prevent burn-in. All settings are configurable from the device page in Home Assistant (**Settings → Devices & Services → ESPHome** → your device).
 
 ## How it works
 
-1. **Dimming** — After **Screen Saver: Paused Dimming** elapses (default: 60 s), the screen dims to the **Day/Night: Dim Brightness** level.
-2. **Idle action** — After **Screen Saver: Timer** elapses (default: 300 s), the selected day or night idle action runs:
-   - **Show Clock** shows a large `HH:MM` clock at **Screen Saver: Clock Brightness**.
-   - **Turn Screen Off** turns the display fully off.
-   - **Stay Dimmed** leaves the display at the dim brightness level.
+1. **Dimming** — If **Screen Saver: Dim When Paused** is on, after **Screen Saver: Paused Dimming** elapses (default: 60 s), the screen dims to the **Day/Night: Dim Brightness** level.
+2. **Idle action** — After **Screen Saver: Timer** elapses (default: 300 s), the selected day or evening screen saver runs:
+   - **Clock** shows a large `HH:MM` clock.
+   - **Off** turns the display fully off.
 
 Any touch or new media playback instantly returns the display to full active brightness.
 
 ## Clock screen saver
 
-The optional clock screen saver displays the current time in large, thin digits on a black background. Choose **Show Clock** as the day or night idle action to use it.
+The optional clock screen saver displays the current time in large, thin digits on a black background. Choose **Clock** as the day or evening screen saver to use it.
 
-The clock position drifts subtly each minute across a small region to prevent burn-in. Brightness is controlled independently via **Screen Saver: Clock Brightness** (default: 35%).
+The clock position drifts subtly each minute across a small region to prevent burn-in. Brightness is controlled independently for day and evening clock screen savers (default: 35%).
 
 ## Night Schedule
 
@@ -28,8 +27,8 @@ Touching the screen during the off period wakes it temporarily. **When Woken, Id
 
 Brightness levels and screen saver behavior adapt automatically based on whether it is currently "day" or "night":
 
-- **Daytime** — uses **Day: Active Brightness**, **Day: Dim Brightness**, and **Screen: Day Idle Action**.
-- **Nighttime** — uses **Night: Active Brightness**, **Night: Dim Brightness**, and **Screen: Night Idle Action**.
+- **Daytime** — uses **Day: Active Brightness**, **Day: Dim Brightness**, and **Daytime Screen Saver**.
+- **Evening** — uses **Night: Active Brightness**, **Night: Dim Brightness**, and **Evening Screen Saver**.
 
 This lets you configure different behavior for day and night — for example, showing the clock during the day but turning the screen off at night. On the ESP32-P4, [Screen Tone](/features/settings#screen-tone) warmth also follows the same day/night detection, so album art can shift warmer at night.
 
@@ -53,6 +52,7 @@ This is useful when you want day/night to depend on more than just the sun — f
 
 | Setting | Description | Default |
 |---------|-------------|---------|
+| **Screen Saver: Dim When Paused** | Enables screen dimming when playback is paused. | On |
 | **Screen Saver: Paused Dimming** | Time after playback pauses before the screen dims. | 60 s |
 | **Screen Saver: Timer** | Time after dimming before the screen saver activates. | 300 s |
 
@@ -60,9 +60,10 @@ This is useful when you want day/night to depend on more than just the sun — f
 
 | Setting | Description | Default |
 |---------|-------------|---------|
-| **Screen: Day Idle Action** | What happens after the idle timer during the day: show clock, turn screen off, or stay dimmed. | Show Clock |
-| **Screen: Night Idle Action** | What happens after the idle timer at night: show clock, turn screen off, or stay dimmed. | Show Clock |
-| **Screen Saver: Clock Brightness** | Backlight level for the clock screen saver. | 35% |
+| **Daytime Screen Saver** | What happens after the idle timer during the day: clock or off. | Clock |
+| **Evening Screen Saver** | What happens after the idle timer in the evening: clock or off. | Clock |
+| **Day Clock Brightness** | Backlight level for the daytime clock screen saver. | 35% |
+| **Evening Clock Brightness** | Backlight level for the evening clock screen saver. | 35% |
 | **Screen: Timezone** | IANA-style timezone for the clock and scheduled screen-off controls. The browser shows the current GMT offset. | UTC |
 
 ### Night Schedule
@@ -87,5 +88,5 @@ This is useful when you want day/night to depend on more than just the sun — f
 
 | Setting | Description | Default |
 |---------|-------------|---------|
-| **Screen: Day Idle Action** | Daytime action after dimming and the idle timer. | Show Clock |
-| **Screen: Night Idle Action** | Nighttime action after dimming and the idle timer. | Show Clock |
+| **Daytime Screen Saver** | Daytime action after dimming and the idle timer. | Clock |
+| **Evening Screen Saver** | Evening action after dimming and the idle timer. | Clock |

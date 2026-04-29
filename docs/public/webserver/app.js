@@ -24,9 +24,11 @@
     night_active_brightness: 80,
     day_dim_brightness: 35,
     night_dim_brightness: 25,
+    paused_dimming_enabled: true,
     dim_timeout: 60,
     screen_saver_timeout: 300,
-    clock_brightness: 35,
+    day_clock_brightness: 35,
+    evening_clock_brightness: 35,
     day_idle_action: "Show Clock",
     night_idle_action: "Show Clock",
     schedule_enabled: false,
@@ -66,9 +68,11 @@
     night_active_brightness: { domain: "number", name: "Night: Active Brightness", number: true },
     day_dim_brightness: { domain: "number", name: "Day: Dim Brightness", number: true },
     night_dim_brightness: { domain: "number", name: "Night: Dim Brightness", number: true },
+    paused_dimming_enabled: { domain: "switch", name: "Screen Saver: Dim When Paused", bool: true },
     dim_timeout: { domain: "number", name: "Screen Saver: Paused Dimming", number: true },
     screen_saver_timeout: { domain: "number", name: "Screen Saver: Timer", number: true },
-    clock_brightness: { domain: "number", name: "Screen Saver: Clock Brightness", number: true },
+    day_clock_brightness: { domain: "number", name: "Screen Saver: Clock Brightness", number: true },
+    evening_clock_brightness: { domain: "number", name: "Screen Saver: Evening Clock Brightness", number: true },
     day_idle_action: { domain: "select", name: "Screen: Day Idle Action", optionsKey: "idle_action_options" },
     night_idle_action: { domain: "select", name: "Screen: Night Idle Action", optionsKey: "idle_action_options" },
     schedule_enabled: { domain: "switch", name: "Screen: Schedule Enabled", bool: true },
@@ -98,7 +102,8 @@
     night_dim_brightness: { min: 0, max: 100, step: 5, suffix: "%" },
     dim_timeout: { min: 1, max: 300, step: 1, suffix: "s" },
     screen_saver_timeout: { min: 1, max: 1800, step: 1, suffix: "s" },
-    clock_brightness: { min: 1, max: 100, step: 1, suffix: "%" },
+    day_clock_brightness: { min: 1, max: 100, step: 1, suffix: "%" },
+    evening_clock_brightness: { min: 1, max: 100, step: 1, suffix: "%" },
     schedule_on_hour: { min: 0, max: 23, step: 1, suffix: "h" },
     schedule_off_hour: { min: 0, max: 23, step: 1, suffix: "h" },
     schedule_wake_timeout: { min: 10, max: 3600, step: 10, suffix: "s" },
@@ -325,8 +330,6 @@
     content.appendChild(idleScreenCard());
     content.appendChild(screenSaverCard());
     content.appendChild(nightScheduleCard());
-    content.appendChild(screenBrightnessCard());
-    content.appendChild(dayNightCard());
 
     wrap.appendChild(content);
   }
@@ -385,9 +388,19 @@
   }
 
   function idleScreenCard() {
+    var badge = badgeFor(S.paused_dimming_enabled);
     var body = el("div");
-    body.appendChild(numberField("Dim After", "dim_timeout"));
-    return card("Idle Screen", body, true);
+    var details = el("div");
+    details.style.display = S.paused_dimming_enabled ? "" : "none";
+    body.appendChild(toggleField("Dim Screen When Paused", "paused_dimming_enabled", null, null, function (enabled) {
+      details.style.display = enabled ? "" : "none";
+      badge.className = "on-badge" + (enabled ? " active" : "");
+    }));
+    details.appendChild(numberField("Dim After", "dim_timeout"));
+    details.appendChild(rangeField("Day Dimmed Brightness", "day_dim_brightness"));
+    details.appendChild(rangeField("Night Dimmed Brightness", "night_dim_brightness"));
+    body.appendChild(details);
+    return card("Idle Screen", body, true, badge);
   }
 
   function screenSaverCard() {
@@ -395,18 +408,22 @@
     var body = el("div");
     body.appendChild(durationSelectField("Then After", "screen_saver_timeout", [10, 30, 60, 120, 300, 600, 1800], formatCompactDurationSeconds));
     body.appendChild(divider());
-    body.appendChild(idleActionField("Day Action", "day_idle_action", function () {
+    body.appendChild(screenSaverActionField("Daytime Screen Saver", "day_idle_action", function () {
       badge.textContent = idleSummary();
       renderAll();
     }));
-    body.appendChild(idleActionField("Night Action", "night_idle_action", function () {
+    var dayDetails = el("div");
+    dayDetails.style.display = usesDayClockAction() ? "" : "none";
+    dayDetails.appendChild(rangeField("Day Clock Brightness", "day_clock_brightness"));
+    body.appendChild(dayDetails);
+    body.appendChild(screenSaverActionField("Evening Screen Saver", "night_idle_action", function () {
       badge.textContent = idleSummary();
       renderAll();
     }));
-    var details = el("div");
-    details.style.display = usesClockAction() ? "" : "none";
-    details.appendChild(rangeField("Clock Brightness", "clock_brightness"));
-    body.appendChild(details);
+    var eveningDetails = el("div");
+    eveningDetails.style.display = usesEveningClockAction() ? "" : "none";
+    eveningDetails.appendChild(rangeField("Evening Clock Brightness", "evening_clock_brightness"));
+    body.appendChild(eveningDetails);
     return card("Screen Saver", body, true, badge);
   }
 
@@ -431,11 +448,9 @@
     var body = el("div");
     body.appendChild(sectionTitle("Day"));
     body.appendChild(rangeField("Active Brightness", "day_active_brightness"));
-    body.appendChild(rangeField("Dimmed Brightness", "day_dim_brightness"));
     body.appendChild(divider());
     body.appendChild(sectionTitle("Night"));
     body.appendChild(rangeField("Active Brightness", "night_active_brightness"));
-    body.appendChild(rangeField("Dimmed Brightness", "night_dim_brightness"));
     return card("Screen Brightness", body, true);
   }
 
@@ -516,6 +531,8 @@
     var wrap = els.deviceWrap;
     wrap.innerHTML = "";
     wrap.appendChild(clockCard());
+    wrap.appendChild(dayNightCard());
+    wrap.appendChild(screenBrightnessCard());
     wrap.appendChild(screenToneCard());
     if (supportsScreenRotation()) wrap.appendChild(rotationCard());
     wrap.appendChild(firmwareCard());
@@ -654,17 +671,46 @@
     return f;
   }
 
-  function idleActionField(label, key, onChange) {
-    return selectField(label, key, onChange);
+  function screenSaverActionField(label, key, onChange) {
+    var options = supportsClockScreenSaver() ? ["Show Clock", "Turn Screen Off"] : ["Turn Screen Off"];
+    var selected = normalizeScreenSaverAction(S[key]);
+    if (options.indexOf(selected) === -1) selected = "Turn Screen Off";
+    var f = field(label);
+    f.appendChild(selectFromOptions(options, selected, function (next) {
+      S[key] = next;
+      post(endpoint(key) + "/set", { option: next });
+      if (onChange) onChange(next);
+    }, screenSaverActionLabel));
+    return f;
   }
 
   function usesClockAction() {
-    return S.day_idle_action === "Show Clock" || S.night_idle_action === "Show Clock";
+    return usesDayClockAction() || usesEveningClockAction();
+  }
+
+  function usesDayClockAction() {
+    return normalizeScreenSaverAction(S.day_idle_action) === "Show Clock";
+  }
+
+  function usesEveningClockAction() {
+    return normalizeScreenSaverAction(S.night_idle_action) === "Show Clock";
   }
 
   function idleSummary() {
-    if (S.day_idle_action === S.night_idle_action) return S.day_idle_action;
+    var day = screenSaverActionLabel(S.day_idle_action);
+    var evening = screenSaverActionLabel(S.night_idle_action);
+    if (day === evening) return day;
     return "Mixed";
+  }
+
+  function normalizeScreenSaverAction(value) {
+    if (value === "Show Clock" || value === "Clock") return "Show Clock";
+    if (value === "Turn Screen Off" || value === "Off") return "Turn Screen Off";
+    return "Turn Screen Off";
+  }
+
+  function screenSaverActionLabel(value) {
+    return normalizeScreenSaverAction(value) === "Show Clock" ? "Clock" : "Off";
   }
 
   function selectFromOptions(options, selected, onChange, formatter) {
