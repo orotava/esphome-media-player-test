@@ -72,9 +72,10 @@ script:
       - lambda: 'return;'
 
   - id: apply_warm_tones
-    mode: restart
+    mode: queued
     then:
       - lambda: |-
+          uint32_t apply_start = millis();
           bool retint = id(warm_tone_retint);
           id(warm_tone_retint) = false;
 
@@ -128,6 +129,8 @@ script:
           if (!dsc || !dsc->data) return;
           uint8_t *buf = const_cast<uint8_t*>(dsc->data);
           int total = img->get_width() * img->get_height();
+          ESP_LOGD("warm", "Warmth apply start: image=%dx%d pixels=%d retint=%s",
+                   img->get_width(), img->get_height(), total, retint ? "yes" : "no");
           for (int i = 0; i < total; i++) {
             int pos = i * 2;
             uint16_t px = buf[pos] | (buf[pos + 1] << 8);
@@ -157,4 +160,5 @@ script:
 
           lv_obj_invalidate(id(album_art_background_widget));
           id(warm_tone_last_w) = w;
+          ESP_LOGD("warm", "Warmth apply finished in %ums", (unsigned) (millis() - apply_start));
       - script.execute: ${warm_tone_post_script}

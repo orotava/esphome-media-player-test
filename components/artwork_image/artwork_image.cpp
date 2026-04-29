@@ -4,6 +4,10 @@
 #include "esphome/core/log.h"
 #include "esphome/core/version.h"
 
+#ifdef USE_ESP32
+#include "esp_heap_caps.h"
+#endif
+
 static const char *const TAG = "artwork_image";
 static const char *const CONTENT_TYPE_HEADER_NAME = "content-type";
 
@@ -42,7 +46,10 @@ ArtworkImage::ArtworkImage(const std::string &url, int width, int height, ImageF
       format_(format),
       fixed_width_(width),
       fixed_height_(height),
-      is_big_endian_(is_big_endian) {
+      is_big_endian_(is_big_endian),
+      buffer_width_(0),
+      buffer_height_(0),
+      start_time_(0) {
   this->set_url(url);
 }
 
@@ -55,6 +62,8 @@ void ArtworkImage::draw(int x, int y, display::Display *display, Color color_on,
 }
 
 void ArtworkImage::release() {
+  this->update_pending_ = false;
+  this->pending_url_.clear();
   if (this->buffer_) {
     ESP_LOGV(TAG, "Deallocating old buffer");
     this->allocator_.deallocate(this->buffer_, this->get_buffer_size_());
@@ -135,12 +144,25 @@ size_t ArtworkImage::resize_(int width_in, int height_in) {
   return new_size;
 }
 
+void ArtworkImage::request_update_url(const std::string &url) {
+  if (!this->validate_url_(url)) {
+    return;
+  }
+  if (this->is_busy_()) {
+    this->queue_pending_update_(url);
+    return;
+  }
+  this->url_ = url;
+  this->update();
+}
+
 void ArtworkImage::update() {
-  if (this->decoder_) {
-    ESP_LOGW(TAG, "Cancelling in-progress image download to fetch new URL");
-    this->end_connection_();
+  if (this->is_busy_()) {
+    this->queue_pending_update_(this->url_);
+    return;
   }
   ESP_LOGI(TAG, "Updating image %s", this->url_.c_str());
+  this->log_state_("request-start");
 
   std::vector<http_request::Header> headers = {};
 
@@ -183,21 +205,25 @@ void ArtworkImage::update() {
     ESP_LOGE(TAG, "Download failed.");
     this->end_connection_();
     this->download_error_callback_.call();
+    this->start_pending_update_();
     return;
   }
 
   int http_code = this->downloader_->status_code;
+  this->log_state_("response-ready");
   if (http_code == HTTP_CODE_NOT_MODIFIED) {
     // Image hasn't changed on server. Skip download.
     ESP_LOGI(TAG, "Server returned HTTP 304 (Not Modified). Download skipped.");
     this->end_connection_();
     this->download_finished_callback_.call(true);
+    this->start_pending_update_();
     return;
   }
   if (http_code != HTTP_CODE_OK) {
     ESP_LOGE(TAG, "HTTP result: %d", http_code);
     this->end_connection_();
     this->download_error_callback_.call();
+    this->start_pending_update_();
     return;
   }
 
@@ -208,6 +234,7 @@ void ArtworkImage::update() {
 
   if (resolved == ImageFormat::AUTO) {
     ESP_LOGD(TAG, "Image format not identified from Content-Type, deferring to magic-byte detection");
+    this->log_state_("format-detect-wait");
     this->start_time_ = ::time(nullptr);
     this->last_data_millis_ = millis();
     this->enable_loop();
@@ -217,8 +244,10 @@ void ArtworkImage::update() {
   if (!this->create_decoder_(resolved, total_size)) {
     this->end_connection_();
     this->download_error_callback_.call();
+    this->start_pending_update_();
     return;
   }
+  this->log_state_("decoder-ready");
   ESP_LOGI(TAG, "Downloading image (Size: %zu)", total_size);
   this->start_time_ = ::time(nullptr);
   this->last_data_millis_ = millis();
@@ -248,6 +277,7 @@ void ArtworkImage::loop() {
         ESP_LOGE(TAG, "Download stalled waiting for format detection bytes");
         this->end_connection_();
         this->download_error_callback_.call();
+        this->start_pending_update_();
       }
       return;
     }
@@ -257,6 +287,7 @@ void ArtworkImage::loop() {
       ESP_LOGE(TAG, "Could not determine image format from headers or file content");
       this->end_connection_();
       this->download_error_callback_.call();
+      this->start_pending_update_();
       return;
     }
 
@@ -264,8 +295,10 @@ void ArtworkImage::loop() {
     if (!this->create_decoder_(resolved, total_size)) {
       this->end_connection_();
       this->download_error_callback_.call();
+      this->start_pending_update_();
       return;
     }
+    this->log_state_("decoder-ready");
     ESP_LOGI(TAG, "Downloading image (Size: %zu)", total_size);
 
     // Feed already-buffered data to the newly created decoder
@@ -275,6 +308,7 @@ void ArtworkImage::loop() {
         ESP_LOGE(TAG, "Error when decoding image.");
         this->end_connection_();
         this->download_error_callback_.call();
+        this->start_pending_update_();
         return;
       }
       this->download_buffer_.read(fed);
@@ -282,10 +316,11 @@ void ArtworkImage::loop() {
     return;
   }
 
-  if (!this->downloader_ || this->decoder_->is_finished()) {
+  if (this->decoder_->is_finished()) {
     this->data_start_ = buffer_;
     this->width_ = buffer_width_;
     this->height_ = buffer_height_;
+    this->log_state_("download-complete");
     ESP_LOGD(TAG, "Image fully downloaded, read %zu bytes, width/height = %d/%d", this->downloader_->get_bytes_read(),
              this->width_, this->height_);
     ESP_LOGD(TAG, "Total time: %" PRIu32 "s", (uint32_t) (::time(nullptr) - this->start_time_));
@@ -296,8 +331,11 @@ void ArtworkImage::loop() {
     this->get_lv_img_dsc();
 #endif
 #endif
+    this->log_state_("lvgl-descriptor-ready");
     this->download_finished_callback_.call(false);
+    this->log_state_("download-callback-finished");
     this->end_connection_();
+    this->start_pending_update_();
     return;
   }
   if (this->downloader_ == nullptr) {
@@ -316,6 +354,7 @@ void ArtworkImage::loop() {
         ESP_LOGE(TAG, "Error when decoding image.");
         this->end_connection_();
         this->download_error_callback_.call();
+        this->start_pending_update_();
         return;
       }
       this->download_buffer_.read(fed);
@@ -324,6 +363,7 @@ void ArtworkImage::loop() {
                DOWNLOAD_STALL_TIMEOUT_MS, this->download_buffer_.unread());
       this->end_connection_();
       this->download_error_callback_.call();
+      this->start_pending_update_();
       return;
     }
   }
@@ -556,6 +596,46 @@ bool ArtworkImage::create_decoder_(ImageFormat format, size_t total_size) {
     return false;
   }
   return true;
+}
+
+void ArtworkImage::queue_pending_update_(const std::string &url) {
+  if (!this->validate_url_(url)) {
+    return;
+  }
+  bool replaced = this->update_pending_ && this->pending_url_ != url;
+  this->pending_url_ = url;
+  this->update_pending_ = true;
+  ESP_LOGW(TAG, "Artwork update %s while busy; latest URL will run after current work finishes",
+           replaced ? "re-queued" : "queued");
+  this->log_state_("update-queued");
+}
+
+void ArtworkImage::start_pending_update_() {
+  if (!this->update_pending_ || this->is_busy_()) {
+    return;
+  }
+  std::string url = this->pending_url_;
+  this->pending_url_.clear();
+  this->update_pending_ = false;
+  ESP_LOGI(TAG, "Starting queued artwork update");
+  this->url_ = url;
+  this->update();
+}
+
+void ArtworkImage::log_state_(const char *stage) {
+  size_t heap_free = 0;
+  size_t heap_largest = this->allocator_.get_max_free_block_size();
+#ifdef USE_ESP32
+  heap_free = heap_caps_get_free_size(MALLOC_CAP_8BIT);
+  heap_largest = heap_caps_get_largest_free_block(MALLOC_CAP_8BIT);
+#endif
+  size_t bytes_read = this->downloader_ ? this->downloader_->get_bytes_read() : 0;
+  size_t content_length = this->downloader_ ? this->downloader_->content_length : 0;
+  ESP_LOGD(TAG,
+           "State %-24s url_len=%zu http=%zu/%zu dl_buf=%zu/%zu image=%dx%d heap_free=%zu heap_largest=%zu pending=%s",
+           stage, this->url_.size(), bytes_read, content_length, this->download_buffer_.unread(),
+           this->download_buffer_.size(), this->buffer_width_, this->buffer_height_, heap_free, heap_largest,
+           this->update_pending_ ? "yes" : "no");
 }
 
 void ArtworkImage::end_connection_() {

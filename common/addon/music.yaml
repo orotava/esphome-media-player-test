@@ -55,7 +55,7 @@ artwork_image:
 
 script:
   - id: apply_downloaded_artwork
-    mode: restart
+    mode: queued
     then:
       - lvgl.widget.hide: artwork_error_label
       - lambda: 'id(artwork_retry_pending) = false;'
@@ -63,6 +63,8 @@ script:
           auto *img = id(is_tv_mode) ? id(tv_art_background) : id(album_art_background);
           int iw = img->get_width();
           int ih = img->get_height();
+          ESP_LOGD("artwork", "Apply start: mode=%s image=%dx%d",
+                   id(is_tv_mode) ? "tv" : "music", iw, ih);
           auto *w = id(album_art_background_widget);
           constexpr int display_size = ${artwork_display_size};
           int dim = (iw < ih) ? iw : ih;
@@ -96,7 +98,9 @@ script:
           id: album_art_background_widget
           opa: 100%
       - script.execute: extract_accent_color
+      - script.wait: extract_accent_color
       - script.execute: ${post_artwork_script}
+      - lambda: 'ESP_LOGD("artwork", "Apply finished");'
 
   - id: handle_artwork_error
     mode: restart

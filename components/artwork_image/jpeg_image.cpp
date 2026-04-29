@@ -47,6 +47,7 @@ int HOT JpegDecoder::decode(uint8_t *buffer, size_t size) {
     ESP_LOGV(TAG, "Download not complete. Size: %zu/%zu", size, this->download_size_);
     return 0;
   }
+  ESP_LOGD(TAG, "JPEG decode start: %zu bytes", size);
 
   jpeg_decompress_struct cinfo;
   JpegErrorMgr jerr{};
@@ -131,6 +132,7 @@ int HOT JpegDecoder::decode(uint8_t *buffer, size_t size) {
   size_t row_stride = static_cast<size_t>(out_w) * 3;
   row_buffer = static_cast<uint8_t *>(malloc(row_stride));
   if (row_buffer == nullptr) {
+    ESP_LOGE(TAG, "JPEG row buffer allocation failed: %zu bytes", row_stride);
     jpeg_destroy_decompress(&cinfo);
     return DECODE_ERROR_OUT_OF_MEMORY;
   }
@@ -183,6 +185,7 @@ int HOT JpegDecoder::decode(uint8_t *buffer, size_t size) {
   free(row_buffer);
 
   this->decoded_bytes_ = size;
+  ESP_LOGD(TAG, "JPEG decode finished: output=%dx%d", out_w, out_h);
   return size;
 }
 

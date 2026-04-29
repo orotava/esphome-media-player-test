@@ -67,6 +67,8 @@ class ArtworkImage : public PollingComponent,
       this->url_ = url;
     }
   }
+  /** Set the URL and start an update, queuing the latest request if a download/decode is already active. */
+  void request_update_url(const std::string &url);
 
   /** Add the request header */
   template<typename V> void add_request_header(const std::string &header, V value) {
@@ -112,6 +114,10 @@ class ArtworkImage : public PollingComponent,
   bool detect_progressive_jpeg_();
   bool detect_heic_();
   bool create_decoder_(ImageFormat format, size_t total_size);
+  bool is_busy_() const { return this->downloader_ != nullptr || this->decoder_ != nullptr; }
+  void queue_pending_update_(const std::string &url);
+  void start_pending_update_();
+  void log_state_(const char *stage);
 
   RAMAllocator<uint8_t> allocator_{};
 
@@ -203,6 +209,8 @@ class ArtworkImage : public PollingComponent,
   int buffer_height_;
   time_t start_time_;
   uint32_t last_data_millis_{0};
+  bool update_pending_{false};
+  std::string pending_url_{""};
   static constexpr uint32_t DOWNLOAD_STALL_TIMEOUT_MS = 10000;
 
   friend bool ImageDecoder::set_size(int width, int height);
@@ -216,9 +224,11 @@ template<typename... Ts> class ArtworkImageSetUrlAction : public Action<Ts...> {
   TEMPLATABLE_VALUE(std::string, url)
   TEMPLATABLE_VALUE(bool, update)
   void play(const Ts &...x) override {
-    this->parent_->set_url(this->url_.value(x...));
+    auto url = this->url_.value(x...);
     if (this->update_.value(x...)) {
-      this->parent_->update();
+      this->parent_->request_update_url(url);
+    } else {
+      this->parent_->set_url(url);
     }
   }
 
