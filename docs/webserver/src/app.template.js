@@ -430,11 +430,11 @@
 
   function screenBrightnessCard() {
     var body = el("div");
-    body.appendChild(sectionTitle("Daytime"));
+    body.appendChild(sectionTitle("Day"));
     body.appendChild(rangeField("Active Brightness", "day_active_brightness"));
     body.appendChild(rangeField("Dimmed Brightness", "day_dim_brightness"));
     body.appendChild(divider());
-    body.appendChild(sectionTitle("Nighttime"));
+    body.appendChild(sectionTitle("Night"));
     body.appendChild(rangeField("Active Brightness", "night_active_brightness"));
     body.appendChild(rangeField("Dimmed Brightness", "night_dim_brightness"));
     return card("Screen Brightness", body, true);
