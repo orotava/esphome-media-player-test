@@ -427,6 +427,7 @@
     var dayDetails = el("div");
     dayDetails.style.display = usesDayClockAction() ? "" : "none";
     dayDetails.appendChild(rangeField("Day Clock Brightness", "day_clock_brightness"));
+    dayDetails.appendChild(el("div", "spacer-8"));
     details.appendChild(dayDetails);
     details.appendChild(screenSaverActionField("Evening Screen Saver", "night_idle_action", function () {
       badge.textContent = idleSummary();
