@@ -717,13 +717,13 @@
   }
 
   function normalizeScreenSaverAction(value) {
-    if (value === "Show Clock" || value === "Clock") return "Show Clock";
+    if (value === "Show Clock" || value === "Clock" || value === "On") return "Show Clock";
     if (value === "Turn Screen Off" || value === "Off") return "Turn Screen Off";
     return "Turn Screen Off";
   }
 
   function screenSaverActionLabel(value) {
-    return normalizeScreenSaverAction(value) === "Show Clock" ? "Clock" : "Off";
+    return normalizeScreenSaverAction(value) === "Show Clock" ? "On" : "Off";
   }
 
   function selectFromOptions(options, selected, onChange, formatter) {
