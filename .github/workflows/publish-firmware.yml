@@ -10,10 +10,10 @@ permissions:
 jobs:
   build-firmware:
     name: Build S3 Firmware
-    uses: esphome/workflows/.github/workflows/build.yml@2026.4.0
+    uses: esphome/workflows/.github/workflows/build.yml@2026.4.1
     with:
       files: builds/guition-esp32-s3-4848s040.factory.yaml
-      esphome-version: 2026.4.1
+      esphome-version: 2026.4.2
       combined-name: media-player
       release-summary: ${{ github.event.release.body }}
       release-url: ${{ github.event.release.html_url }}
@@ -21,7 +21,7 @@ jobs:
 
   upload-to-release:
     name: Upload S3 to Release
-    uses: esphome/workflows/.github/workflows/upload-to-gh-release.yml@2026.4.0
+    uses: esphome/workflows/.github/workflows/upload-to-gh-release.yml@2026.4.1
     needs: build-firmware
     with:
       version: ${{ github.event.release.tag_name }}
@@ -89,7 +89,7 @@ jobs:
         run: >-
           docker run --rm
           -v "${PWD}:/config"
-          ghcr.io/esphome/esphome:2026.4.1
+          ghcr.io/esphome/esphome:2026.4.2
           compile /config/builds/${{ matrix.config }}.factory.yaml
       - name: Collect firmware files
         run: |
