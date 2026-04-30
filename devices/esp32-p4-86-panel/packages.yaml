@@ -19,6 +19,9 @@ substitutions:
   warm_tone_blue_reduce: "0.28f"
   artwork_contrast_boost: "0.04f"
   artwork_saturation_boost: "0.10f"
+  # The Waveshare 86 panel's GPIO26 PWM backlight is black below about 70%.
+  # Keep 0% as true off, then map 1-100% onto the visible 70-100% range.
+  backlight_min_visible_level: "0.70f"
   track_info_duration_default: "5"
   # Keep LVGL running when the screensaver turns the backlight off.
   # The Waveshare P4 MIPI DSI path can fail to redraw cleanly after LVGL pause/resume.

@@ -179,17 +179,16 @@ esp_ldo:
 # -----------------------------------------------------------------------------
 # BACKLIGHT CONTROL
 # -----------------------------------------------------------------------------
-# This panel has a Waveshare I2C backlight controller at address 0x45.
-# Brightness is written to register 0x96 as 0x00-0xFF, giving the web
-# brightness sliders the full dim-to-bright range.
+# The display backlight is controlled via PWM (pulse width modulation).
+# The visible range is calibrated in packages.yaml so web brightness settings
+# map onto this panel's usable PWM range while 0% remains true off.
 # This output is used by the backlight component in addon/backlight.yaml
 # -----------------------------------------------------------------------------
 output:
-  - platform: waveshare_backlight
+  - platform: ledc
     id: backlight_output
-    enable_pin:
-      number: GPIO26
-      inverted: true
+    pin: GPIO26
+    inverted: true
 
 
 # -----------------------------------------------------------------------------

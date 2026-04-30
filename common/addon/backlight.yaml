@@ -113,7 +113,9 @@ number:
                   bool is_day = id(day_night_sensor_entity).state.empty()
                       ? (!id(sun_state_sensor).has_state() || id(sun_state_sensor).state == "above_horizon")
                       : id(custom_day_night_is_day);
-                  return (is_day ? x : id(backlight_night_active_brightness).state) / 100.0f;
+                  float pct = is_day ? x : id(backlight_night_active_brightness).state;
+                  if (!(pct > 0.0f)) return 0.0f;
+                  return ${backlight_min_visible_level} + (pct / 100.0f) * (1.0f - ${backlight_min_visible_level});
                 transition_length: 500ms
 
   - platform: template
@@ -140,7 +142,9 @@ number:
                   bool is_day = id(day_night_sensor_entity).state.empty()
                       ? (!id(sun_state_sensor).has_state() || id(sun_state_sensor).state == "above_horizon")
                       : id(custom_day_night_is_day);
-                  return (is_day ? id(backlight_day_active_brightness).state : x) / 100.0f;
+                  float pct = is_day ? id(backlight_day_active_brightness).state : x;
+                  if (!(pct > 0.0f)) return 0.0f;
+                  return ${backlight_min_visible_level} + (pct / 100.0f) * (1.0f - ${backlight_min_visible_level});
                 transition_length: 500ms
 
   - platform: template
@@ -524,7 +528,7 @@ script:
                         if (!(pct > 0.0f)) pct = 35.0f;
                         if (pct < 1.0f) pct = 1.0f;
                         if (pct > 100.0f) pct = 100.0f;
-                        return pct / 100.0f;
+                        return ${backlight_min_visible_level} + (pct / 100.0f) * (1.0f - ${backlight_min_visible_level});
                       transition_length: 500ms
                 else:
                   - light.turn_on:
@@ -536,7 +540,8 @@ script:
                         float pct = id(is_screen_dimmed)
                           ? (is_day ? id(backlight_day_brightness).state : id(backlight_night_brightness).state)
                           : (is_day ? id(backlight_day_active_brightness).state : id(backlight_night_active_brightness).state);
-                        return pct / 100.0f;
+                        if (!(pct > 0.0f)) return 0.0f;
+                        return ${backlight_min_visible_level} + (pct / 100.0f) * (1.0f - ${backlight_min_visible_level});
                       transition_length: 500ms
 
   - id: backlight_wake_timeout
@@ -593,7 +598,8 @@ script:
             float pct = is_day
               ? id(backlight_day_active_brightness).state
               : id(backlight_night_active_brightness).state;
-            return pct / 100.0f;
+            if (!(pct > 0.0f)) return 0.0f;
+            return ${backlight_min_visible_level} + (pct / 100.0f) * (1.0f - ${backlight_min_visible_level});
           transition_length: 1s
       - if:
           condition:
@@ -633,7 +639,8 @@ script:
                       pct = 1.0f;
                     }
                   }
-                  return pct / 100.0f;
+                  if (!(pct > 0.0f)) return 0.0f;
+                  return ${backlight_min_visible_level} + (pct / 100.0f) * (1.0f - ${backlight_min_visible_level});
                 transition_length: 3s
             - delay: !lambda |-
                 float dim_s = id(backlight_dim_timeout).state;
@@ -744,7 +751,7 @@ script:
             if (!(pct > 0.0f)) pct = 35.0f;
             if (pct < 1.0f) pct = 1.0f;
             if (pct > 100.0f) pct = 100.0f;
-            return pct / 100.0f;
+            return ${backlight_min_visible_level} + (pct / 100.0f) * (1.0f - ${backlight_min_visible_level});
           transition_length: 3s
 
   - id: refresh_clock_label
