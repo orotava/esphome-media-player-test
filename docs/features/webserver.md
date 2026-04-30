@@ -1,4 +1,4 @@
-# Webserver Setup
+# Web Settings
 
 The firmware includes a built-in webserver for configuration and setup. After the device is on your Wi-Fi network, open the device IP address in a browser on the same network to configure it without editing YAML or reflashing.
 
