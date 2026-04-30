@@ -48,7 +48,6 @@ export default {
           { text: 'Settings', link: '/features/settings' },
           { text: 'Screen Saver', link: '/features/screen-saver' },
           { text: 'Speaker Grouping', link: '/features/speaker-grouping' },
-          { text: 'Source Inputs', link: '/features/source-inputs' },
           { text: 'Firmware Updates', link: '/features/firmware-updates' },
         ],
       },

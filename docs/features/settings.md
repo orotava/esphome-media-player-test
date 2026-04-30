@@ -16,7 +16,7 @@ Some configuration entities may also appear on the Home Assistant device page, d
 
 | Setting | Description |
 |---------|-------------|
-| **Linked Media Player** | Optional secondary `media_player` entity used when the main speaker switches to a TV or Line-in source. See [Source Inputs](/features/source-inputs). Leave empty to disable. Saving a valid entity may reboot the device so the Home Assistant subscription is refreshed. |
+| **Linked Media Player** | Optional secondary `media_player` entity used when the main speaker switches to a TV or Line-in source. Leave empty to disable. Saving a valid entity may reboot the device so the Home Assistant subscription is refreshed. |
 
 ## Playback
 
