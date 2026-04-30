@@ -1,6 +1,7 @@
 ota:
   - platform: http_request
     on_begin:
+      - lambda: 'global_preferences->sync();'
       - lvgl.pause
       - artwork_image.release: album_art_background
       - artwork_image.release: tv_art_background

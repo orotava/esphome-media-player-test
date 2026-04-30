@@ -65,6 +65,7 @@ psram:
 ota:
   - platform: esphome
     on_begin:
+      - lambda: 'global_preferences->sync();'
       - lvgl.pause
       - light.turn_off:
           id: backlight
