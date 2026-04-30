@@ -35,7 +35,7 @@ After flashing, the device creates a Wi-Fi hotspot called **esphome-media-player
 
    ![ESPHome device list](./images/ha-esphome-list.png)
 
-3. Open the device page and set the **Media Player Entity** field to the `media_player` entity you want to control (e.g. `media_player.living_room_speaker`).
+3. Open the device's web settings page at `http://<device-ip>` and set **Media Player** to the `media_player` entity you want to control (e.g. `media_player.living_room_speaker`). You can find the device IP on the Home Assistant device page.
 
    ![ESPHome device page](./images/ha-esphome-device.png)
 

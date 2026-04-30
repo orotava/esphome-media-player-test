@@ -1,10 +1,10 @@
 # Screen Saver
 
-When playback is paused and paused dimming is enabled, the device uses a two-stage screen saver to reduce power consumption and prevent burn-in. All settings are configurable from the device page in Home Assistant (**Settings → Devices & Services → ESPHome** → your device).
+When playback is paused and paused dimming is enabled, the device uses a two-stage screen saver to reduce power consumption and prevent burn-in. All settings are configurable from the device's web settings page at `http://<device-ip>`.
 
 ## How it works
 
-1. **Dimming** — If **Screen Saver: Dim When Paused** is on, after **Screen Saver: Paused Dimming** elapses (default: 60 s), the screen dims to the **Day/Night: Dim Brightness** level.
+1. **Dimming** — If **Dim when idle** is on, after **Dim After** elapses (default: 60 s), the screen dims to the day or night dimmed brightness level.
 2. **Idle action** — If **Screen Saver: Enabled** is on, after **Screen Saver: Timer** elapses (default: 300 s), the selected day or evening screen saver runs:
    - **Clock** shows a large `HH:MM` clock.
    - **Screen Off** turns the display fully off.
@@ -35,17 +35,17 @@ Brightness levels and screen saver behavior adapt automatically based on whether
 
 This lets you configure different behavior for day and night — for example, showing the clock during the day but turning the screen off at night. On the ESP32-P4, [Screen Tone](/features/settings#screen-tone) warmth also follows the same day/night detection, so album art can shift warmer at night.
 
-By default, the device reads the `sun.sun` entity in Home Assistant (sun above horizon = day, below horizon = night). You can override this with any `binary_sensor` or `input_boolean` entity by setting the **Day-Night Sensor** field on the device page.
+By default, the device reads the `sun.sun` entity in Home Assistant (sun above horizon = day, below horizon = night). You can override this with any `binary_sensor` or `input_boolean` entity by setting **Day/Night Source** on the web settings page.
 
 ### Custom day/night sensor
 
 To use your own logic for day vs night:
 
 1. Create a `binary_sensor` or `input_boolean` helper in Home Assistant that reflects your preferred day/night state (`on` = day, `off` = night).
-2. On the ESPHome device page (**Settings → Devices & Services → ESPHome** → your device), enter the entity ID in the **Day-Night Sensor** field — for example, `binary_sensor.daytime` or `input_boolean.is_daytime`.
+2. On the device's web settings page at `http://<device-ip>`, enter the entity ID in **Day/Night Source** — for example, `binary_sensor.daytime` or `input_boolean.is_daytime`.
 3. The device will immediately start using the custom sensor instead of `sun.sun`.
 
-To revert to the default sun-based behavior, clear the **Day-Night Sensor** field.
+To revert to the default sun-based behavior, clear **Day/Night Source**.
 
 This is useful when you want day/night to depend on more than just the sun — for example, room lighting levels, party mode, or a time-based schedule.
 
@@ -55,8 +55,8 @@ This is useful when you want day/night to depend on more than just the sun — f
 
 | Setting | Description | Default |
 |---------|-------------|---------|
-| **Screen Saver: Dim When Paused** | Enables screen dimming when playback is paused. | On |
-| **Screen Saver: Paused Dimming** | Time after playback pauses before the screen dims. | 60 s |
+| **Dim when idle** | Enables screen dimming when playback is paused. | On |
+| **Dim After** | Time after playback pauses before the screen dims. | 60 s |
 | **Screen Saver: Enabled** | Enables the clock/off screen saver step after dimming. | On |
 | **Screen Saver: Timer** | Time after dimming before the screen saver activates. | 300 s |
 
@@ -68,7 +68,7 @@ This is useful when you want day/night to depend on more than just the sun — f
 | **Evening Screen Saver** | What happens after the idle timer in the evening: Clock, Screen Off, or Disabled. | Clock |
 | **Day Clock Brightness** | Backlight level for the daytime clock screen saver. | 35% |
 | **Evening Clock Brightness** | Backlight level for the evening clock screen saver. | 35% |
-| **Screen: Timezone** | IANA-style timezone for the clock and scheduled screen-off controls. The browser shows the current GMT offset. | UTC |
+| **Timezone** | IANA-style timezone for the clock and scheduled screen-off controls. The browser shows the current GMT offset. | UTC |
 
 ### Night Schedule
 

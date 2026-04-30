@@ -15,7 +15,7 @@ If your speaker has a source input — such as a **TV** (soundbars like Sonos Be
 
 ## Setup
 
-On the device page in Home Assistant (**Settings → Devices & Services → ESPHome** → your device), set the **Source Input Media Player** field to the entity ID of the media player connected to your input (e.g. `media_player.apple_tv`).
+On the device's web settings page at `http://<device-ip>`, set **Linked Media Player** to the entity ID of the media player connected to your input (e.g. `media_player.apple_tv`).
 
 Leave this field empty to disable the feature.
 

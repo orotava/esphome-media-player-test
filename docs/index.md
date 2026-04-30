@@ -28,7 +28,7 @@ A touchscreen media controller for Home Assistant: album art, track info, and to
 
 ## Features
 
-Overview of what the media controller does. Many features are user-configurable from the device page in Home Assistant (**Settings → Devices & Services → ESPHome** → your device) — no YAML or reflashing needed. See [Settings](/features/settings) for the full reference.
+Overview of what the media controller does. Many features are user-configurable from the device's web settings page at `http://<device-ip>` — no YAML or reflashing needed. See [Settings](/features/settings) for the full reference.
 
 ### Album art display
 
@@ -46,7 +46,7 @@ If your speaker has a secondary input — either a **TV source** (soundbars with
 - **Idle state** — when the linked player is idle, off, or on standby, the screen displays the source name ("TV" or "Line-in") on a black background with playback controls hidden. Controls reappear when the linked player starts playing again.
 - **Routed controls** — play/pause, next, and previous are automatically sent to whichever player is active (music or linked).
 
-To enable this, set the optional **Source Input Media Player** field in the device's configuration to the entity ID of the media player connected to your input (e.g. `media_player.apple_tv`). Leave it empty to disable. See [Source Inputs](/features/source-inputs) for setup instructions and compatibility.
+To enable this, set the optional **Linked Media Player** field to the entity ID of the media player connected to your input (e.g. `media_player.apple_tv`). Leave it empty to disable. See [Source Inputs](/features/source-inputs) for setup instructions and compatibility.
 
 ### Speaker grouping
 
