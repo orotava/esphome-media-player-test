@@ -1,82 +1,108 @@
-# ESPHome Media Controller for Home Assistant
+# ESPHome Media Player for Home Assistant
 
-A touchscreen media controller that shows album art and track info and lets you control play, pause, skip, and volume from any Home Assistant media player. Supports **4"**, **4.3"**, and **10.1"** panels. Built with [ESPHome](https://esphome.io/) and [LVGL](https://lvgl.io/); tested with Google and Sonos speakers.
+Turn an ESP32 touchscreen into a dedicated music controller for your home.
 
-![guition-esp32-s3-4848s040](docs/images/guition-esp32-s3-4848s040-example1.jpg)
+This project gives Home Assistant users a small, always-on display for their speakers. It shows album artwork, track details, playback progress, volume, and useful controls without needing to open the Home Assistant app or pick up a phone.
 
----
+![Guition ESP32-S3 4848S040 showing album artwork](docs/images/guition-esp32-s3-4848s040-example1.jpg)
 
-## Features
+## What this unlocks
 
-- **Album art** — Full-screen cover art from Home Assistant, with smooth transitions between tracks
-- **Accent color** — Dominant color extracted from album art, applied to the UI and exposed as an HA light entity
-- **Now playing** — Title, artist, elapsed/remaining time, and progress bar
-- **Touch controls** — Play/pause, swipe for next/previous, volume arc dial (swipe down)
-- **Linked media player** — Automatically shows now-playing from a linked media player when the speaker switches to a TV or Line-in input
-- **Screensaver** — Day/night aware dimming and screen-off when paused
-- **Web settings page** — Configure media player, brightness, timeouts, firmware updates, and display options from the device IP; no reflashing
+ESPHome Media Player is for people who want their music controls to feel like part of the room.
 
-*Full details: [Features](https://jtenniswood.github.io/esphome-media-player/features)*
+You can place a touchscreen next to a speaker, on a desk, by the sofa, in the kitchen, or anywhere you want quick control. Once connected to Home Assistant, the display follows the media player you choose and becomes a dedicated control surface for that room.
 
+With it, you can:
 
----
+- **See what's playing at a glance** with large album art, title, artist, and progress.
+- **Control music without opening an app** using touch controls for play, pause, skip, and volume.
+- **Give guests and family a simple shared controller** without giving them access to your phone or Home Assistant dashboard.
+- **Make speaker setups feel more polished** by adding a purpose-built display to Sonos, Google Cast, Music Assistant, and other Home Assistant media players.
+- **Control multi-room speaker groups** from the screen when your speaker platform supports grouping.
+- **Use TV or Line-in sources more clearly** by showing the active source and linked playback information where supported.
+- **Keep the screen comfortable day and night** with dimming, screen saver, clock, night brightness, and optional warmer screen tone.
 
-## Supported Screens
+The goal is simple: take the media players you already have in Home Assistant and give them a physical touchscreen experience.
 
-| Device | Size | Buy |
-|--------|------|-----|
-| [Guition ESP32-S3 4848S040](https://jtenniswood.github.io/esphome-media-player/devices/esp32-s3-4848s040) | 4" (480×480) | [AliExpress](https://s.click.aliexpress.com/e/_c3sIhvBv) |
-| [ESP32-P4 86 Panel](https://jtenniswood.github.io/esphome-media-player/devices/esp32-p4-86-panel) | 4" (720×720) | [Waveshare](https://www.waveshare.com/esp32-p4-wifi6-touch-lcd-4b.htm) |
-| [Guition ESP32-P4 JC4880P443](https://jtenniswood.github.io/esphome-media-player/devices/esp32-p4-jc4880p443) | 4.3" (480×800) | [AliExpress](https://www.aliexpress.com/item/1005009618259341.html) |
-| [Guition ESP32-P4 JC8012P4A1](https://jtenniswood.github.io/esphome-media-player/devices/esp32-p4-jc8012p4a1) | 10.1" (1280×800) | [AliExpress](https://s.click.aliexpress.com/e/_c3wsnU43) |
+## What you can do from the screen
 
----
+- View full-screen album artwork.
+- See song title, artist, elapsed time, remaining time, and progress.
+- Play, pause, skip forward, and skip back.
+- Adjust volume with a touch-friendly control.
+- Open speaker grouping controls on supported platforms.
+- Let the screen dim, show a clock, or turn off when nothing is playing.
+- Wake the screen with a touch or when playback starts again.
 
-## Support This Project
+## Easy setup and updates
 
-If you find this project useful, consider buying me a coffee to support ongoing development!
+You do not need to be a developer to use the normal release builds.
 
-<a href="https://www.buymeacoffee.com/jtenniswood">
-  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="60" style="border-radius:999px;" />
-</a>
+The documentation includes a browser-based installer that flashes the firmware to a supported display. After the first install, the device joins your Wi-Fi network, appears in Home Assistant through ESPHome, and can be configured from its own local settings page.
 
----
-
-## Getting Started
-
-The [documentation site](https://jtenniswood.github.io/esphome-media-player/) has the install guide, configurable settings, manual setup (ESPHome dashboard), and troubleshooting.
+From that settings page you can choose the Home Assistant media player to control, adjust brightness and idle behavior, configure screen saver options, and manage firmware updates. Future updates can install over Wi-Fi, so you usually do not need to reconnect the USB cable after setup.
 
 <a href="https://jtenniswood.github.io/esphome-media-player/">
   <img src="https://img.shields.io/badge/Open_Documentation_%26_Installer-blue?style=for-the-badge&logo=esphome&logoColor=white" alt="Open Documentation & Installer" />
 </a>
 
----
+## What you need
 
-## Developer/Experimental Features
+- A supported ESP32 touchscreen display.
+- A USB-C data cable for the first install.
+- A computer running Chrome or Edge for browser flashing.
+- Home Assistant on your network.
+- At least one Home Assistant `media_player` entity, such as a Sonos speaker, Google Cast speaker, Music Assistant player, TV, or other supported media player.
 
-Experimental behaviour is included in normal release builds, but it must stay disabled unless explicitly enabled. Open the device web UI with `?developer=experimental`, turn on **Developer/Experimental Features**, and make experimental code check `id(developer_experimental_features).state` before running.
+## Supported screens
 
----
+| Device | Size | Buy |
+|--------|------|-----|
+| [Guition ESP32-S3 4848S040](https://jtenniswood.github.io/esphome-media-player/devices/esp32-s3-4848s040) | 4" (480 x 480) | [AliExpress](https://s.click.aliexpress.com/e/_c3sIhvBv) |
+| [ESP32-P4 86 Panel](https://jtenniswood.github.io/esphome-media-player/devices/esp32-p4-86-panel) | 4" (720 x 720) | [Waveshare](https://www.waveshare.com/esp32-p4-wifi6-touch-lcd-4b.htm) |
+| [Guition ESP32-P4 JC4880P443](https://jtenniswood.github.io/esphome-media-player/devices/esp32-p4-jc4880p443) | 4.3" (480 x 800) | [AliExpress](https://www.aliexpress.com/item/1005009618259341.html) |
+| [Guition ESP32-P4 JC8012P4A1](https://jtenniswood.github.io/esphome-media-player/devices/esp32-p4-jc8012p4a1) | 10.1" (1280 x 800) | [AliExpress](https://s.click.aliexpress.com/e/_c3wsnU43) |
+
+## Works with Home Assistant
+
+ESPHome Media Player is built for Home Assistant and ESPHome. It controls Home Assistant media player entities, so the exact features available depend on what your speaker, TV, or media integration exposes to Home Assistant.
+
+It has been tested with Google and Sonos speakers, and it is designed to work with any Home Assistant media player that provides the needed controls and media information.
+
+## Learn more
+
+- [Installation guide](https://jtenniswood.github.io/esphome-media-player/installation) - flash, connect, and configure your display.
+- [Feature overview](https://jtenniswood.github.io/esphome-media-player/features) - see what the controller can do.
+- [Web settings](https://jtenniswood.github.io/esphome-media-player/features/webserver) - configure the device from its local settings page.
+- [Firmware updates](https://jtenniswood.github.io/esphome-media-player/features/firmware-updates) - update over Wi-Fi.
+- [Speaker grouping](https://jtenniswood.github.io/esphome-media-player/features/speaker-grouping) - control multi-room groups from the touchscreen.
+- [Troubleshooting](https://jtenniswood.github.io/esphome-media-player/advanced/troubleshooting) - common fixes if something does not behave as expected.
+
+## Support this project
+
+If you find this project useful, consider buying me a coffee to support ongoing development.
+
+<a href="https://www.buymeacoffee.com/jtenniswood">
+  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="60" style="border-radius:999px;" />
+</a>
 
 ## Feedback
 
-If you have any feedback or suggestions, please open an [issue](https://github.com/jtenniswood/esphome-media-player/issues).
-
----
+Ideas, questions, and bug reports are welcome. Please open an [issue on GitHub](https://github.com/jtenniswood/esphome-media-player/issues).
 
 ## Gallery
 
-### Guition ESP32-P4 (10.1")
+### Guition ESP32-P4 JC8012P4A1 (10.1")
 
-![Guition ESP32-P4 example 1](docs/images/guition-esp32-p4-jc8012p4a1-example1.jpg)
-![Guition ESP32-P4 example 2](docs/images/guition-esp32-p4-jc8012p4a1-example2.jpg)
+![Guition ESP32-P4 JC8012P4A1 example 1](docs/images/guition-esp32-p4-jc8012p4a1-example1.jpg)
+![Guition ESP32-P4 JC8012P4A1 example 2](docs/images/guition-esp32-p4-jc8012p4a1-example2.jpg)
 
 ### Guition ESP32-S3 4848S040 (4")
 
-![Guition ESP32-S3 example 1](docs/images/guition-esp32-s3-4848s040-example1.jpg)
-![Guition ESP32-S3 example 2](docs/images/guition-esp32-s3-4848s040-example2.jpg)
-![Guition ESP32-S3 example 3](docs/images/guition-esp32-s3-4848s040-example3.jpg)
-![Guition ESP32-S3 example 4](docs/images/guition-esp32-s3-4848s040-example4.jpg)
-![Guition ESP32-S3 volume controls](docs/images/guition-esp32-s3-4848s040-volume.jpg)
+![Guition ESP32-S3 4848S040 example 1](docs/images/guition-esp32-s3-4848s040-example1.jpg)
+![Guition ESP32-S3 4848S040 example 2](docs/images/guition-esp32-s3-4848s040-example2.jpg)
+![Guition ESP32-S3 4848S040 example 3](docs/images/guition-esp32-s3-4848s040-example3.jpg)
+![Guition ESP32-S3 4848S040 example 4](docs/images/guition-esp32-s3-4848s040-example4.jpg)
+![Guition ESP32-S3 4848S040 volume controls](docs/images/guition-esp32-s3-4848s040-volume.jpg)
 
-More screenshots in the [documentation](https://jtenniswood.github.io/esphome-media-player/).
+More screenshots are available in the [documentation](https://jtenniswood.github.io/esphome-media-player/).
