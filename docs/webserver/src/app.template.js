@@ -321,7 +321,7 @@
   function buildHeader(parent) {
     var header = el("div", "mp-header");
     var brand = el("div", "mp-brand");
-    brand.textContent = "Media Player";
+    brand.textContent = "EspMedia";
     header.appendChild(brand);
 
     var nav = el("nav", "mp-nav");
