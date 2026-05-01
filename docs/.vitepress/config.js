@@ -1,6 +1,6 @@
 export default {
   base: '/esphome-media-player/',
-  title: 'ESPHome Media Player',
+  title: 'EspMedia',
   description: 'A media controller for Home Assistant',
   ignoreDeadLinks: true,
   themeConfig: {
