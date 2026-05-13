@@ -1,6 +1,7 @@
 {
   "name": "esphome-media-player",
   "private": true,
+  "license": "PolyForm-Noncommercial-1.0.0",
   "scripts": {
     "webserver:build": "python3 scripts/generate_webserver.py",
     "check:generated": "python3 scripts/generate_webserver.py --check",
