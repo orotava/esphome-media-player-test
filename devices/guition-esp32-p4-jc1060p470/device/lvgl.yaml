@@ -2427,8 +2427,8 @@ lvgl:
               - button:
                   id: speakers_close_button
                   align: top_right
-                  x: -12
-                  y: 16
+                  x: -32
+                  y: 32
                   width: 64px
                   height: 64px
                   radius: 32
