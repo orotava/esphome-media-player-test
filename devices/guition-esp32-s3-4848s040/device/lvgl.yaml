@@ -150,8 +150,8 @@ lvgl:
         - button:
             id: boton_flotante_bombilla
             align: bottom_left
-            x: -24px              
-            y: 30px
+            x: -54px              
+            y: -50px
             width: 96px          
             height: 96px
             styles: control_round
