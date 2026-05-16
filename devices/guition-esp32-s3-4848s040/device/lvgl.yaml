@@ -144,6 +144,30 @@ lvgl:
                   text_align: left
                   on_click:
                     - switch.toggle: show_remaining_time
+    # -----------------------------------------------------------------
+    # 1. BOTÓN DE BOMBILLA FLOTANTE (Se verá encima del reproductor)
+    # -----------------------------------------------------------------
+        - button:
+            id: boton_flotante_bombilla
+            x: 410px              # Situado arriba a la derecha respetando márgenes
+            y: 20px
+            width: 50px           # Tamaño perfecto para el dedo
+            height: 50px
+            bg_color: 0x333333    # Gris oscuro translúcido
+            bg_opa: "50%"         # 50% de opacidad para que sea elegante
+            radius: 25            # Lo convierte en un círculo perfecto
+            border_width: 0       # Sin bordes molestos
+            shadow_width: 0       # Sin sombras para no ralentizar el chip
+            widgets:
+              - label:
+                  text: "💡"       # Icono visual directo
+                  align: center
+            on_click:
+              then:
+                # Al pulsar el círculo flotante, hacemos aparecer el panel de luces
+                - lvgl.widget.update:
+                    id: capa_luces_jardin_local
+                    hidden: false                   
 
         # Play/pause: 96px round, bottom-right corner
         - button:
@@ -203,6 +227,166 @@ lvgl:
 
         - !include ../setup/setup_prompt.yaml
         - !include ../setup/actions_prompt.yaml
+
+    # -----------------------------------------------------------------
+    # 2. PANEL CONTENEDOR DE LAS 10 LUCES (ARRANCA OCULTO)
+    # -----------------------------------------------------------------
+        - obj:
+              id: capa_luces_jardin_local
+              x: 0
+              y: 0
+              width: 480px          # Tamaño completo exacto de la pantalla
+              height: 480px
+              bg_color: 0x1A1A1A    # Fondo gris oscuro texturizado
+              hidden: true          # Arranca oculto para que lo primero que veas sea la música
+              radius: 0
+              border_width: 0
+              scrollable: false
+              layout:
+                type: grid
+                # Dividimos el espacio: 1 fila para cabecera + 5 filas para tus 10 botones
+                grid_rows: [FR(1), FR(1), FR(1), FR(1), FR(1), FR(1)]
+                grid_columns: [FR(1), FR(1)] # Mitad y mitad de la pantalla (50% / 50%)
+              
+              widgets:
+                # --- CABECERA DE RETORNO ---
+                - button:
+                    grid_cell_row_pos: 0
+                    grid_cell_column_pos: 0
+                    grid_cell_column_span: 2
+                    height: 40
+                    bg_color: 0x333333
+                    widgets:
+                      - label:
+                          text: "▲ TOCAR PARA VOLVER A MÚSICA ▲"
+                          align: center
+                          text_color: 0xFFFFFF
+                    on_click:
+                      then:
+                        # Esconde el panel de luces y la música vuelve a quedar al descubierto
+                        - lvgl.widget.update:
+                            id: capa_luces_jardin_local
+                            hidden: true
+      
+                # --- FILA 1 ---
+                - button:
+                    text: "Luz LED"
+                    grid_cell_row_pos: 1
+                    grid_cell_column_pos: 0
+                    height: 55
+                    on_click:
+                      then:
+                        - homeassistant.service:
+                            service: light.toggle
+                            data:
+                              entity_id: light.modulo_luces_jardin_luz_led_jardin
+                - button:
+                    text: "Guirnaldas"
+                    grid_cell_row_pos: 1
+                    grid_cell_column_pos: 1
+                    height: 55
+                    on_click:
+                      then:
+                        - homeassistant.service:
+                            service: light.toggle
+                            data:
+                              entity_id: light.modulo_luces_jardin_luz_guirnaldas_chill_out
+      
+                # --- FILA 2 ---
+                - button:
+                    text: "Focos"
+                    grid_cell_row_pos: 2
+                    grid_cell_column_pos: 0
+                    height: 55
+                    on_click:
+                      then:
+                        - homeassistant.service:
+                            service: light.toggle
+                            data:
+                              entity_id: light.modulo_luces_jardin_luz_focos_jardin
+                - button:
+                    text: "Cubos"
+                    grid_cell_row_pos: 2
+                    grid_cell_column_pos: 1
+                    height: 55
+                    on_click:
+                      then:
+                        - homeassistant.service:
+                            service: light.toggle
+                            data:
+                              entity_id: light.modulo_luces_jardin_luz_cubos_chill_out
+      
+                # --- FILA 3 ---
+                - button:
+                    text: "Luz Entrada"
+                    grid_cell_row_pos: 3
+                    grid_cell_column_pos: 0
+                    height: 55
+                    on_click:
+                      then:
+                        - homeassistant.service:
+                            service: light.toggle
+                            data:
+                              entity_id: light.luz_5
+                - button:
+                    text: "Luz Porche"
+                    grid_cell_row_pos: 3
+                    grid_cell_column_pos: 1
+                    height: 55
+                    on_click:
+                      then:
+                        - homeassistant.service:
+                            service: light.toggle
+                            data:
+                              entity_id: light.luz_6
+      
+                # --- FILA 4 ---
+                - button:
+                    text: "Luz Piscina"
+                    grid_cell_row_pos: 4
+                    grid_cell_column_pos: 0
+                    height: 55
+                    on_click:
+                      then:
+                        - homeassistant.service:
+                            service: light.toggle
+                            data:
+                              entity_id: light.luz_7
+                - button:
+                    text: "Luz Barra"
+                    grid_cell_row_pos: 4
+                    grid_cell_column_pos: 1
+                    height: 55
+                    on_click:
+                      then:
+                        - homeassistant.service:
+                            service: light.toggle
+                            data:
+                              entity_id: light.luz_8
+      
+                # --- FILA 5 ---
+                - button:
+                    text: "Luz Barbacoa"
+                    grid_cell_row_pos: 5
+                    grid_cell_column_pos: 0
+                    height: 55
+                    on_click:
+                      then:
+                        - homeassistant.service:
+                            service: light.toggle
+                            data:
+                              entity_id: light.luz_9
+                - button:
+                    text: "Luz Árboles"
+                    grid_cell_row_pos: 5
+                    grid_cell_column_pos: 1
+                    height: 55
+                    on_click:
+                      then:
+                        - homeassistant.service:
+                            service: light.toggle
+                            data:
+                              entity_id: light.luz_10
 
         # ---------------------------------------------------------------
         # SETTINGS PANEL (swipe-down from top)
