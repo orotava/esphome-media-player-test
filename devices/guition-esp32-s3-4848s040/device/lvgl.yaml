@@ -149,19 +149,17 @@ lvgl:
     # -----------------------------------------------------------------
         - button:
             id: boton_flotante_bombilla
-            x: 410px              # Situado arriba a la derecha respetando márgenes
-            y: 20px
-            width: 50px           # Tamaño perfecto para el dedo
-            height: 50px
-            bg_color: 0x333333    # Gris oscuro translúcido
-            bg_opa: "50%"         # 50% de opacidad para que sea elegante
-            radius: 25            # Lo convierte en un círculo perfecto
-            border_width: 0       # Sin bordes molestos
-            shadow_width: 0       # Sin sombras para no ralentizar el chip
+            align: bottom_left
+            x: 24px              
+            y: 30px
+            width: 96px          
+            height: 96px
+            styles: control_round
             widgets:
               - label:
-                  text: "💡"       # Icono visual directo
-                  align: center
+                  text_font: icon_font_large
+                  text: "💡"  
+                  text_color: 0xFFFFFF
             on_click:
               then:
                 # Al pulsar el círculo flotante, hacemos aparecer el panel de luces
