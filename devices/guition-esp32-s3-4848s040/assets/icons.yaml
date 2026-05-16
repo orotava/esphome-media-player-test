@@ -19,8 +19,8 @@ font:
       - "\U000F0502"  # mdi-television
       - "\U000F0D38"  # mdi-speaker-multiple
       - "\U000F0156"  # mdi-close
-      - "\U000F06E8"  #light bulb illuminated
-      - "\U000F0335"  #light bulb off
+      - "\U000F06E8"  # light bulb illuminated
+      - "\U000F0335"  # light bulb off
   - file: 'https://github.com/Templarian/MaterialDesign-Webfont/raw/v7.4.47/fonts/materialdesignicons-webfont.ttf'
     id: icon_font_small
     size: 24
@@ -48,5 +48,5 @@ substitutions:
   tv_icon:       "\U000F0502"
   icon_speakers: "\U000F0D38"
   icon_close:    "\U000F0156"
-  luz_on:        "\U000F06E8"
+  luz_on:        "\U000F040A"
   luz_off:       "\U000F0335"
