@@ -158,7 +158,7 @@ lvgl:
             widgets:
               - label:
                   text_font: icon_font_large
-                  text: "💡"  
+                  text: $luz_on 
                   text_color: 0xFFFFFF
             on_click:
               then:
