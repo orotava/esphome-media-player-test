@@ -302,7 +302,31 @@ lvgl:
                       - homeassistant.service:
                           service: light.toggle
                           data:
-                            entity_id: light.modulo_luces_jardin_luz_led_jardin              
+                            entity_id: light.modulo_luces_jardin_luz_led_jardin 
+               # Guirnaldas Chill Out
+                - button:
+                    height: $button_height_single
+                    width: $button_width
+                    checkable: true
+                    id: guirnaldas_chill_out_button
+                    styles: control
+                    grid_cell_column_pos: 0
+                    grid_cell_row_pos: 0
+                    widgets:
+                      - label:
+                          text_font: $icon_font
+                          align: top_left
+                          id: luz_led_icon
+                          text:  $luz_off
+                      - label:
+                          align: bottom_left
+                          id: luz_led_label
+                          text: "Guirnaldas Chill Out"
+                    on_click:
+                      - homeassistant.service:
+                          service: light.toggle
+                          data:
+                            entity_id: light.modulo_luces_jardin_luz_guirnaldas_chill_out               
 
 
 
