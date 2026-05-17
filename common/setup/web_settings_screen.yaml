@@ -36,7 +36,7 @@ obj:
           flex_align_cross: center
         widgets:
           - label:
-              text: "Web settings active"
+              text: "Configuracion Web Activa"
               text_font: roboto_light40_font
               text_color: 0xFFFFFF
               width: ${setup_content_width}
