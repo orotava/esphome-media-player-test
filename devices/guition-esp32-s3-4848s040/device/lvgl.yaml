@@ -172,12 +172,16 @@ lvgl:
                 # Al pulsar el círculo flotante, hacemos aparecer el panel de luces
                 - lvgl.widget.update:
                     id: panel_luces
-                    hidden: false     
+                    hidden: false  
+                - lambda: 'id(is_luces_open) = true;'
+                - script.execute: start_speaker_panel_timeout
                 - delay: 10s
                   # 3. Oculta el panel de luces automáticamente
+                - script.stop: start_speaker_panel_timeout
                 - lvgl.widget.update:
                     id: panel_luces
                     hidden: true
+                - lambda: 'id(is_luces_open) = false;'
 
         # Play/pause: 96px round, bottom-right corner
         - button:
@@ -466,10 +470,12 @@ lvgl:
                           align: bottom_left
                           text: "Cerrar" #Nombre label
                     on_click:
+                      - script.stop: start_speaker_panel_timeout
                       - lvgl.widget.update:
-                            id: panel_luces
-                            hidden: true  
-                           
+                          id: panel_luces
+                          hidden: true
+                      - lambda: 'id(is_luces_open) = false;'
+                                 
         # ---------------------------------------------------------------
         # SETTINGS PANEL (swipe-down from top)
         # ---------------------------------------------------------------
