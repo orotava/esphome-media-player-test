@@ -400,7 +400,54 @@ lvgl:
                           service: light.toggle
                           data:
                             entity_id: light.modulo_luces_jardin_luz_cubos_chill_out #Entidad Luz
-
+                # Focos Piscina
+                - button:
+                    height: $button_height_single
+                    width: $button_width
+                    checkable: true
+                    id: focos_piscina_button
+                    styles: control
+                    grid_cell_column_pos: 1 #Posicion en grid
+                    grid_cell_row_pos: 2 #Posicion en grid
+                    widgets:
+                      - label:
+                          text_font: $icon_font
+                          align: top_left
+                          id: focos_piscina_icon #id icono
+                          text:  $focos_piscina
+                      - label:
+                          align: bottom_left
+                          id: focos_piscina_label #id label
+                          text: "Focos Piscina" #Nombre label
+                    on_click:
+                      - homeassistant.service:
+                          service: light.toggle
+                          data:
+                            entity_id: light.focos_piscina #Entidad Luz
+                 # Led Piscina
+                - button:
+                    height: $button_height_single
+                    width: $button_width
+                    checkable: true
+                    id: led_piscina_button
+                    styles: control
+                    grid_cell_column_pos: 2 #Posicion en grid
+                    grid_cell_row_pos: 0 #Posicion en grid
+                    widgets:
+                      - label:
+                          text_font: $icon_font
+                          align: top_left
+                          id: led_piscina_icon #id icono
+                          text:  $tira_led
+                      - label:
+                          align: bottom_left
+                          id: led_piscina_label #id label
+                          text: "Led Piscina" #Nombre label
+                    on_click:
+                      - homeassistant.service:
+                          service: light.toggle
+                          data:
+                            entity_id: light.led_piscina1 #Entidad Luz                           
         # ---------------------------------------------------------------
         # SETTINGS PANEL (swipe-down from top)
         # ---------------------------------------------------------------
