@@ -161,8 +161,7 @@ lvgl:
                   align: center
                   text: $luz_off 
                   text_color: 0xFFFFFF
-            on_click:
-              then:
+            on_press:
                 # Al pulsar el círculo flotante, hacemos aparecer el panel de luces
                 - lvgl.widget.update:
                     id: capa_luces_jardin_local
