@@ -24,6 +24,7 @@ font:
       - "\U000F01A7"  # mdi:cube-outline
       - "\U000F1051"  # mdi:led-strip-variant
       - "\U000F1988"  # mdi:light-flood-up
+      - "\U000F0C4C"  # mdi:car-light-high    
   - file: 'https://github.com/Templarian/MaterialDesign-Webfont/raw/v7.4.47/fonts/materialdesignicons-webfont.ttf'
     id: icon_font_small
     size: 24
@@ -62,3 +63,4 @@ substitutions:
   cubos:         "\U000F01A7" 
   tira_led:      "\U000F1051" 
   focos:         "\U000F1988" 
+  focos_piscina: "\U000F0C4C"  
