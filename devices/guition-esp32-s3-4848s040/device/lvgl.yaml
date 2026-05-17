@@ -310,7 +310,7 @@ lvgl:
                     checkable: true
                     id: guirnaldas_chill_out_button
                     styles: control
-                    grid_cell_column_pos: 0
+                    grid_cell_column_pos: 1
                     grid_cell_row_pos: 0
                     widgets:
                       - label:
