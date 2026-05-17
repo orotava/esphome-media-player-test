@@ -318,7 +318,7 @@ lvgl:
                           text_font: $icon_font
                           align: top_left
                           id: guirnaldas_chill_out_icon
-                          text:  $luz_off
+                          text:  $guirnaldas
                       - label:
                           align: bottom_left
                           id: guirnaldas_chill_out_label
