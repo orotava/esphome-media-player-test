@@ -292,7 +292,7 @@ touchscreen:
             - script.execute: backlight_wake_timeout
       - lambda: |-
           if (id(is_panel_open)) id(start_speaker_panel_timeout).execute();
-          if (id(is_luces_open)) id(start_speaker_panel_timeout).execute(); # Agregado Panel luces
+          if (id(is_luces_open)) id(start_speaker_panel_timeout).execute(); 
     on_update:
       - lambda: |-
           for (auto touch: touches) {
@@ -348,7 +348,7 @@ touchscreen:
           if (id(is_panel_open) || id(was_panel_open)) {
             return;
           }
-          if (id(is_luces_open) || id(was_luces_open)) { # Agregado panel luces
+          if (id(is_luces_open) || id(was_luces_open)) { 
             return;
           }
           // --- Horizontal swipe: track navigation (works when playing or paused) ---
