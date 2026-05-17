@@ -254,7 +254,7 @@ lvgl:
               layout: 
                 type: grid
                 grid_columns: [fr(1), fr(1), fr(1)]
-                grid_rows: [fr(1), fr(1), fr(1), fr(1)]
+                grid_rows: [fr(1), fr(1), fr(1)]
               x: 0
               y: 0
               width: 480
@@ -476,29 +476,7 @@ lvgl:
                           hidden: true
                       - lambda: 'id(is_luces_open) = false;'
 
-                 # Cerrar Pantalla Luces
-                - button:
-                    height: $button_height_single
-                    width: $button_width
-                    checkable: false
-                    id: close_button_test
-                    styles: control
-                    grid_cell_column_pos: 0 #Posicion en grid
-                    grid_cell_row_pos: 3 #Posicion en grid
-                    widgets:
-                      - label:
-                          text_font: $icon_font
-                          align: top_left
-                          text:  $icon_close
-                      - label:
-                          align: bottom_left
-                          text: "Cerrar" #Nombre label
-                    on_click:
-                      - script.stop: start_speaker_panel_timeout
-                      - lvgl.widget.update:
-                          id: panel_luces
-                          hidden: true
-                      - lambda: 'id(is_luces_open) = false;'
+ 
 
                                  
         # ---------------------------------------------------------------
