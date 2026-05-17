@@ -333,7 +333,7 @@ lvgl:
                     height: $button_height_single
                     width: $button_width
                     checkable: true
-                    id: luz_led_button
+                    id: focos_jardin_button
                     styles: control
                     grid_cell_column_pos: 2 #Posicion en grid
                     grid_cell_row_pos: 0 #Posicion en grid
