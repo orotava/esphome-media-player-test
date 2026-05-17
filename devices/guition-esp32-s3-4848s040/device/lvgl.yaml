@@ -4,12 +4,6 @@
 # Single-screen now-playing view for any Home Assistant media player.
 # Data from sensors.yaml; album art from artwork_image (addon/music.yaml).
 # =============================================================================
-# Sensor de texto para fondo del boton
-color_sensor:
-  - platform: homeassistant
-    id: color_luz_accent_ha
-    entity_id: light.media_player_bbq_accent_color
-
 lvgl:
   buffer_size: 25%
   rotation: ${display_rotation}
@@ -160,7 +154,7 @@ lvgl:
             width: 96px          
             height: 96px
             styles: control_round
-            bg_color: color_luz_accent_ha
+            bg_color: accent_color_light
             widgets:
               - label:
                   text_font: icon_font_large
