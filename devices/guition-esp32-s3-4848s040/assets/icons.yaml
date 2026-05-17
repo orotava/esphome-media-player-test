@@ -21,6 +21,7 @@ font:
       - "\U000F0156"  # mdi-close
       - "\U000F06E8"  # mdi:lightbulb-on
       - "\U000F0335"  # mdi:lightbulb
+      - "\U000F12BA"  # mdi:string-lights
   - file: 'https://github.com/Templarian/MaterialDesign-Webfont/raw/v7.4.47/fonts/materialdesignicons-webfont.ttf'
     id: icon_font_small
     size: 24
@@ -40,6 +41,7 @@ font:
       - "\U000F03E4"  # mdi-pause
       - "\U000F06E8"  # mdi:lightbulb-on
       - "\U000F0335"  # mdi:lightbulb
+      - "\U000F12BA"  # mdi:string-lights     
 
 substitutions:
   play:          "\U000F040A"
@@ -55,3 +57,4 @@ substitutions:
   icon_close:    "\U000F0156"
   luz_on:        "\U000F06E8"
   luz_off:       "\U000F0335"
+  guirnaldas:    "\U000F12BA" 
