@@ -407,8 +407,8 @@ lvgl:
                     checkable: true
                     id: focos_piscina_button
                     styles: control
-                    grid_cell_column_pos: 1 #Posicion en grid
-                    grid_cell_row_pos: 2 #Posicion en grid
+                    grid_cell_column_pos: 2 #Posicion en grid
+                    grid_cell_row_pos: 1 #Posicion en grid
                     widgets:
                       - label:
                           text_font: $icon_font
@@ -431,8 +431,8 @@ lvgl:
                     checkable: true
                     id: led_piscina_button
                     styles: control
-                    grid_cell_column_pos: 2 #Posicion en grid
-                    grid_cell_row_pos: 0 #Posicion en grid
+                    grid_cell_column_pos: 0 #Posicion en grid
+                    grid_cell_row_pos: 2 #Posicion en grid
                     widgets:
                       - label:
                           text_font: $icon_font
