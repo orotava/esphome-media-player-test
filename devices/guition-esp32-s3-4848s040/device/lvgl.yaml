@@ -501,14 +501,18 @@ lvgl:
                     width: 80%
                     align: CENTER
                     y: 0
+                    options:
+                        - "Cargando..."
                     # Cuando el usuario toca una opción, se envía el comando exacto a Home Assistant
-                    on_event:
-                      trigger: VALUE_CHANGED
+                    on_value_changed:
                       then:
                         - lambda: |-
+                            // Creamos un buffer de texto para almacenar la opción seleccionada
                             char buffer[128];
                             id(menu_favoritos).get_selected_option_text(buffer, sizeof(buffer));
-                            if (strlen(buffer) > 0) {
+                            
+                            // Si no está vacío y no es el texto inicial, enviamos el comando
+                            if (strlen(buffer) > 0 && std::string(buffer) != "Cargando...") {
                               id(reproducir_favorito_script).execute(buffer);
                             }
 
