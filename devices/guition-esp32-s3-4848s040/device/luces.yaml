@@ -158,5 +158,37 @@ substitutions:
         bg_color: $button_on_color
         text_color: $button_text_color
 
+# Reles internos GPIO 40, 2 y 1
+light:
+  - platform: binary
+    name: "Relay 1"
+    output: light_output_1
+    restore_mode: ALWAYS_OFF
 
+  - platform: binary
+    name: "Relay 2"
+    output: light_output_2
+    restore_mode: ALWAYS_OFF
+
+  - platform: binary
+    name: "Relay 3"
+    output: light_output_3
+    restore_mode: ALWAYS_OFF
+
+output:
+  - platform: gpio
+    pin: 40
+    id: light_output_1
+    inverted: true # Cambia a false si la luz se enciende al revés
+
+  - platform: gpio
+    pin: 2 
+    id: light_output_2
+    inverted: true
+    
+
+  - platform: gpio
+    pin: 14
+    id: light_output_3
+    inverted: true
 
