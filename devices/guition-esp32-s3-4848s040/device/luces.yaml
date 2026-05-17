@@ -125,7 +125,17 @@ binary_sensor:
           state:
             checked: !lambda return x;  
 
-
+ # Grupo Luces Jardin (Para boton luz pantalla inicial)         
+  - platform: homeassistant
+    id: grupo_luces_jardin
+    entity_id: light.luz_grupo_luces_jardin
+    trigger_on_initial_state: true
+    on_state:
+      then:
+        lvgl.widget.update:
+          id: led_piscina_button
+          state:
+            checked: !lambda return x;  
 #=========================================================
 # Fichero theme button original add
 #=========================================================
