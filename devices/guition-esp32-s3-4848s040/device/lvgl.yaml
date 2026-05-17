@@ -375,7 +375,7 @@ lvgl:
                       - homeassistant.service:
                           service: light.toggle
                           data:
-                            entity_id: light.modulo_luces_jardin_luz_focos_jardin #Entidad Luz
+                            entity_id: light.modulo_luces_jardin_luz_cubos_chill_out #Entidad Luz
 
         # ---------------------------------------------------------------
         # SETTINGS PANEL (swipe-down from top)
