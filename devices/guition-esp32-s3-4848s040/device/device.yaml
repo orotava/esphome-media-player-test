@@ -230,6 +230,14 @@ globals:
   - id: was_panel_open           # Snapshot at touch-start; blocks bleed-through taps
     type: bool
     initial_value: 'false'
+    
+  # -- Settings Luces panel state --
+  - id: is_luces_open            # True when the swipe-down settings panel is visible
+    type: bool
+    initial_value: 'false'
+  - id: was_luces_open           # Snapshot at touch-start; blocks bleed-through taps
+    type: bool
+    initial_value: 'false'
 
   # -- TV source mode --
   - id: is_tv_mode
@@ -284,6 +292,7 @@ touchscreen:
             - script.execute: backlight_wake_timeout
       - lambda: |-
           if (id(is_panel_open)) id(start_speaker_panel_timeout).execute();
+          if (id(is_luces_open)) id(start_speaker_panel_timeout).execute(); # Agregado Panel luces
     on_update:
       - lambda: |-
           for (auto touch: touches) {
@@ -339,7 +348,9 @@ touchscreen:
           if (id(is_panel_open) || id(was_panel_open)) {
             return;
           }
-
+          if (id(is_luces_open) || id(was_luces_open)) { # Agregado panel luces
+            return;
+          }
           // --- Horizontal swipe: track navigation (works when playing or paused) ---
           if (abs(dx) > 80 && abs(dx) > abs(dy) * 2) {
             bool can_skip = false;
