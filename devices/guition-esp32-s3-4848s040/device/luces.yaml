@@ -133,7 +133,7 @@ binary_sensor:
     on_state:
       then:
         lvgl.widget.update:
-          id: led_piscina_button
+          id: boton_flotante_bombilla
           state:
             checked: !lambda return x;  
 #=========================================================
