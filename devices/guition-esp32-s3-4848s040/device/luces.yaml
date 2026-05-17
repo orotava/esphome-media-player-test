@@ -57,7 +57,17 @@ binary_sensor:
           id: luz_led_button
           state:
             checked: !lambda return x;
-
+# Luz Guirnaldas Chill Out            
+  - platform: homeassistant
+    id: luz_guirnaldas_chill_out
+    entity_id: light.modulo_luces_jardin_luz_guirnaldas_chill_out
+    trigger_on_initial_state: true
+    on_state:
+      then:
+        lvgl.widget.update:
+          id: guirnaldas_chill_out_button
+          state:
+            checked: !lambda return x;
 #=========================================================
 # Fichero theme button original add
 #=========================================================
