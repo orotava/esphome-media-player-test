@@ -19,9 +19,11 @@ font:
       - "\U000F0502"  # mdi-television
       - "\U000F0D38"  # mdi-speaker-multiple
       - "\U000F0156"  # mdi-close
-      - "\U000F06E8"  # mdi:lightbulb-on
       - "\U000F0335"  # mdi:lightbulb
       - "\U000F12BA"  # mdi:string-lights
+      - "\U000F01A7"  # mdi:cube-outline
+      - "\U000F1051"  # mdi:led-strip-variant
+      - "\U000F1988"  # mdi:light-flood-up
   - file: 'https://github.com/Templarian/MaterialDesign-Webfont/raw/v7.4.47/fonts/materialdesignicons-webfont.ttf'
     id: icon_font_small
     size: 24
@@ -55,6 +57,8 @@ substitutions:
   tv_icon:       "\U000F0502"
   icon_speakers: "\U000F0D38"
   icon_close:    "\U000F0156"
-  luz_on:        "\U000F06E8"
   luz_off:       "\U000F0335"
   guirnaldas:    "\U000F12BA" 
+  cubos:         "\U000F01A7" 
+  tira_led:      "\U000F1051" 
+  focos:         "\U000F1988" 
