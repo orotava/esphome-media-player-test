@@ -286,23 +286,24 @@ lvgl:
                     checkable: true
                     id: luz_led_button
                     styles: control
-                    grid_cell_column_pos: 0
-                    grid_cell_row_pos: 0
+                    grid_cell_column_pos: 0 #Posicion en grid
+                    grid_cell_row_pos: 0 #Posicion en grid
                     widgets:
                       - label:
                           text_font: $icon_font
                           align: top_left
-                          id: luz_led_icon
+                          id: luz_led_icon #id icono
                           text:  $luz_off
                       - label:
                           align: bottom_left
-                          id: luz_led_label
-                          text: "Led Jardin"
+                          id: luz_led_label #id label
+                          text: "Led Jardin" #Nombre label
                     on_click:
                       - homeassistant.service:
                           service: light.toggle
                           data:
-                            entity_id: light.modulo_luces_jardin_luz_led_jardin 
+                            entity_id: light.modulo_luces_jardin_luz_led_jardin #Entidad Luz
+
                # Guirnaldas Chill Out
                 - button:
                     height: $button_height_single
@@ -321,13 +322,36 @@ lvgl:
                       - label:
                           align: bottom_left
                           id: guirnaldas_chill_out_label
-                          text: "Guirnaldas Chill Out"
+                          text: "Chill Out"
                     on_click:
                       - homeassistant.service:
                           service: light.toggle
                           data:
-                            entity_id: light.modulo_luces_jardin_luz_guirnaldas_chill_out               
-
+                            entity_id: light.modulo_luces_jardin_luz_guirnaldas_chill_out     
+                # Focos Jardin
+                - button:
+                    height: $button_height_single
+                    width: $button_width
+                    checkable: true
+                    id: luz_led_button
+                    styles: control
+                    grid_cell_column_pos: 2 #Posicion en grid
+                    grid_cell_row_pos: 0 #Posicion en grid
+                    widgets:
+                      - label:
+                          text_font: $icon_font
+                          align: top_left
+                          id: focos_jardin_icon #id icono
+                          text:  $luz_off
+                      - label:
+                          align: bottom_left
+                          id: focos_jardin_label #id label
+                          text: "Focos Jardin" #Nombre label
+                    on_click:
+                      - homeassistant.service:
+                          service: light.toggle
+                          data:
+                            entity_id: light.modulo_luces_jardin_luz_focos_jardin #Entidad Luz
 
 
         # ---------------------------------------------------------------
