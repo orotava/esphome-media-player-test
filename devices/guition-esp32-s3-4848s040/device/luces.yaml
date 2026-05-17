@@ -230,3 +230,16 @@ text_sensor:
                 id(menu_favoritos).add_option(item.c_str());
               }
             }
+
+
+# Script encargado de llamar al servicio de Home Assistant
+script:
+  - id: reproducir_favorito_script
+    parameters:
+      favorito_seleccionado: string
+    then:
+      - homeassistant.service:
+          service: media_player.select_source
+          data:
+            entity_id: media_player.despacho  # <- Sustituye por tu altavoz de Sonos
+            source: !lambda 'return favorito_seleccionado;'
