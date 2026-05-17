@@ -33,7 +33,7 @@ obj:
           pad_row: ${loading_pad_row}
         widgets:
           - label:
-              text: "Starting up"
+              text: "Inicializando..."
               text_font: roboto_light40_font
               text_color: 0xFFFFFF
               width: ${setup_content_width}
