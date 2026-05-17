@@ -29,7 +29,7 @@
 #   - This file READS state from Home Assistant → updates button appearance
 #   - lvgl.yaml SENDS commands to Home Assistant → when button is pressed
 # =============================================================================
-sensor:
+binary_sensor:
   # ===========================================================================
   # SENSOR: Led Jardin Lights State
   # ===========================================================================
