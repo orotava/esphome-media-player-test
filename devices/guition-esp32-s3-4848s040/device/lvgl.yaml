@@ -237,7 +237,7 @@ lvgl:
 
         - !include ../setup/setup_prompt.yaml
         - !include ../setup/actions_prompt.yaml
-        - !include ../device/luces.yaml
+
 
 
 
