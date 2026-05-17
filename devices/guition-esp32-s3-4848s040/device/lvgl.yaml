@@ -249,6 +249,29 @@ lvgl:
               widgets:
                 # --- CABECERA DE RETORNO ---
                 - button:
+                    id: luces_close_button
+                    align: top_right
+                    x: -12
+                    y: 16
+                    width: 64px
+                    height: 64px
+                    radius: 32
+                    bg_color: 0x262626
+                    bg_opa: 100%
+                    border_width: 0
+                    shadow_width: 0
+                    pad_all: 0
+                    widgets:
+                      - label:
+                          text_font: $icon_font
+                          align: center
+                          text: $icon_close
+                          text_color: 0xFFFFFF
+                    on_press:
+                      - lvgl.widget.update:
+                            id: capa_luces_jardin_local
+                            hidden: true
+                - button:
                     grid_cell_row_pos: 0
                     grid_cell_column_pos: 0
                     grid_cell_column_span: 2
