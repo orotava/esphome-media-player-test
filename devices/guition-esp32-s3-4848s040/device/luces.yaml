@@ -68,6 +68,29 @@ binary_sensor:
           id: guirnaldas_chill_out_button
           state:
             checked: !lambda return x;
+# Focos Jardin            
+  - platform: homeassistant
+    id: focos_jardin
+    entity_id: light.modulo_luces_jardin_luz_focos_jardin
+    trigger_on_initial_state: true
+    on_state:
+      then:
+        lvgl.widget.update:
+          id: focos_jardin_button
+          state:
+            checked: !lambda return x;
+ # Cubos Chill Out           
+  - platform: homeassistant
+    id: cubos_chill_out
+    entity_id: light.modulo_luces_jardin_luz_cubos_chill_out
+    trigger_on_initial_state: true
+    on_state:
+      then:
+        lvgl.widget.update:
+          id: cubos_chill_out_button
+          state:
+            checked: !lambda return x;           
+
 #=========================================================
 # Fichero theme button original add
 #=========================================================
