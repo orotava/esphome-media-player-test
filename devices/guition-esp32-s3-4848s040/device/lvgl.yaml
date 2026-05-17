@@ -489,7 +489,6 @@ lvgl:
               pad_all: 5
               scrollable: false
               scrollbar_mode: "off"
-              hidden: true    
               widgets:
                 - label:
                     text: "Selecciona Favorito Sonos:"
