@@ -171,12 +171,12 @@ lvgl:
             on_press:
                 # Al pulsar el círculo flotante, hacemos aparecer el panel de luces
                 - lvgl.widget.update:
-                    id: favoritos_sonos  #panel_luces
+                    id: panel_luces
                     hidden: false     
                 - delay: 10s
                   # 3. Oculta el panel de luces automáticamente
                 - lvgl.widget.update:
-                    id: favoritos_sonos #panel_luces
+                    id: panel_luces
                     hidden: true
 
         # Play/pause: 96px round, bottom-right corner
@@ -469,55 +469,7 @@ lvgl:
                       - lvgl.widget.update:
                             id: panel_luces
                             hidden: true  
-
-
-    # -----------------------------------------------------------------
-    # 2. PANEL CONTENEDOR DE FAVORITOS (ARRANCA OCULTO)
-    # -----------------------------------------------------------------
-        - obj:
-              id: favoritos_sonos
-              # Arranca oculto para que lo primero que veas sea la música
-              hidden: true  
-              x: 0
-              y: 0
-              width: 480
-              height: 480
-              bg_color: 0x000000
-              bg_opa: 100%
-              radius: 0
-              border_width: 0
-              pad_all: 5
-              scrollable: false
-              scrollbar_mode: "off"
-              widgets:
-                - label:
-                    text: "Selecciona Favorito Sonos:"
-                    align: TOP_MID
-                    y: 20
-        
-                # Menú desplegable dinámico
-                - dropdown:
-                    id: menu_favoritos
-                    width: 80%
-                    align: CENTER
-                    y: 0
-                    options:
-                        - "Cargando..."
-                    # Cuando el usuario toca una opción, se envía el comando exacto a Home Assistant
-                    on_value_changed:
-                      then:
-                        - lambda: |-
-                            // Creamos un buffer de texto para almacenar la opción seleccionada
-                            char buffer[128];
-                            id(menu_favoritos).get_selected_option_text(buffer, sizeof(buffer));
-                            
-                            // Si no está vacío y no es el texto inicial, enviamos el comando
-                            if (strlen(buffer) > 0 && std::string(buffer) != "Cargando...") {
-                              id(reproducir_favorito_script).execute(buffer);
-                            }
-
-              
-                            
+                           
         # ---------------------------------------------------------------
         # SETTINGS PANEL (swipe-down from top)
         # ---------------------------------------------------------------
