@@ -159,7 +159,7 @@ lvgl:
               - label:
                   text_font: icon_font_large
                   align: center
-                  text: $luz_on 
+                  text: $luz_off 
                   text_color: 0xFFFFFF
             on_click:
               then:
