@@ -1,1 +1,94 @@
+# =============================================================================
+# SENSORS - Home Assistant State Synchronization
+# =============================================================================
+# This file creates sensors that monitor Home Assistant entities and update
+# the touchscreen buttons to reflect the current state of your smart devices.
+#
+# WHY THIS FILE EXISTS:
+# When you press a button on the touchscreen, it sends a command to Home
+# Assistant. But what if someone turns on a light using their phone, or a
+# scene activates automatically? This file ensures the touchscreen display
+# always shows the ACTUAL state of each device, not just what was last pressed.
+#
+# HOW IT WORKS:
+# 1. Each sensor subscribes to a Home Assistant entity (switch, sensor, etc.)
+# 2. When that entity's state changes, the "on_state" or "on_value" trigger fires
+# 3. The trigger updates the corresponding button in lvgl.yaml to show the new state
+#
+# KEY CONCEPTS:
+# - "platform: homeassistant" = reads state directly from Home Assistant
+# - "platform: template" = calculates a value using code (lambda)
+# - "entity_id:" = the Home Assistant device/entity to monitor
+# - "id:" = unique name to reference this sensor elsewhere in ESPHome
+# - "trigger_on_initial_state: true" = update button immediately when device boots
+# - "lvgl.widget.update" = changes how a button looks on screen
+# - "checked: !lambda return x;" = x is the sensor's boolean state (true/false)
+#
+# RELATIONSHIP TO lvgl.yaml:
+# Each sensor here has a matching button in lvgl.yaml:
+#   - This file READS state from Home Assistant → updates button appearance
+#   - lvgl.yaml SENDS commands to Home Assistant → when button is pressed
+# =============================================================================
+binary_sensor:
+  # ===========================================================================
+  # SENSOR: Led Jardin Lights State
+  # ===========================================================================
+  # WHAT IT MONITORS:
+  #   Whether the luz led lights are on or off
+  #   Watches: light.modulo_luces_jardin_luz_led_jardin
+  #
+  # WHAT IT UPDATES:
+  #   The "Luz Led" button's visual state (highlighted when on)
+  #
+  # NOTE: This sensor references a button (luz-led_button) that
+  #       should be defined in lvgl.yaml. If the button doesn't exist,
+  #       add it there or remove this sensor.
+  #
+  # RELATED UI ELEMENT:
+  #   lvgl.yaml → luz-led_button
+  # ===========================================================================
+  - platform: homeassistant
+    id: luz_led_jardin
+    entity_id: light.modulo_luces_jardin_luz_led_jardin
+    trigger_on_initial_state: true
+    on_state:
+      then:
+        lvgl.widget.update:
+          id: luz_led_button
+          state:
+            checked: !lambda return x;
+
+#=========================================================
+# Fichero theme button original add
+#=========================================================
+substitutions:
+  icon_font: icon_font
+  text_font: roboto19_font
+  button_on_color: "0xFF8C00"
+  button_text_color: "0xFFFFFF"
+  button_control_color: "0x313131"
+  button_webhook_color: "0x212121"
+  button_height_single: 140px
+  button_width: 150px
+  padding: 12px
+  radius: 8px
+  slider_background_color: "0x505050"
+  slider_active_color: "0x2D2D2D"
+  slider_knob_color: "0xE5E5E5"
+      
+  theme:
+    button:
+      text_font: $text_font
+      scroll_on_focus: false
+      radius: $radius
+      width: $button_width
+      height: $button_height_single
+      pad_all: $padding
+      shadow_width: 0
+      text_color: $button_text_color
+      checked:
+        bg_color: $button_on_color
+        text_color: $button_text_color
+
+
 
