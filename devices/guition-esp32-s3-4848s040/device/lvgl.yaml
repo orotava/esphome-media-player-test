@@ -269,9 +269,9 @@ lvgl:
                     hidden: false     
                 - delay: 10s
                   # 3. Oculta el panel de luces automáticamente
-                  - lvgl.widget.update:
-                      id: panel_luces
-                      hidden: true
+                - lvgl.widget.update:
+                    id: panel_luces
+                    hidden: true
 
         # Play/pause: 96px round, bottom-right corner
         - button:
