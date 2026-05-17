@@ -293,7 +293,7 @@ lvgl:
                           text_font: $icon_font
                           align: top_left
                           id: luz_led_icon #id icono
-                          text:  $luz_off
+                          text:  $tira_led
                       - label:
                           align: bottom_left
                           id: luz_led_label #id label
@@ -342,7 +342,7 @@ lvgl:
                           text_font: $icon_font
                           align: top_left
                           id: focos_jardin_icon #id icono
-                          text:  $luz_off
+                          text:  $focos
                       - label:
                           align: bottom_left
                           id: focos_jardin_label #id label
@@ -366,7 +366,7 @@ lvgl:
                           text_font: $icon_font
                           align: top_left
                           id: cubos_chill_out_icon #id icono
-                          text:  $luz_off
+                          text:  $cubos
                       - label:
                           align: bottom_left
                           id: cubos_chill_out_label #id label
