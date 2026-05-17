@@ -75,14 +75,6 @@ substitutions:
   slider_background_color: "0x505050"
   slider_active_color: "0x2D2D2D"
   slider_knob_color: "0xE5E5E5"
-
-lvgl:
-  style_definitions:
-    - id: webhook
-      bg_color: $button_webhook_color
-
-    - id: control
-      bg_color: $button_control_color
       
   theme:
     button:
@@ -107,6 +99,14 @@ lvgl:
 # Data from sensors.yaml; album art from artwork_image (addon/music.yaml).
 # =============================================================================
 lvgl:
+# Add
+  style_definitions:
+    - id: webhook
+      bg_color: $button_webhook_color
+
+    - id: control
+      bg_color: $button_control_color
+  #Fin Add
   buffer_size: 25%
   rotation: ${display_rotation}
   on_boot:
