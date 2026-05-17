@@ -163,7 +163,7 @@ lvgl:
             on_press:
                 # Al pulsar el círculo flotante, hacemos aparecer el panel de luces
                 - lvgl.widget.update:
-                    id: capa_luces_jardin_local
+                    id: panel_luces
                     hidden: false                   
 
         # Play/pause: 96px round, bottom-right corner
@@ -385,6 +385,70 @@ lvgl:
                             service: light.toggle
                             data:
                               entity_id: light.luz_10
+
+
+    # -----------------------------------------------------------------
+    # 2. PANEL CONTENEDOR DE LAS 10 LUCES (ARRANCA OCULTO)
+    # -----------------------------------------------------------------
+        - obj:
+              id: panel_luces
+              # Arranca oculto para que lo primero que veas sea la música
+              hidden: true
+              layout: 
+                type: grid
+                grid_columns: [fr(1), fr(1), fr(1)]
+                grid_rows: [fr(1), fr(1), fr(1)]
+              scrollbar_mode: "off"
+              scroll_dir: "hor"
+              width: 100%
+              bg_color: Black
+              bg_opa: cover
+              pad_top: 34
+              pad_bottom: 5
+              pad_left: 5
+              pad_right: 5          
+              
+              widgets:
+                # =========================================================================
+                # BUTTON: Luz Led Jardin
+                # =========================================================================
+                # WHAT THIS BUTTON DOES:
+                #   Toggles led jardin lights.
+                #
+                # WHEN PRESSED:
+                #   Calls Home Assistant service: light.toggle
+                #   Target: light.modulo_luces_jardin_luz_led_jardin
+                #
+                # HOW THE BUTTON KNOWS IF IT'S ACTIVE:
+                #   sensors.yaml monitors: light.office_network_rack
+                #   When the light is ON, this button appears "checked" (highlighted)
+                # =========================================================================
+
+                - button:
+                    height: $button_height_single
+                    width: $button_width
+                    checkable: true
+                    id: luz-led_button
+                    styles: control
+                    grid_cell_column_pos: 0
+                    grid_cell_row_pos: 0
+                    widgets:
+                      - label:
+                          text_font: $icon_font
+                          align: top_left
+                          id: luz_led_icon
+                          text:  $luz_off
+                      - label:
+                          align: bottom_left
+                          id: luz-led_label
+                          text: "Led Jardin"
+                    on_click:
+                      - homeassistant.service:
+                          service: light.toggle
+                          data:
+                            entity_id: light.modulo_luces_jardin_luz_led_jardin              
+
+
 
         # ---------------------------------------------------------------
         # SETTINGS PANEL (swipe-down from top)
