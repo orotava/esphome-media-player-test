@@ -154,7 +154,6 @@ lvgl:
             width: 96px          
             height: 96px
             styles: control_round
-            bg_color: accent_color_light
             widgets:
               - label:
                   text_font: icon_font_large
