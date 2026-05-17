@@ -426,22 +426,26 @@ script:
             - lvgl.widget.show: accent_overlay
             - lvgl.widget.show: track_info_text
             - lvgl.widget.show: media_play_pause_button
+            - lvgl.widget.show: boton_flotante_bombilla
             - lambda: |-
                 if (id(artist_has_content)) lv_obj_clear_flag(id(media_artist_label), LV_OBJ_FLAG_HIDDEN);
                 lv_obj_fade_in(id(accent_overlay), 200, 0);
                 lv_obj_fade_in(id(track_info_text), 200, 0);
                 lv_obj_fade_in(id(media_play_pause_button), 200, 0);
+                lv_obj_fade_in(id(boton_flotante_bombilla), 200, 0);
           else:
             - lambda: 'id(is_ui_hidden) = true;'
             - lambda: |-
                 lv_obj_fade_out(id(accent_overlay), 300, 0);
                 lv_obj_fade_out(id(track_info_text), 300, 0);
                 lv_obj_fade_out(id(media_play_pause_button), 300, 0);
+                lv_obj_fade_out(id(boton_flotante_bombilla), 300, 0);
             - delay: 400ms
             - lvgl.widget.hide: accent_overlay
             - lvgl.widget.hide: track_info_text
             - lvgl.widget.hide: media_play_pause_button
             - lvgl.widget.hide: media_artist_label
+            - lvgl.widget.hide: boton_flotante_bombilla
   # -- Track navigation (horizontal swipe; allowed when playing or paused) --
   - id: swipe_next_track
     mode: single
@@ -532,6 +536,7 @@ script:
             - lvgl.widget.hide: accent_overlay
             - lvgl.widget.hide: track_info_text
             - lvgl.widget.hide: media_play_pause_button
+            - lvgl.widget.hide: boton_flotante_bombilla
             - lvgl.widget.hide: media_artist_label
             - script.stop: show_track_view
       - if:
@@ -546,6 +551,8 @@ script:
                 if (!id(is_tv_idle)) {
                   lv_obj_clear_flag(id(media_play_pause_button), LV_OBJ_FLAG_HIDDEN);
                   lv_obj_fade_in(id(media_play_pause_button), 200, 0);
+                  lv_obj_clear_flag(id(boton_flotante_bombilla), LV_OBJ_FLAG_HIDDEN);
+                  lv_obj_fade_in(id(boton_flotante_bombilla), 200, 0);
                 }
                 if (id(artist_has_content) && !id(is_tv_idle)) lv_obj_clear_flag(id(media_artist_label), LV_OBJ_FLAG_HIDDEN);
                 lv_obj_fade_in(id(accent_overlay), 200, 0);
@@ -565,6 +572,7 @@ script:
           lv_obj_set_style_bg_color(id(accent_overlay), lv_color_make(0, 0, 0), 0);
           lv_obj_set_style_bg_color(id(artwork_bg_panel), lv_color_make(0, 0, 0), 0);
           lv_obj_set_style_bg_color(id(media_play_pause_button), lv_color_make(0, 0, 0), 0);
+          lv_obj_set_style_bg_color(id(boton_flotante_bombilla), lv_color_make(0, 0, 0), 0);
       - if:
           condition:
             lambda: 'return id(web_settings_active);'
@@ -588,6 +596,7 @@ script:
           then:
             - lambda: 'id(is_tv_idle) = true;'
             - lvgl.widget.hide: media_play_pause_button
+            - lvgl.widget.hide: boton_flotante_bombilla
             - lvgl.widget.hide: media_time_label
             - lvgl.widget.hide: media_progress_bar
             - lvgl.widget.hide: album_art_background_widget
@@ -665,6 +674,7 @@ script:
           then:
             - script.stop: exit_tv_mode
       - lvgl.widget.show: media_play_pause_button
+      - lvgl.widget.show: boton_flotante_bombilla
       - lvgl.widget.show: media_time_label
       - lvgl.label.update:
           id: media_title_label
