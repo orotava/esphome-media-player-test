@@ -352,7 +352,30 @@ lvgl:
                           service: light.toggle
                           data:
                             entity_id: light.modulo_luces_jardin_luz_focos_jardin #Entidad Luz
-
+                # Cubos Chill Out Jardin
+                - button:
+                    height: $button_height_single
+                    width: $button_width
+                    checkable: true
+                    id: cubos_chill_out_button
+                    styles: control
+                    grid_cell_column_pos: 0 #Posicion en grid
+                    grid_cell_row_pos: 1 #Posicion en grid
+                    widgets:
+                      - label:
+                          text_font: $icon_font
+                          align: top_left
+                          id: cubos_chill_out_icon #id icono
+                          text:  $luz_off
+                      - label:
+                          align: bottom_left
+                          id: cubos_chill_out_label #id label
+                          text: "Cubos Chill Out" #Nombre label
+                    on_click:
+                      - homeassistant.service:
+                          service: light.toggle
+                          data:
+                            entity_id: light.modulo_luces_jardin_luz_focos_jardin #Entidad Luz
 
         # ---------------------------------------------------------------
         # SETTINGS PANEL (swipe-down from top)
