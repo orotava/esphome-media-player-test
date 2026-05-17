@@ -188,7 +188,7 @@ output:
     
 
   - platform: gpio
-    pin: 14
+    pin: 1
     id: light_output_3
     inverted: true
 
