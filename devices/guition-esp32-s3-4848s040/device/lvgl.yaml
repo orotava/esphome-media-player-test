@@ -54,7 +54,7 @@ binary_sensor:
     on_state:
       then:
         lvgl.widget.update:
-          id: luz-led_button
+          id: luz_led_button
           state:
             checked: !lambda return x;
 
@@ -530,7 +530,7 @@ lvgl:
                     height: $button_height_single
                     width: $button_width
                     checkable: true
-                    id: luz-led_button
+                    id: luz_led_button
                     styles: control
                     grid_cell_column_pos: 0
                     grid_cell_row_pos: 0
@@ -542,7 +542,7 @@ lvgl:
                           text:  $luz_off
                       - label:
                           align: bottom_left
-                          id: luz-led_label
+                          id: luz_led_label
                           text: "Led Jardin"
                     on_click:
                       - homeassistant.service:
