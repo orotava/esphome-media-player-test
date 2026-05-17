@@ -102,6 +102,29 @@ binary_sensor:
           state:
             checked: !lambda return x;    
 
+ # Focos Piscina          
+  - platform: homeassistant
+    id: focos_piscina
+    entity_id: light.focos_piscina
+    trigger_on_initial_state: true
+    on_state:
+      then:
+        lvgl.widget.update:
+          id: focos_piscina_button
+          state:
+            checked: !lambda return x;    
+ # Led Piscina          
+  - platform: homeassistant
+    id: led_piscina
+    entity_id: light.led_piscina1
+    trigger_on_initial_state: true
+    on_state:
+      then:
+        lvgl.widget.update:
+          id: led_piscina_button
+          state:
+            checked: !lambda return x;  
+
 
 #=========================================================
 # Fichero theme button original add
