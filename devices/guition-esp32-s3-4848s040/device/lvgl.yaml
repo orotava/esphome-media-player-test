@@ -447,7 +447,30 @@ lvgl:
                       - homeassistant.service:
                           service: light.toggle
                           data:
-                            entity_id: light.led_piscina1 #Entidad Luz                           
+                            entity_id: light.led_piscina1 #Entidad Luz   
+                 # Cerrar Pantalla Luces
+                - button:
+                    height: $button_height_single
+                    width: $button_width
+                    checkable: false
+                    id: close_button
+                    styles: control
+                    grid_cell_column_pos: 2 #Posicion en grid
+                    grid_cell_row_pos: 2 #Posicion en grid
+                    widgets:
+                      - label:
+                          text_font: $icon_font
+                          align: top_left
+                          text:  $icon_close
+                      - label:
+                          align: bottom_left
+                          text: "Cerrar" #Nombre label
+                    on_click:
+                      - lvgl.widget.update:
+                            id: panel_luces
+                            hidden: true  
+
+                            
         # ---------------------------------------------------------------
         # SETTINGS PANEL (swipe-down from top)
         # ---------------------------------------------------------------
