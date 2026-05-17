@@ -410,7 +410,7 @@ lvgl:
             bg_opa: 100%
             radius: 0
             border_width: 0
-            pad_all: 0
+            pad_all: 5
             scrollable: false
             scrollbar_mode: "off"
             hidden: true
