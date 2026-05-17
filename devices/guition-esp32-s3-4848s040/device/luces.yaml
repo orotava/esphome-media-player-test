@@ -179,16 +179,16 @@ output:
   - platform: gpio
     pin: 40
     id: light_output_1
-    inverted: true # Cambia a false si la luz se enciende al revés
+    # inverted: true # Cambia a false si la luz se enciende al revés
 
   - platform: gpio
     pin: 2 
     id: light_output_2
-    inverted: true
+    # inverted: true
     
 
   - platform: gpio
     pin: 1
     id: light_output_3
-    inverted: true
+    # inverted: true
 
