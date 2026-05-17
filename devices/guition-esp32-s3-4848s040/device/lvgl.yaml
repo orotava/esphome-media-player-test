@@ -266,7 +266,12 @@ lvgl:
                 # Al pulsar el círculo flotante, hacemos aparecer el panel de luces
                 - lvgl.widget.update:
                     id: panel_luces
-                    hidden: false                   
+                    hidden: false     
+                - delay: 10s
+                  # 3. Oculta el panel de luces automáticamente
+                  - lvgl.widget.update:
+                      id: panel_luces
+                      hidden: true
 
         # Play/pause: 96px round, bottom-right corner
         - button:
@@ -347,7 +352,7 @@ lvgl:
               bg_opa: 100%
               radius: 0
               border_width: 0
-              pad_all: 0
+              pad_all: 5
               scrollable: false
               scrollbar_mode: "off"
               hidden: true    
