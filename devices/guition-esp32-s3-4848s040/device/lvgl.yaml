@@ -470,6 +470,50 @@ lvgl:
                             id: panel_luces
                             hidden: true  
 
+
+    # -----------------------------------------------------------------
+    # 2. PANEL CONTENEDOR DE FAVORITOS (ARRANCA OCULTO)
+    # -----------------------------------------------------------------
+        - obj:
+              id: favoritos_sonos
+              # Arranca oculto para que lo primero que veas sea la música
+              hidden: true  
+              x: 0
+              y: 0
+              width: 480
+              height: 480
+              bg_color: 0x000000
+              bg_opa: 100%
+              radius: 0
+              border_width: 0
+              pad_all: 5
+              scrollable: false
+              scrollbar_mode: "off"
+              hidden: true    
+              widgets:
+                - label:
+                    text: "Selecciona Favorito Sonos:"
+                    align: TOP_MID
+                    y: 20
+        
+                # Menú desplegable dinámico
+                - dropdown:
+                    id: menu_favoritos
+                    width: 80%
+                    align: CENTER
+                    y: 0
+                    # Cuando el usuario toca una opción, se envía el comando exacto a Home Assistant
+                    on_event:
+                      trigger: VALUE_CHANGED
+                      then:
+                        - lambda: |-
+                            char buffer[128];
+                            id(menu_favoritos).get_selected_option_text(buffer, sizeof(buffer));
+                            if (strlen(buffer) > 0) {
+                              id(reproducir_favorito_script).execute(buffer);
+                            }
+
+              
                             
         # ---------------------------------------------------------------
         # SETTINGS PANEL (swipe-down from top)
