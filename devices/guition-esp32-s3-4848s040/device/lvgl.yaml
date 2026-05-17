@@ -316,11 +316,11 @@ lvgl:
                       - label:
                           text_font: $icon_font
                           align: top_left
-                          id: luz_led_icon
+                          id: guirnaldas_chill_out_icon
                           text:  $luz_off
                       - label:
                           align: bottom_left
-                          id: luz_led_label
+                          id: guirnaldas_chill_out_label
                           text: "Guirnaldas Chill Out"
                     on_click:
                       - homeassistant.service:
