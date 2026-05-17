@@ -90,6 +90,18 @@ binary_sensor:
           id: cubos_chill_out_button
           state:
             checked: !lambda return x;           
+ # Luz BBQ           
+  - platform: homeassistant
+    id: luz_bbq
+    entity_id: light.luz_bbq
+    trigger_on_initial_state: true
+    on_state:
+      then:
+        lvgl.widget.update:
+          id: luz_bbq_button
+          state:
+            checked: !lambda return x;    
+
 
 #=========================================================
 # Fichero theme button original add
