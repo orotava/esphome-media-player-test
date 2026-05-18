@@ -217,10 +217,8 @@ text_sensor:
         - lambda: |-
             if (x.empty()) return;
 
-            // 1. Limpiamos el Array usando el punto (.) tal como pide el compilador
+            // 1. Limpiamos y rellenamos el Array (Código que ya te compila)
             id(array_playlists).clear();
-
-            // 2. Troceamos el texto manualmente sin usar sstream
             std::string texto = x;
             std::string delimitador = ";";
             size_t pos = 0;
@@ -233,11 +231,22 @@ text_sensor:
                 }
                 texto.erase(0, pos + delimitador.length());
             }
-            
-            // Guardamos el último elemento de la lista
             if (!texto.empty()) {
                 id(array_playlists).push_back(texto);
             }
 
-            // 3. Imprimimos el log de confirmación
-            ESP_LOGI("custom", "¡Array de playlists actualizado! Total de elementos: %d", id(array_playlists).size());
+            // ==========================================
+            // NUEVA LÓGICA: ACTUALIZAR EL WIDGET LVGL
+            // ==========================================
+            // Comprobamos que el array tenga al menos 1 elemento para evitar cuelgues
+            if (id(array_playlists).size() >= 1) {
+                // Extraemos el primer registro (posición 0, que es "Acusticos")
+                std::string primer_favorito = id(array_playlists)[0];
+                
+                // Le asignamos el texto dinámicamente al widget usando su ID
+                id(texto_favorito_1).set_text(primer_favorito.c_str());
+            } else {
+                id(texto_favorito_1).set_text("Sin favoritos");
+            }
+
+            ESP_LOGI("custom", "¡Texto del widget actualizado con el primer favorito!");
