@@ -203,40 +203,37 @@ output:
 
 ################################### FAVORITOS SONOS
 globals:
-  # SOLUCIÓN DEFINITIVA: Inyectamos los includes directamente en la definición del tipo
+  # Declaración limpia y estricta que ESPHome entiende nativamente
   - id: array_playlists
-    type: |
-      std::vector<std::string> {
-        };
-        #include <vector>
-        #include <sstream>
-        std::vector<std::string
+    type: std::vector<std::string>
     restore_value: no
 
-# 2. El sensor lee el estado limpio separado por ';' desde Home Assistant
 text_sensor:
   - platform: homeassistant
     id: playlists_sonos_crudo
     entity_id: sensor.sonos_favorites_limpio
-    
     on_value:
       then:
         - lambda: |-
+            // INYECTAMOS LAS LIBRERÍAS AQUÍ MISMO
+            // El compilador las leerá antes de procesar el código del sensor
+            #include <vector>
+            #include <sstream>
+
             if (x.empty()) return;
 
-            // Limpiamos el Array global
-            id(array_playlists).clear();
+            // En ESPHome, los globales se acceden como un puntero o llamando a .value() si da guerra.
+            // Para asegurar máxima compatibilidad con el código generado, usamos ->
+            id(array_playlists)->clear();
 
-            // Procesamos el string recibido
             std::stringstream ss(x);
             std::string item;
 
-            // Troceamos por el carácter ';'
             while (std::getline(ss, item, ';')) {
               if (!item.empty()) {
-                id(array_playlists).push_back(item);
+                id(array_playlists)->push_back(item);
               }
             }
 
-            ESP_LOGI("custom", "¡Array de playlists actualizado! Total de elementos: %d", id(array_playlists).size());
+            ESP_LOGI("custom", "¡Array de playlists actualizado! Total de elementos: %d", id(array_playlists)->size());
 
