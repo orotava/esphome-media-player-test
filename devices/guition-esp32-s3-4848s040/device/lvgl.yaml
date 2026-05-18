@@ -320,15 +320,61 @@ lvgl:
                           text:  $luz_off
                       - label:
                           align: bottom_left
-                          id: texto_favorito_1
+                          id: fav_btn_1
                           text: "Cargando..." #Nombre label
                     on_click:
                       - homeassistant.service:
                           service: light.toggle
                           data:
                             entity_id: light.luz_despacho #Entidad Luz
-
-
+                # fAVORITOS 2
+                - button:
+                    height: $button_height_single
+                    width: $button_width
+                    checkable: true
+                    id: favoritos_2
+                    styles: control
+                    grid_cell_column_pos: 1 #Posicion en grid
+                    grid_cell_row_pos: 0 #Posicion en grid
+                   # hidden: true 
+                    widgets:
+                      - label:
+                          text_font: $icon_font
+                          align: top_left
+                          text:  $luz_off
+                      - label:
+                          align: bottom_left
+                          id: fav_btn_2
+                          text: "Cargando..." #Nombre label
+                    on_click:
+                      - homeassistant.service:
+                          service: light.toggle
+                          data:
+                            entity_id: light.luz_despacho #Entidad Luz
+                # fAVORITOS 3
+                - button:
+                    height: $button_height_single
+                    width: $button_width
+                    checkable: true
+                    id: favoritos_3
+                    styles: control
+                    grid_cell_column_pos: 2 #Posicion en grid
+                    grid_cell_row_pos: 0 #Posicion en grid
+                   # hidden: true 
+                    widgets:
+                      - label:
+                          text_font: $icon_font
+                          align: top_left
+                          text:  $luz_off
+                      - label:
+                          align: bottom_left
+                          id: fav_btn_2
+                          text: "Cargando..." #Nombre label
+                    on_click:
+                      - homeassistant.service:
+                          service: light.toggle
+                          data:
+                            entity_id: light.luz_despacho #Entidad Luz
 
 
     # -----------------------------------------------------------------
