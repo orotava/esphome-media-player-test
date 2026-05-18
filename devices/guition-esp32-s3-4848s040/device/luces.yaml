@@ -209,12 +209,10 @@ globals:
 text_sensor:
   - platform: homeassistant
     id: playlists_sonos_crudo
-    entity_id: sensor.sonos_favorites
-    # Usamos tu plantilla exacta de Home Assistant dentro de ESPHome
-    lambda: |-
-      return id(homeassistant_service).get_state_attr("sensor.sonos_favorites", "items");
+    # Apuntamos al nuevo sensor auxiliar que creamos en Home Assistant
+    entity_id: sensor.sonos_favorites_limpio
     
-    # Cada vez que la lista cambie o se encienda la pantalla, se ejecuta este bloque
+    # Cada vez que cambie, se ejecuta el troceado del texto
     on_value:
       then:
         - lambda: |-
