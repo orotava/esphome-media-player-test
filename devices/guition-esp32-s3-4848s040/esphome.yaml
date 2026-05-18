@@ -8,10 +8,6 @@ substitutions:
 esphome:
   name: ${name}
   friendly_name: ${friendly_name}
-  # Incluido en test favoritos
-  includes:
-    - sstream
-    - vector
 
 # Wifi Setup
 wifi:
