@@ -323,10 +323,12 @@ lvgl:
                           id: fav_btn_1
                           text: "Cargando..." #Nombre label
                     on_click:
-                      - homeassistant.service:
-                          service: light.toggle
-                          data:
-                            entity_id: light.luz_despacho #Entidad Luz
+                          then:
+                            - lambda: |-
+                                const char* nombre = lv_label_get_text(id(fav_btn_1));
+                                if (std::string(nombre) != "Cargando..." && std::string(nombre) != "---") {
+                                  id(reproducir_sonos_script).execute(nombre);
+                                }
                 # fAVORITOS 2
                 - button:
                     height: $button_height_single
