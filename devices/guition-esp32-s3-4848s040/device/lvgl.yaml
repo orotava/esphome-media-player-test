@@ -315,11 +315,7 @@ lvgl:
                    # hidden: true 
                     widgets:
                       - label:
-                          text_font: $icon_font
-                          align: top_left
-                          text:  $luz_off
-                      - label:
-                          align: bottom_left
+                          align: center_left
                           id: fav_btn_1
                           text: "Cargando..." #Nombre label
                     on_click:
