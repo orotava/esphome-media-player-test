@@ -671,6 +671,54 @@ lvgl:
                                 const char* nombre = lv_label_get_text(id(fav_btn_15));
                                 if (std::string(nombre) != "Cargando..." && std::string(nombre) != "---") {
                                   id(reproducir_sonos_script).execute(nombre); }
+
+                # fAVORITOS 16
+                - button:
+                    height: 70px
+                    width: $button_width
+                    id: favoritos_16
+                    styles: control
+                    grid_cell_column_pos: 0 #Posicion en grid
+                    grid_cell_row_pos: 5 #Posicion en grid
+                    hidden: true 
+                    widgets:
+                      - label:
+                          align: center
+                          id: fav_btn_16
+                          text: "Cargando..." #Nombre label
+                          max_height: 65px
+                          long_mode: wrap  
+                          width: 100% 
+                    on_click:
+                          then:
+                            - lambda: |-
+                                const char* nombre = lv_label_get_text(id(fav_btn_16));
+                                if (std::string(nombre) != "Cargando..." && std::string(nombre) != "---") {
+                                  id(reproducir_sonos_script).execute(nombre); }
+
+                # fAVORITOS 17
+                - button:
+                    height: 70px
+                    width: $button_width
+                    id: favoritos_17
+                    styles: control
+                    grid_cell_column_pos: 1 #Posicion en grid
+                    grid_cell_row_pos: 5 #Posicion en grid
+                    hidden: true 
+                    widgets:
+                      - label:
+                          align: center
+                          id: fav_btn_17
+                          text: "Cargando..." #Nombre label
+                          max_height: 65px
+                          long_mode: wrap  
+                          width: 100% 
+                    on_click:
+                          then:
+                            - lambda: |-
+                                const char* nombre = lv_label_get_text(id(fav_btn_17));
+                                if (std::string(nombre) != "Cargando..." && std::string(nombre) != "---") {
+                                  id(reproducir_sonos_script).execute(nombre); }
                                   
     # -----------------------------------------------------------------
     # 4. PANEL CONTENEDOR DE LAS 10 LUCES (ARRANCA OCULTO)
