@@ -183,6 +183,39 @@ lvgl:
                     hidden: true
                 - lambda: 'id(is_luces_open) = false;'
 
+    # -----------------------------------------------------------------
+    # 1. BOTÓN DE FAVORITOS (Se verá encima del reproductor)
+    # -----------------------------------------------------------------
+        - button:
+            id: boton_flotante_favoritos
+            align: bottom_center
+            x: 24px              
+            y: -30px
+            width: 96px          
+            height: 96px
+            styles: control_round
+            widgets:
+              - label:
+                  text_font: icon_font_large
+                  align: center
+                  text: $luz_off 
+                  text_color: 0xFFFFFF
+            on_press:
+                # Al pulsar el círculo flotante, hacemos aparecer el panel de luces
+                - lvgl.widget.update:
+                    id: panel_favoritos
+                    hidden: false  
+                # - lambda: 'id(is_luces_open) = true;'
+                # - script.execute: start_speaker_panel_timeout
+                - delay: 10s
+                  # 3. Oculta el panel de luces automáticamente
+               # - script.stop: start_speaker_panel_timeout
+                - lvgl.widget.update:
+                    id: panel_favoritos
+                    hidden: true
+               # - lambda: 'id(is_luces_open) = false;'
+
+
         # Play/pause: 96px round, bottom-right corner
         - button:
             id: media_play_pause_button
@@ -243,10 +276,63 @@ lvgl:
         - !include ../setup/actions_prompt.yaml
 
 
+    # -----------------------------------------------------------------
+    # 3. PANEL CONTENEDOR DE LOS FAVORITOS (ARRANCA OCULTO)
+    # -----------------------------------------------------------------
+        - obj:
+              id: panel_favoritos
+              # Arranca oculto para que lo primero que veas sea la música
+              layout: 
+                type: grid
+                grid_columns: [fr(1), fr(1), fr(1)]
+                grid_rows: [fr(1), fr(1), fr(1)]
+              x: 0
+              y: 0
+              width: 480
+              height: 480
+              bg_color: 0x000000
+              bg_opa: 100%
+              radius: 0
+              border_width: 0
+              pad_all: 5
+              scrollable: false
+              scrollbar_mode: "off"
+              hidden: true    
+              
+              widgets:
+                # =========================================================================
+                # BUTTON: FAVORITOS 1
+                # =========================================================================
+                # fAVORITOS 1
+                - button:
+                    height: $button_height_single
+                    width: $button_width
+                    checkable: true
+                    id: favoritos_1
+                    styles: control
+                    grid_cell_column_pos: 0 #Posicion en grid
+                    grid_cell_row_pos: 0 #Posicion en grid
+                   # hidden: true 
+                    widgets:
+                      - label:
+                          text_font: $icon_font
+                          align: top_left
+                          text:  $luz_off
+                      - label:
+                          align: bottom_left
+                          id: nombre_favoritos_1
+                          text: "Cargando..." #Nombre label
+                    on_click:
+                      - homeassistant.service:
+                          service: light.toggle
+                          data:
+                            entity_id: light.luz_despacho #Entidad Luz
+
+
 
 
     # -----------------------------------------------------------------
-    # 2. PANEL CONTENEDOR DE LAS 10 LUCES (ARRANCA OCULTO)
+    # 4. PANEL CONTENEDOR DE LAS 10 LUCES (ARRANCA OCULTO)
     # -----------------------------------------------------------------
         - obj:
               id: panel_luces
