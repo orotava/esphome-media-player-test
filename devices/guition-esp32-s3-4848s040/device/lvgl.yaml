@@ -308,7 +308,6 @@ lvgl:
                     height: 70px
                     width: $button_width
                     checkable: false
-                    id: close_button
                     styles: control
                     grid_cell_column_pos: 2 #Posicion en grid
                     grid_cell_row_pos: 5 #Posicion en grid
