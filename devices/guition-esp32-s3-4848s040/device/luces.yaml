@@ -203,29 +203,35 @@ output:
 
 ################################### FAVORITOS SONOS
 globals:
-    - id: array_playlists
-      type: std::vector<std::string>
-      restore_value: no
+  # SOLUCIÓN DEFINITIVA: Inyectamos los includes directamente en la definición del tipo
+  - id: array_playlists
+    type: |
+      std::vector<std::string> {
+        };
+        #include <vector>
+        #include <sstream>
+        std::vector<std::string
+    restore_value: no
+
+# 2. El sensor lee el estado limpio separado por ';' desde Home Assistant
 text_sensor:
   - platform: homeassistant
     id: playlists_sonos_crudo
-    # Apuntamos al nuevo sensor auxiliar que creamos en Home Assistant
     entity_id: sensor.sonos_favorites_limpio
     
-    # Cada vez que cambie, se ejecuta el troceado del texto
     on_value:
       then:
         - lambda: |-
             if (x.empty()) return;
 
-            // 1. Limpiamos el Array global para no duplicar datos
+            // Limpiamos el Array global
             id(array_playlists).clear();
 
-            // 2. Procesamos el string recibido (separado por ';')
+            // Procesamos el string recibido
             std::stringstream ss(x);
             std::string item;
 
-            // 3. Vamos troceando el texto y metiendo cada playlist en nuestro Array
+            // Troceamos por el carácter ';'
             while (std::getline(ss, item, ';')) {
               if (!item.empty()) {
                 id(array_playlists).push_back(item);
