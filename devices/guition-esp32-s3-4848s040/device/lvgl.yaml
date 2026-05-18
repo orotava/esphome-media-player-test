@@ -188,8 +188,8 @@ lvgl:
     # -----------------------------------------------------------------
         - button:
             id: boton_flotante_favoritos
-            align: center
-            x: 24px              
+            align: bottom_left
+            x: 230px              
             y: -30px
             width: 96px          
             height: 96px
