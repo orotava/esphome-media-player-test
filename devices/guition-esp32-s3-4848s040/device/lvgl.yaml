@@ -476,7 +476,28 @@ lvgl:
                           hidden: true
                       - lambda: 'id(is_luces_open) = false;'
 
- 
+# Select de prueba para favoritos
+                - dropdown:
+                    id: dropdown_id
+                    height: $button_height_single
+                    width: $button_width
+                    styles: control
+                    grid_cell_column_pos: 1 #Posicion en grid
+                    grid_cell_row_pos: 2 #Posicion en grid                    
+                    width: 100
+                    align: CENTER
+                    y: -40
+                    options:
+                      - Violin
+                      - Piano
+                      - Bassoon
+                      - Chello
+                      - Drums
+                    selected_index: 2
+                    dropdown_list:
+                      selected:
+                        checked:
+                          text_color: 0xFF0000 
 
                                  
         # ---------------------------------------------------------------
