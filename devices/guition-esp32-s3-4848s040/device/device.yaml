@@ -238,7 +238,13 @@ globals:
   - id: was_luces_open           # Snapshot at touch-start; blocks bleed-through taps
     type: bool
     initial_value: 'false'
-
+ # -- Settings Favoritos panel state --
+  - id: is_favoritos_open            # True when the swipe-down settings panel is visible
+    type: bool
+    initial_value: 'false'
+  - id: was_favoritos_open           # Snapshot at touch-start; blocks bleed-through taps
+    type: bool
+    initial_value: 'false'
   # -- TV source mode --
   - id: is_tv_mode
     type: bool
@@ -280,6 +286,8 @@ touchscreen:
       - lambda: |-
           id(was_screen_dimmed) = id(is_screen_dimmed);
           id(was_panel_open) = id(is_panel_open);
+          id(was_luces_open) = id(is_luces_open);
+          id(is_favoritos_open) = id(is_favoritos_open);
           id(touch_x_start) = touch.x;
           id(touch_y_start) = touch.y;
           id(touch_x_end) = touch.x;
@@ -293,6 +301,7 @@ touchscreen:
       - lambda: |-
           if (id(is_panel_open)) id(start_speaker_panel_timeout).execute();
           if (id(is_luces_open)) id(start_speaker_panel_timeout).execute(); 
+          if (id(is_favoritos_open)) id(start_speaker_panel_timeout).execute(); 
     on_update:
       - lambda: |-
           for (auto touch: touches) {
@@ -349,6 +358,9 @@ touchscreen:
             return;
           }
           if (id(is_luces_open) || id(was_luces_open)) { 
+            return;
+          }
+          if (id(is_favoritos_open) || id(was_favoritos_open)) { 
             return;
           }
           // --- Horizontal swipe: track navigation (works when playing or paused) ---
@@ -438,12 +450,14 @@ script:
             - lvgl.widget.show: track_info_text
             - lvgl.widget.show: media_play_pause_button
             - lvgl.widget.show: boton_flotante_bombilla
+            - lvgl.widget.show: boton_flotante_favoritos
             - lambda: |-
                 if (id(artist_has_content)) lv_obj_clear_flag(id(media_artist_label), LV_OBJ_FLAG_HIDDEN);
                 lv_obj_fade_in(id(accent_overlay), 200, 0);
                 lv_obj_fade_in(id(track_info_text), 200, 0);
                 lv_obj_fade_in(id(media_play_pause_button), 200, 0);
                 lv_obj_fade_in(id(boton_flotante_bombilla), 200, 0);
+                lv_obj_fade_in(id(boton_flotante_favoritos), 200, 0);
           else:
             - lambda: 'id(is_ui_hidden) = true;'
             - lambda: |-
@@ -451,12 +465,15 @@ script:
                 lv_obj_fade_out(id(track_info_text), 300, 0);
                 lv_obj_fade_out(id(media_play_pause_button), 300, 0);
                 lv_obj_fade_out(id(boton_flotante_bombilla), 300, 0);
+                lv_obj_fade_out(id(boton_flotante_favoritos), 300, 0);
             - delay: 400ms
             - lvgl.widget.hide: accent_overlay
             - lvgl.widget.hide: track_info_text
             - lvgl.widget.hide: media_play_pause_button
             - lvgl.widget.hide: media_artist_label
             - lvgl.widget.hide: boton_flotante_bombilla
+            - lvgl.widget.hide: boton_flotante_favoritos
+            
   # -- Track navigation (horizontal swipe; allowed when playing or paused) --
   - id: swipe_next_track
     mode: single
@@ -548,6 +565,7 @@ script:
             - lvgl.widget.hide: track_info_text
             - lvgl.widget.hide: media_play_pause_button
             - lvgl.widget.hide: boton_flotante_bombilla
+            - lvgl.widget.hide: boton_flotante_favoritos
             - lvgl.widget.hide: media_artist_label
             - script.stop: show_track_view
       - if:
@@ -564,6 +582,8 @@ script:
                   lv_obj_fade_in(id(media_play_pause_button), 200, 0);
                   lv_obj_clear_flag(id(boton_flotante_bombilla), LV_OBJ_FLAG_HIDDEN);
                   lv_obj_fade_in(id(boton_flotante_bombilla), 200, 0);
+                  lv_obj_clear_flag(id(boton_flotante_favoritos), LV_OBJ_FLAG_HIDDEN);
+                  lv_obj_fade_in(id(boton_flotante_favoritos), 200, 0);
                 }
                 if (id(artist_has_content) && !id(is_tv_idle)) lv_obj_clear_flag(id(media_artist_label), LV_OBJ_FLAG_HIDDEN);
                 lv_obj_fade_in(id(accent_overlay), 200, 0);
@@ -584,6 +604,7 @@ script:
           lv_obj_set_style_bg_color(id(artwork_bg_panel), lv_color_make(0, 0, 0), 0);
           lv_obj_set_style_bg_color(id(media_play_pause_button), lv_color_make(0, 0, 0), 0);
           lv_obj_set_style_bg_color(id(boton_flotante_bombilla), lv_color_make(0, 0, 0), 0);
+          lv_obj_set_style_bg_color(id(boton_flotante_favoritos), lv_color_make(0, 0, 0), 0);
       - if:
           condition:
             lambda: 'return id(web_settings_active);'
@@ -608,6 +629,7 @@ script:
             - lambda: 'id(is_tv_idle) = true;'
             - lvgl.widget.hide: media_play_pause_button
             - lvgl.widget.hide: boton_flotante_bombilla
+            - lvgl.widget.hide: boton_flotante_favoritos
             - lvgl.widget.hide: media_time_label
             - lvgl.widget.hide: media_progress_bar
             - lvgl.widget.hide: album_art_background_widget
@@ -686,6 +708,7 @@ script:
             - script.stop: exit_tv_mode
       - lvgl.widget.show: media_play_pause_button
       - lvgl.widget.show: boton_flotante_bombilla
+      - lvgl.widget.show: boton_flotante_favoritos
       - lvgl.widget.show: media_time_label
       - lvgl.label.update:
           id: media_title_label
