@@ -203,7 +203,7 @@ output:
 
 ################################### FAVORITOS SONOS
 globals:
-  # Declaración limpia y estricta que ESPHome entiende nativamente
+  # Declaración limpia que ESPHome valida correctamente
   - id: array_playlists
     type: std::vector<std::string>
     restore_value: no
@@ -215,25 +215,29 @@ text_sensor:
     on_value:
       then:
         - lambda: |-
-            // INYECTAMOS LAS LIBRERÍAS AQUÍ MISMO
-            // El compilador las leerá antes de procesar el código del sensor
-            #include <vector>
-            #include <sstream>
-
             if (x.empty()) return;
 
-            // En ESPHome, los globales se acceden como un puntero o llamando a .value() si da guerra.
-            // Para asegurar máxima compatibilidad con el código generado, usamos ->
-            id(array_playlists)->clear();
+            // 1. Limpiamos el Array usando el punto (.) tal como pide el compilador
+            id(array_playlists).clear();
 
-            std::stringstream ss(x);
-            std::string item;
+            // 2. Troceamos el texto manualmente sin usar sstream
+            std::string texto = x;
+            std::string delimitador = ";";
+            size_t pos = 0;
+            std::string token;
 
-            while (std::getline(ss, item, ';')) {
-              if (!item.empty()) {
-                id(array_playlists)->push_back(item);
-              }
+            while ((pos = texto.find(delimitador)) != std::string::npos) {
+                token = texto.substr(0, pos);
+                if (!token.empty()) {
+                    id(array_playlists).push_back(token);
+                }
+                texto.erase(0, pos + delimitador.length());
+            }
+            
+            // Guardamos el último elemento de la lista
+            if (!texto.empty()) {
+                id(array_playlists).push_back(texto);
             }
 
-            ESP_LOGI("custom", "¡Array de playlists actualizado! Total de elementos: %d", id(array_playlists)->size());
-
+            // 3. Imprimimos el log de confirmación
+            ESP_LOGI("custom", "¡Array de playlists actualizado! Total de elementos: %d", id(array_playlists).size());
