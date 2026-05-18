@@ -196,6 +196,11 @@ output:
     id: light_output_2
     # inverted: true
     
+  - platform: gpio
+    pin: 1
+    id: light_output_3
+    # inverted: true
+
 ################################### FAVORITOS SONOS
 globals:
   - id: sonos_favoritos
@@ -215,9 +220,3 @@ api:
                 id(sonos_favoritos).push_back(item);
             }
             ESP_LOGI("sonos", "Favoritos cargados: %d elementos", id(sonos_favoritos).size());
-  - platform: gpio
-    pin: 1
-    id: light_output_3
-    # inverted: true
-
-
