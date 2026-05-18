@@ -56,7 +56,7 @@ text_sensor:
             for (int i = 0; i < total_botones; i++) {
                 if (i < id(array_playlists).size()) {
                     std::string nombre_favorito = id(array_playlists)[i];
-                    // 1. Generar componentes RGB aleatorios para el fondo de pantalla del boton
+                    // 1. Generar componentes RGB aleatorios para el fondo de pantalla del boton solo hasta 200, evitar fondos claros, texto en blanco
                     uint8_t r = esp_random() % 200;
                     uint8_t g = esp_random() % 200;
                     uint8_t b = esp_random() % 200;
@@ -92,6 +92,5 @@ script:
               return id(is_tv_mode) ? id(linked_media_player_entity).state : id(media_player_entity).state;
           data_template:
             entity_id: "{{ target }}"
-            # entity_id: media_player.despacho  # <- Cambia esto por el ID real de tu Sonos en HA
             source: !lambda 'return favorito_seleccionado;'
 
