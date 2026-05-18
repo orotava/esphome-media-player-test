@@ -311,7 +311,7 @@ lvgl:
                     styles: control
                     grid_cell_column_pos: 0 #Posicion en grid
                     grid_cell_row_pos: 0 #Posicion en grid
-                   # hidden: true 
+                    hidden: true 
                     widgets:
                       - label:
                           align: center
@@ -372,7 +372,7 @@ lvgl:
                     styles: control
                     grid_cell_column_pos: 0 #Posicion en grid
                     grid_cell_row_pos: 1 #Posicion en grid
-                   # hidden: true 
+                    hidden: true 
                     widgets:
                       - label:
                           align: center
@@ -393,7 +393,7 @@ lvgl:
                     styles: control
                     grid_cell_column_pos: 1 #Posicion en grid
                     grid_cell_row_pos: 1 #Posicion en grid
-                   # hidden: true 
+                    hidden: true 
                     widgets:
                       - label:
                           align: center
@@ -414,7 +414,7 @@ lvgl:
                     styles: control
                     grid_cell_column_pos: 2 #Posicion en grid
                     grid_cell_row_pos: 1 #Posicion en grid
-                   # hidden: true 
+                    hidden: true 
                     widgets:
                       - label:
                           align: center
