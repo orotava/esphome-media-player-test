@@ -35,13 +35,6 @@ text_sensor:
                 id(array_playlists).push_back(texto);
             }
             
-            // 1. Generar componentes RGB aleatorios para el fondo de pantalla
-            uint8_t r = esp_random() % 256;
-            uint8_t g = esp_random() % 256;
-            uint8_t b = esp_random() % 256;
-
-
-
             // =========================================================================
             // LÓGICA DE ACTUALIZACIÓN: TEXTO Y VISIBILIDAD DE BOTONES 
             // =========================================================================
@@ -61,6 +54,10 @@ text_sensor:
             for (int i = 0; i < total_botones; i++) {
                 if (i < id(array_playlists).size()) {
                     std::string nombre_favorito = id(array_playlists)[i];
+                    // 1. Generar componentes RGB aleatorios para el fondo de pantalla del boton
+                    uint8_t r = esp_random() % 256;
+                    uint8_t g = esp_random() % 256;
+                    uint8_t b = esp_random() % 256;
                     
                     // Asignamos el texto a la etiqueta correspondiente
                     lv_label_set_text(etiquetas_texto[i], nombre_favorito.c_str());
@@ -68,7 +65,7 @@ text_sensor:
                     // MOSTRAR BOTÓN: Eliminamos la bandera "HIDDEN" de LVGL de forma dinámica
                     lv_obj_clear_flag(botones_contenedores[i], LV_OBJ_FLAG_HIDDEN);
                     // FONDO BOTÓN: Color aleatorio de fondo del boton forma dinámica
-                     lv_obj_set_style_bg_color(botones_contenedores[i], lv_color_make(r, g, b), LV_PART_MAIN | LV_STATE_DEFAULT);
+                     lv_obj_set_style_bg_color(botones_contenedores[i], lv_color_make(r, g, b), LV_PART_MAIN );
                     
                 } else {
                     // Si te quedas sin favoritos en la lista, limpiamos el texto
