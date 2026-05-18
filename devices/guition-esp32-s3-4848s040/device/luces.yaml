@@ -203,61 +203,36 @@ output:
 
 ################################### FAVORITOS SONOS
 globals:
-  - id: sonos_favoritos
-    type: std::vector<std::string>
-
-api:
-  services:
-    - service: actualizar_favoritos
-      variables:
-        lista_texto: string
-      then:
-        - lambda: |-
-            id(sonos_favoritos).clear();
-            std::stringstream ss(lista_texto);
-            std::string item;
-            while (std::getline(ss, item, ';')) {
-                id(sonos_favoritos).push_back(item);
-            }
-            ESP_LOGI("sonos", "Favoritos cargados: %d elementos", id(sonos_favoritos).size());
-
-script:
-  - id: reproducir_favorito_script
-    parameters:
-      favorito_seleccionado: string
-    then:
-      - homeassistant.service:
-          service: media_player.select_source
-          data:
-            entity_id: media_player.despacho  # <- Sustituye por tu altavoz real
-            source: !lambda 'return favorito_seleccionado;'
-
+    - id: array_playlists
+      type: std::vector<std::string>
+      restore_value: no
 text_sensor:
   - platform: homeassistant
-    id: lista_cruda_sonos
+    id: playlists_sonos_crudo
     entity_id: sensor.sonos_favorites
-    attribute: items
+    # Usamos tu plantilla exacta de Home Assistant dentro de ESPHome
+    lambda: |-
+      return id(homeassistant_service).get_state_attr("sensor.sonos_favorites", "items");
+    
+    # Cada vez que la lista cambie o se encienda la pantalla, se ejecuta este bloque
     on_value:
       then:
         - lambda: |-
             if (x.empty()) return;
-            
-            id(menu_favoritos).clear_options();
-            
-            std::string entrada = x;
-            entrada.erase(std::remove(entrada.begin(), entrada.end(), '['), entrada.end());
-            entrada.erase(std::remove(entrada.begin(), entrada.end(), ']'), entrada.end());
-            entrada.erase(std::remove(entrada.begin(), entrada.end(), '\''), entrada.end());
-            
-            // Ahora que incluimos <sstream> arriba, esta línea funcionará perfectamente
-            std::stringstream ss(entrada); 
+
+            // 1. Limpiamos el Array global para no duplicar datos
+            id(array_playlists).clear();
+
+            // 2. Procesamos el string recibido (separado por ';')
+            std::stringstream ss(x);
             std::string item;
-            
-            while (std::getline(ss, item, ',')) {
-              size_t start = item.find_first_not_of(" ");
-              if (start != std::string::npos) item = item.substr(start);
-              
+
+            // 3. Vamos troceando el texto y metiendo cada playlist en nuestro Array
+            while (std::getline(ss, item, ';')) {
               if (!item.empty()) {
-                id(menu_favoritos).add_option(item.c_str());
+                id(array_playlists).push_back(item);
               }
-            }        
+            }
+
+            ESP_LOGI("custom", "¡Array de playlists actualizado! Total de elementos: %d", id(array_playlists).size());
+
