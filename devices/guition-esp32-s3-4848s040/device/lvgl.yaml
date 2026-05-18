@@ -320,7 +320,7 @@ lvgl:
                           text:  $luz_off
                       - label:
                           align: bottom_left
-                          id: nombre_favoritos_1
+                          id: texto_favorito_1
                           text: "Cargando..." #Nombre label
                     on_click:
                       - homeassistant.service:
