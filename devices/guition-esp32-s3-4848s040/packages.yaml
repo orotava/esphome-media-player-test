@@ -46,3 +46,4 @@ packages:
   icons: !include assets/icons.yaml
   button: !include theme/button.yaml
   luces:  !include device/luces.yaml
+  favoritos: !include device/favoritos.yaml
