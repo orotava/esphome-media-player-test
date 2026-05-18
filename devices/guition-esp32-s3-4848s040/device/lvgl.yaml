@@ -463,7 +463,215 @@ lvgl:
                                 const char* nombre = lv_label_get_text(id(fav_btn_6));
                                 if (std::string(nombre) != "Cargando..." && std::string(nombre) != "---") {
                                   id(reproducir_sonos_script).execute(nombre); }
+                # fAVORITOS 7
+                - button:
+                    height: 70px
+                    width: $button_width
+                    id: favoritos_7
+                    styles: control
+                    grid_cell_column_pos: 0 #Posicion en grid
+                    grid_cell_row_pos: 2 #Posicion en grid
+                    hidden: true 
+                    widgets:
+                      - label:
+                          align: center
+                          id: fav_btn_7
+                          text: "Cargando..." #Nombre label
+                          max_height: 65px
+                          long_mode: wrap  
+                          width: 100% 
+                    on_click:
+                          then:
+                            - lambda: |-
+                                const char* nombre = lv_label_get_text(id(fav_btn_7));
+                                if (std::string(nombre) != "Cargando..." && std::string(nombre) != "---") {
+                                  id(reproducir_sonos_script).execute(nombre); }
+                # fAVORITOS 8
+                - button:
+                    height: 70px
+                    width: $button_width
+                    id: favoritos_8
+                    styles: control
+                    grid_cell_column_pos: 1 #Posicion en grid
+                    grid_cell_row_pos: 2 #Posicion en grid
+                    hidden: true 
+                    widgets:
+                      - label:
+                          align: center
+                          id: fav_btn_8
+                          text: "Cargando..." #Nombre label
+                          max_height: 65px
+                          long_mode: wrap  
+                          width: 100% 
+                    on_click:
+                          then:
+                            - lambda: |-
+                                const char* nombre = lv_label_get_text(id(fav_btn_8));
+                                if (std::string(nombre) != "Cargando..." && std::string(nombre) != "---") {
+                                  id(reproducir_sonos_script).execute(nombre); }   
+                # fAVORITOS 9
+                - button:
+                    height: 70px
+                    width: $button_width
+                    id: favoritos_7
+                    styles: control
+                    grid_cell_column_pos: 2 #Posicion en grid
+                    grid_cell_row_pos: 2 #Posicion en grid
+                    hidden: true 
+                    widgets:
+                      - label:
+                          align: center
+                          id: fav_btn_9
+                          text: "Cargando..." #Nombre label
+                          max_height: 65px
+                          long_mode: wrap  
+                          width: 100% 
+                    on_click:
+                          then:
+                            - lambda: |-
+                                const char* nombre = lv_label_get_text(id(fav_btn_9));
+                                if (std::string(nombre) != "Cargando..." && std::string(nombre) != "---") {
+                                  id(reproducir_sonos_script).execute(nombre); }    
+                # fAVORITOS 10
+                - button:
+                    height: 70px
+                    width: $button_width
+                    id: favoritos_10
+                    styles: control
+                    grid_cell_column_pos: 0 #Posicion en grid
+                    grid_cell_row_pos: 3 #Posicion en grid
+                    hidden: true 
+                    widgets:
+                      - label:
+                          align: center
+                          id: fav_btn_10
+                          text: "Cargando..." #Nombre label
+                          max_height: 65px
+                          long_mode: wrap  
+                          width: 100% 
+                    on_click:
+                          then:
+                            - lambda: |-
+                                const char* nombre = lv_label_get_text(id(fav_btn_10));
+                                if (std::string(nombre) != "Cargando..." && std::string(nombre) != "---") {
+                                  id(reproducir_sonos_script).execute(nombre); }    
+                # fAVORITOS 11
+                - button:
+                    height: 70px
+                    width: $button_width
+                    id: favoritos_11
+                    styles: control
+                    grid_cell_column_pos: 1 #Posicion en grid
+                    grid_cell_row_pos: 3 #Posicion en grid
+                    hidden: true 
+                    widgets:
+                      - label:
+                          align: center
+                          id: fav_btn_11
+                          text: "Cargando..." #Nombre label
+                          max_height: 65px
+                          long_mode: wrap  
+                          width: 100% 
+                    on_click:
+                          then:
+                            - lambda: |-
+                                const char* nombre = lv_label_get_text(id(fav_btn_11));
+                                if (std::string(nombre) != "Cargando..." && std::string(nombre) != "---") {
+                                  id(reproducir_sonos_script).execute(nombre); }    
+                # fAVORITOS 12
+                - button:
+                    height: 70px
+                    width: $button_width
+                    id: favoritos_12
+                    styles: control
+                    grid_cell_column_pos: 2 #Posicion en grid
+                    grid_cell_row_pos: 3 #Posicion en grid
+                    hidden: true 
+                    widgets:
+                      - label:
+                          align: center
+                          id: fav_btn_12
+                          text: "Cargando..." #Nombre label
+                          max_height: 65px
+                          long_mode: wrap  
+                          width: 100% 
+                    on_click:
+                          then:
+                            - lambda: |-
+                                const char* nombre = lv_label_get_text(id(fav_btn_12));
+                                if (std::string(nombre) != "Cargando..." && std::string(nombre) != "---") {
+                                  id(reproducir_sonos_script).execute(nombre); }
+                   # fAVORITOS 13
+                - button:
+                    height: 70px
+                    width: $button_width
+                    id: favoritos_13
+                    styles: control
+                    grid_cell_column_pos: 0 #Posicion en grid
+                    grid_cell_row_pos: 4 #Posicion en grid
+                    hidden: true 
+                    widgets:
+                      - label:
+                          align: center
+                          id: fav_btn_13
+                          text: "Cargando..." #Nombre label
+                          max_height: 65px
+                          long_mode: wrap  
+                          width: 100% 
+                    on_click:
+                          then:
+                            - lambda: |-
+                                const char* nombre = lv_label_get_text(id(fav_btn_13));
+                                if (std::string(nombre) != "Cargando..." && std::string(nombre) != "---") {
+                                  id(reproducir_sonos_script).execute(nombre); }   
+                   # fAVORITOS 14
+                - button:
+                    height: 70px
+                    width: $button_width
+                    id: favoritos_14
+                    styles: control
+                    grid_cell_column_pos: 1 #Posicion en grid
+                    grid_cell_row_pos: 4 #Posicion en grid
+                    hidden: true 
+                    widgets:
+                      - label:
+                          align: center
+                          id: fav_btn_14
+                          text: "Cargando..." #Nombre label
+                          max_height: 65px
+                          long_mode: wrap  
+                          width: 100% 
+                    on_click:
+                          then:
+                            - lambda: |-
+                                const char* nombre = lv_label_get_text(id(fav_btn_14));
+                                if (std::string(nombre) != "Cargando..." && std::string(nombre) != "---") {
+                                  id(reproducir_sonos_script).execute(nombre); }     
 
+                # fAVORITOS 15
+                - button:
+                    height: 70px
+                    width: $button_width
+                    id: favoritos_15
+                    styles: control
+                    grid_cell_column_pos: 2 #Posicion en grid
+                    grid_cell_row_pos: 4 #Posicion en grid
+                    hidden: true 
+                    widgets:
+                      - label:
+                          align: center
+                          id: fav_btn_15
+                          text: "Cargando..." #Nombre label
+                          max_height: 65px
+                          long_mode: wrap  
+                          width: 100% 
+                    on_click:
+                          then:
+                            - lambda: |-
+                                const char* nombre = lv_label_get_text(id(fav_btn_15));
+                                if (std::string(nombre) != "Cargando..." && std::string(nombre) != "---") {
+                                  id(reproducir_sonos_script).execute(nombre); }
+                                  
     # -----------------------------------------------------------------
     # 4. PANEL CONTENEDOR DE LAS 10 LUCES (ARRANCA OCULTO)
     # -----------------------------------------------------------------
