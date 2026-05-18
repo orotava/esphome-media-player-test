@@ -196,7 +196,25 @@ output:
     id: light_output_2
     # inverted: true
     
+################################### FAVORITOS SONOS
+globals:
+  - id: sonos_favoritos
+    type: std::vector<std::string>
 
+api:
+  services:
+    - service: actualizar_favoritos
+      variables:
+        lista_texto: string
+      then:
+        - lambda: |-
+            id(sonos_favoritos).clear();
+            std::stringstream ss(lista_texto);
+            std::string item;
+            while (std::getline(ss, item, ';')) {
+                id(sonos_favoritos).push_back(item);
+            }
+            ESP_LOGI("sonos", "Favoritos cargados: %d elementos", id(sonos_favoritos).size());
   - platform: gpio
     pin: 1
     id: light_output_3
