@@ -231,3 +231,33 @@ script:
           data:
             entity_id: media_player.despacho  # <- Sustituye por tu altavoz real
             source: !lambda 'return favorito_seleccionado;'
+
+text_sensor:
+  - platform: homeassistant
+    id: lista_cruda_sonos
+    entity_id: sensor.sonos_favorites
+    attribute: items
+    on_value:
+      then:
+        - lambda: |-
+            if (x.empty()) return;
+            
+            id(menu_favoritos).clear_options();
+            
+            std::string entrada = x;
+            entrada.erase(std::remove(entrada.begin(), entrada.end(), '['), entrada.end());
+            entrada.erase(std::remove(entrada.begin(), entrada.end(), ']'), entrada.end());
+            entrada.erase(std::remove(entrada.begin(), entrada.end(), '\''), entrada.end());
+            
+            // Ahora que incluimos <sstream> arriba, esta línea funcionará perfectamente
+            std::stringstream ss(entrada); 
+            std::string item;
+            
+            while (std::getline(ss, item, ',')) {
+              size_t start = item.find_first_not_of(" ");
+              if (start != std::string::npos) item = item.substr(start);
+              
+              if (!item.empty()) {
+                id(menu_favoritos).add_option(item.c_str());
+              }
+            }        
