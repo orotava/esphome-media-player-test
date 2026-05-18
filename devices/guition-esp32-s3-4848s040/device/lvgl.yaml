@@ -205,15 +205,15 @@ lvgl:
                 - lvgl.widget.update:
                     id: panel_favoritos
                     hidden: false  
-                # - lambda: 'id(is_favoritos_open) = true;'
-                # - script.execute: start_speaker_panel_timeout
+                 - lambda: 'id(is_favoritos_open) = true;'
+                 - script.execute: start_speaker_panel_timeout
                 - delay: 15s
                   # 3. Oculta el panel de luces automáticamente
-               # - script.stop: start_speaker_panel_timeout
+                - script.stop: start_speaker_panel_timeout
                 - lvgl.widget.update:
                     id: panel_favoritos
                     hidden: true
-               # - lambda: 'id(is_favoritos_open) = false;'
+                - lambda: 'id(is_favoritos_open) = false;'
 
 
         # Play/pause: 96px round, bottom-right corner
