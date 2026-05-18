@@ -236,17 +236,17 @@ text_sensor:
             }
 
             // ==========================================
-            // NUEVA LÓGICA CORREGIDA PARA EL WIDGET
+            // LOGICA REPARADA USANDO FUNCIONES C DE LVGL
             // ==========================================
             // Comprobamos que el array tenga al menos 1 elemento para evitar cuelgues
             if (id(array_playlists).size() >= 1) {
                 // Extraemos el primer registro (posición 0, que es "Acusticos")
                 std::string primer_favorito = id(array_playlists)[0];
                 
-                // Usamos la API nativa de ESPHome para actualizar la etiqueta sin romper LVGL
-                id(texto_favorito_1).set_text(primer_favorito);
+                // Usamos la función nativa de LVGL para asignar texto a una etiqueta
+                lv_label_set_text(id(texto_favorito_1), primer_favorito.c_str());
             } else {
-                id(texto_favorito_1).set_text("Sin favoritos");
+                lv_label_set_text(id(texto_favorito_1), "Sin favoritos");
             }
 
             ESP_LOGI("custom", "¡Texto del widget actualizado con el primer favorito!");
