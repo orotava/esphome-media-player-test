@@ -34,6 +34,13 @@ text_sensor:
             if (!texto.empty()) {
                 id(array_playlists).push_back(texto);
             }
+            
+            // 1. Generar componentes RGB aleatorios para el fondo de pantalla
+            uint8_t r = esp_random() % 256;
+            uint8_t g = esp_random() % 256;
+            uint8_t b = esp_random() % 256;
+
+
 
             // =========================================================================
             // LÓGICA DE ACTUALIZACIÓN: TEXTO Y VISIBILIDAD DE BOTONES 
@@ -60,10 +67,13 @@ text_sensor:
                     
                     // MOSTRAR BOTÓN: Eliminamos la bandera "HIDDEN" de LVGL de forma dinámica
                     lv_obj_clear_flag(botones_contenedores[i], LV_OBJ_FLAG_HIDDEN);
+                    // FONDO BOTÓN: Color aleatorio de fondo del boton forma dinámica
+                     lv_obj_set_style_bg_color(botones_contenedores[i].get_obj(), lv_color_make(r, g, b), LV_PART_MAIN | LV_STATE_DEFAULT);
+                    
                 } else {
                     // Si te quedas sin favoritos en la lista, limpiamos el texto
                     lv_label_set_text(etiquetas_texto[i], "---");
-                    
+            
                     // OCULTAR BOTÓN: Añadimos la bandera "HIDDEN" para que el Grid se reorganize
                     lv_obj_add_flag(botones_contenedores[i], LV_OBJ_FLAG_HIDDEN);
                 }
