@@ -303,6 +303,26 @@ lvgl:
                 # =========================================================================
                 # BUTTON: FAVORITOS 1
                 # =========================================================================
+                # Cerrar Pantalla Favoritos
+                - button:
+                    height: 70px
+                    width: $button_width
+                    checkable: false
+                    id: close_button
+                    styles: control
+                    grid_cell_column_pos: 2 #Posicion en grid
+                    grid_cell_row_pos: 6 #Posicion en grid
+                    widgets:
+                      - label:
+                          text_font: $icon_font
+                          align: center
+                          text:  $icon_close
+                    on_click:
+                      - script.stop: start_speaker_panel_timeout
+                      - lvgl.widget.update:
+                          id: panel_favoritos
+                          hidden: true
+                      - lambda: 'id(is_favoritos_open) = false;'
                 # fAVORITOS 1
                 - button:
                     height: 70px
@@ -658,27 +678,7 @@ lvgl:
                           hidden: true
                       - lambda: 'id(is_luces_open) = false;'
 
-# Select de prueba para favoritos
-                - dropdown:
-                    id: dropdown_id
-                    height: $button_height_single
-                    width: $button_width
-                    styles: control
-                    grid_cell_column_pos: 1 #Posicion en grid
-                    grid_cell_row_pos: 2 #Posicion en grid                    
-                    align: CENTER
-                    y: -40
-                    options:
-                      - Violin
-                      - Piano
-                      - Bassoon
-                      - Chello
-                      - Drums
-                    selected_index: 2
-                    dropdown_list:
-                      selected:
-                        checked:
-                          text_color: 0xFF0000 
+
 
                                  
         # ---------------------------------------------------------------
