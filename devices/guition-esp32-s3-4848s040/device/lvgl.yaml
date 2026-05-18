@@ -315,7 +315,7 @@ lvgl:
                    # hidden: true 
                     widgets:
                       - label:
-                          align: center_left
+                          align: center
                           id: fav_btn_1
                           text: "Cargando..." #Nombre label
                     on_click:
