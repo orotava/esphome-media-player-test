@@ -249,7 +249,7 @@ text_sensor:
                 id(favoritos_1), id(favoritos_2), id(favoritos_3)
             };
 
-            int total_botones = sizeof(etiquetas_texto) / sizeof(etiquetas_texto);
+            int total_botones = std::size(etiquetas_texto); 
 
             for (int i = 0; i < total_botones; i++) {
                 if (i < id(array_playlists).size()) {
@@ -279,5 +279,5 @@ script:
       - homeassistant.service:
           service: media_player.select_source
           data:
-            entity_id: media_player.tu_altavoz_sonos  # <- Cambia esto por el ID real de tu Sonos en HA
+            entity_id: media_player.despacho  # <- Cambia esto por el ID real de tu Sonos en HA
             source: !lambda 'return favorito_seleccionado;'
