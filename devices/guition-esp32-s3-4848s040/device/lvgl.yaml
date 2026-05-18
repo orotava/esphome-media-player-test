@@ -301,7 +301,7 @@ lvgl:
               
               widgets:
                 # =========================================================================
-                # BUTTON: FAVORITOS 1
+                # BUTTON: FAVORITOS 
                 # =========================================================================
                 # Cerrar Pantalla Favoritos
                 - button:
@@ -513,7 +513,7 @@ lvgl:
                 - button:
                     height: 70px
                     width: $button_width
-                    id: favoritos_7
+                    id: favoritos_9
                     styles: control
                     grid_cell_column_pos: 2 #Posicion en grid
                     grid_cell_row_pos: 2 #Posicion en grid
