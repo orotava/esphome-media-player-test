@@ -220,3 +220,14 @@ api:
                 id(sonos_favoritos).push_back(item);
             }
             ESP_LOGI("sonos", "Favoritos cargados: %d elementos", id(sonos_favoritos).size());
+
+script:
+  - id: reproducir_favorito_script
+    parameters:
+      favorito_seleccionado: string
+    then:
+      - homeassistant.service:
+          service: media_player.select_source
+          data:
+            entity_id: media_player.despacho  # <- Sustituye por tu altavoz real
+            source: !lambda 'return favorito_seleccionado;'
