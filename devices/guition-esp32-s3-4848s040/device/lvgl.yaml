@@ -305,7 +305,7 @@ lvgl:
                 # =========================================================================
                 # fAVORITOS 1
                 - button:
-                    height: $button_height_single
+                    height: 70px
                     width: $button_width
                     checkable: true
                     id: favoritos_1
@@ -331,7 +331,7 @@ lvgl:
                                 }
                 # fAVORITOS 2
                 - button:
-                    height: $button_height_single
+                    height: 70px
                     width: $button_width
                     checkable: true
                     id: favoritos_2
@@ -355,7 +355,7 @@ lvgl:
                             entity_id: light.luz_despacho #Entidad Luz
                 # fAVORITOS 3
                 - button:
-                    height: $button_height_single
+                    height: 70px
                     width: $button_width
                     checkable: true
                     id: favoritos_3
