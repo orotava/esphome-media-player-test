@@ -996,7 +996,7 @@ lvgl:
                  # Cerrar Pantalla Luces
                       - button:
                             height: 100%
-                            width: 111px
+                            width: 100px
                             checkable: false
                             id: close_button
                             styles: control
