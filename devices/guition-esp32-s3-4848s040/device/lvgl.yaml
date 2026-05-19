@@ -907,26 +907,122 @@ lvgl:
 
 
 # La ultima linea de la pantalla de luces para toldo y cerrar
+
+                # =========================================================================
+                # FILA 3: SUB-CONTENEDOR DIVIDIDO EN 4 COLUMNAS
+                # =========================================================================
+                - obj:
+                    grid_cell_row_pos: 3       # Va en la última fila
+                    grid_cell_row_span: 1
+                    grid_cell_column_pos: 0    # Empieza en la columna 0
+                    grid_cell_column_span: 3   # Se estira para ocupar las 3 columnas del grid principal
+                    width: 100%
+                    height: 100%
+                    bg_opa: 0%                 # Transparente para que no se note
+                    border_width: 0
+                    pad_all: 0                 # Reseteamos márgenes internos
+                    layout:
+                      type: grid
+                      grid_columns: [fr(1), fr(1), fr(1), fr(1)] # ¡Aquí dividimos en 4!
+                      grid_rows: [fr(1)]
+                    
+                    widgets:
+                      # -------------------------------------------------------------------
+                      # BOTÓN 1 DE 4 (Columna 0 de la última fila)
+                      # -------------------------------------------------------------------
+                      - button:
+                          height: 100%         # Ocupa todo el alto de la celda
+                          width: 100%          # Ocupa todo el ancho de la celda
+                          checkable: false
+                          id: boton_4_1_button
+                          styles: control
+                          grid_cell_column_pos: 0 
+                          grid_cell_row_pos: 0 
+                          widgets:
+                            - label:
+                                text_font: $icon_font
+                                align: top_left
+                                id: boton_4_1_icon 
+                                text:  $abre_toldo
+                            - label:
+                                align: bottom_left
+                                id: boton_4_1_label 
+                                text: "Abre Toldo"
+                          on_click:
+                            - homeassistant.service:
+                                service: cover.open_cover
+                                data: {}
+                                target:
+                                  entity_id: cover.came2
+                      - button:
+                          height: 100%         # Ocupa todo el alto de la celda
+                          width: 100%          # Ocupa todo el ancho de la celda
+                          checkable: false
+                          id: boton_4_1_button
+                          styles: control
+                          grid_cell_column_pos: 2 
+                          grid_cell_row_pos: 0 
+                          widgets:
+                            - label:
+                                text_font: $icon_font
+                                align: top_left
+                                id: boton_4_1_icon 
+                                text:  $para_toldo
+                            - label:
+                                align: bottom_left
+                                id: boton_4_1_label 
+                                text: "Para Toldo"
+                          on_click:
+                            - homeassistant.service:
+                                service: cover.stop_cover
+                                data: {}
+                                target:
+                                  entity_id: cover.came2
+                                  
+                      - button:
+                          height: 100%         # Ocupa todo el alto de la celda
+                          width: 100%          # Ocupa todo el ancho de la celda
+                          checkable: false
+                          id: boton_4_1_button
+                          styles: control
+                          grid_cell_column_pos: 3 
+                          grid_cell_row_pos: 0 
+                          widgets:
+                            - label:
+                                text_font: $icon_font
+                                align: top_left
+                                id: boton_4_1_icon 
+                                text:  $cierra_toldo
+                            - label:
+                                align: bottom_left
+                                id: boton_4_1_label 
+                                text: "Cierra Toldo"
+                          on_click:
+                            - homeassistant.service:
+                                service: cover.close_cover
+                                data: {}
+                                target:
+                                  entity_id: cover.came2
                       
                  # Cerrar Pantalla Luces
-                - button:
-                    height: $button_height_single
-                    width: $button_width
-                    checkable: false
-                    id: close_button
-                    styles: control
-                    grid_cell_column_pos: 2 #Posicion en grid
-                    grid_cell_row_pos: 3 #Posicion en grid
-                    widgets:
-                      - label:
-                          text_font: $icon_font
-                          align: top_left
-                          text:  $icon_close
-                      - label:
-                          align: bottom_left
-                          text: "Cerrar" #Nombre label
-                    on_click:
-                      - script.execute: close_luces_panel
+                      - button:
+                            height: $button_height_single
+                            width: $button_width
+                            checkable: false
+                            id: close_button
+                            styles: control
+                            grid_cell_column_pos: 4 #Posicion en grid
+                            grid_cell_row_pos: 0 #Posicion en grid
+                            widgets:
+                              - label:
+                                  text_font: $icon_font
+                                  align: top_left
+                                  text:  $icon_close
+                              - label:
+                                  align: bottom_left
+                                  text: "Cerrar" #Nombre label
+                            on_click:
+                              - script.execute: close_luces_panel
 
 
 
