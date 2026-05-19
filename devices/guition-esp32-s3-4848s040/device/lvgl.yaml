@@ -920,7 +920,7 @@ lvgl:
                     height: $button_height_single
                     bg_opa: 0%                 # Transparente para que no se note
                     border_width: 0
-                    pad_all: 0                 # Reseteamos márgenes internos
+                    pad_all: 5                 # Reseteamos márgenes internos
                     scrollable: false
                     scrollbar_mode: "off"
                     layout:
@@ -999,7 +999,7 @@ lvgl:
                             width: 111px
                             checkable: false
                             id: close_button
-                            styles: control_round
+                            styles: control
                             grid_cell_column_pos: 3 #Posicion en grid
                             grid_cell_row_pos: 0 #Posicion en grid
                             widgets:
