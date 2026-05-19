@@ -161,19 +161,7 @@ lvgl:
                   text: $luz_off 
                   text_color: 0xFFFFFF
             on_press:
-                # Al pulsar el círculo flotante, hacemos aparecer el panel de luces
-                - lvgl.widget.update:
-                    id: panel_luces
-                    hidden: false  
-                - lambda: 'id(is_luces_open) = true;'
-                - script.execute: start_speaker_panel_timeout
-                - delay: 15s
-                  # 3. Oculta el panel de luces automáticamente
-                - script.stop: start_speaker_panel_timeout
-                - lvgl.widget.update:
-                    id: panel_luces
-                    hidden: true
-                - lambda: 'id(is_luces_open) = false;'
+                - script.execute: open_luces_panel
 
     # -----------------------------------------------------------------
     # 1. BOTÓN DE FAVORITOS (Se verá encima del reproductor)
@@ -934,11 +922,7 @@ lvgl:
                           align: bottom_left
                           text: "Cerrar" #Nombre label
                     on_click:
-                      - script.stop: start_speaker_panel_timeout
-                      - lvgl.widget.update:
-                          id: panel_luces
-                          hidden: true
-                      - lambda: 'id(is_luces_open) = false;'
+                      - script.execute: close_luces_panel
 
 
 
