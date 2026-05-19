@@ -137,9 +137,9 @@ binary_sensor:
           state:
             checked: !lambda return x;  
 #=========================================================
-# Fichero theme button original add
+# Theme new button 
 #=========================================================
-# Definicion estilos botones luces, usado tambien en favoritos
+# Definition of button and light styles, also used in Sonos Favourites
 lvgl:
   style_definitions:
       - id: webhook
@@ -174,8 +174,11 @@ substitutions:
       checked:
         bg_color: $button_on_color
         text_color: $button_text_color
-
-# Reles internos GPIO 40, 2 y 1
+        
+###############################################################################
+# To use the internal relays
+# Uses GPIO 40, 2 y 1, Exposed only to HA
+############################################################################### 
 light:
   - platform: binary
     name: "Relay 1"
@@ -196,7 +199,7 @@ output:
   - platform: gpio
     pin: 40
     id: light_output_1
-    # inverted: true # Cambia a false si la luz se enciende al revés
+    # inverted: true # Set it to true if the light turns on backwards
 
   - platform: gpio
     pin: 2 
