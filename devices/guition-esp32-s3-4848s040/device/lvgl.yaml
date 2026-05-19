@@ -959,7 +959,7 @@ lvgl:
                           checkable: false
                           id: boton_4_1_button
                           styles: control
-                          grid_cell_column_pos: 2 
+                          grid_cell_column_pos: 1 
                           grid_cell_row_pos: 0 
                           widgets:
                             - label:
@@ -983,7 +983,7 @@ lvgl:
                           checkable: false
                           id: boton_4_1_button
                           styles: control
-                          grid_cell_column_pos: 3 
+                          grid_cell_column_pos: 2 
                           grid_cell_row_pos: 0 
                           widgets:
                             - label:
@@ -1008,7 +1008,7 @@ lvgl:
                             checkable: false
                             id: close_button
                             styles: control
-                            grid_cell_column_pos: 4 #Posicion en grid
+                            grid_cell_column_pos: 3 #Posicion en grid
                             grid_cell_row_pos: 0 #Posicion en grid
                             widgets:
                               - label:
