@@ -945,7 +945,7 @@ lvgl:
                                 align: top_left
                                 text:  $abre_toldo
                             - label:
-                                align: bottom_left
+                                align: center
                                 text: "Abre Toldo"
                           on_click:
                             - homeassistant.service:
