@@ -321,6 +321,7 @@ lvgl:
                                 if (std::string(nombre) != "Cargando..." && std::string(nombre) != "---") {
                                   id(reproducir_sonos_script).execute(nombre);
                                 }
+                            - script.execute: close_favoritos_panel
                  # fAVORITOS 2
                 - button:
                     height: 70px
