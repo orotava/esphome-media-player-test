@@ -243,4 +243,4 @@ script:
       - script.stop: start_luces_panel_timeout
       - lvgl.widget.hide: panel_luces
       - lambda: 'id(is_luces_open) = false;'
-      - script.execute: show_track_view
+      - script.execute: toggle_ui
