@@ -135,4 +135,5 @@ script:
       - script.stop: start_favoritos_panel_timeout
       - lvgl.widget.hide: panel_favoritos
       - lambda: 'id(is_favoritos_open) = false;'
+      - delay: 5s
       - script.execute: toggle_ui
