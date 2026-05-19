@@ -951,8 +951,7 @@ lvgl:
                           on_click:
                             - homeassistant.service:
                                 service: cover.open_cover
-                                data: {}
-                                target:
+                                data: 
                                   entity_id: cover.came2
                       - button:
                           height: 100%         # Ocupa todo el alto de la celda
@@ -975,8 +974,7 @@ lvgl:
                           on_click:
                             - homeassistant.service:
                                 service: cover.stop_cover
-                                data: {}
-                                target:
+                                data: 
                                   entity_id: cover.came2
                                   
                       - button:
@@ -1000,8 +998,7 @@ lvgl:
                           on_click:
                             - homeassistant.service:
                                 service: cover.close_cover
-                                data: {}
-                                target:
+                                data: 
                                   entity_id: cover.came2
                       
                  # Cerrar Pantalla Luces
