@@ -904,6 +904,10 @@ lvgl:
                           service: light.toggle
                           data:
                             entity_id: light.led_piscina1 #Entidad Luz   
+
+
+# La ultima linea de la pantalla de luces para toldo y cerrar
+                      
                  # Cerrar Pantalla Luces
                 - button:
                     height: $button_height_single
