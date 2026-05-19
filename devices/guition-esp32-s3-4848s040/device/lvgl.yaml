@@ -920,7 +920,9 @@ lvgl:
                     height: 100%
                     bg_opa: 0%                 # Transparente para que no se note
                     border_width: 0
-                    pad_all: 0                 # Reseteamos márgenes internos
+                    pad_all: 5                 # Reseteamos márgenes internos
+                    scrollable: false
+                    scrollbar_mode: "off"
                     layout:
                       type: grid
                       grid_columns: [fr(1), fr(1), fr(1), fr(1)] # ¡Aquí dividimos en 4!
@@ -994,8 +996,8 @@ lvgl:
                       
                  # Cerrar Pantalla Luces
                       - button:
-                            height: $button_height_single
-                            width: $button_width
+                            height: 100%
+                            width: 100%
                             checkable: false
                             id: close_button
                             styles: control
