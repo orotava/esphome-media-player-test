@@ -920,14 +920,14 @@ lvgl:
                     height: 100%
                     bg_opa: 0%                 # Transparente para que no se note
                     border_width: 0
-                    pad_all: 5                 # Reseteamos márgenes internos
+                    pad_all: 2                 # Reseteamos márgenes internos
                     scrollable: false
                     scrollbar_mode: "off"
                     layout:
                       type: grid
                       grid_columns: [fr(1), fr(1), fr(1), fr(1)] # ¡Aquí dividimos en 4!
                       grid_rows: [fr(1)]
-                    
+                      pad_column: 5
                     widgets:
                       # -------------------------------------------------------------------
                       # BOTÓN 1 DE 4 (Columna 0 de la última fila)
