@@ -193,20 +193,7 @@ lvgl:
                   text: $favoritos
                   text_color: 0xFFFFFF
             on_press:
-                # Al pulsar el círculo flotante, hacemos aparecer el panel de luces
-                - lvgl.widget.update:
-                    id: panel_favoritos
-                    hidden: false  
-                - lambda: 'id(is_favoritos_open) = true;'
-                - script.execute: start_speaker_panel_timeout
-                - delay: 15s
-                  # 3. Oculta el panel de luces automáticamente
-                - script.stop: start_speaker_panel_timeout
-                - lvgl.widget.update:
-                    id: panel_favoritos
-                    hidden: true
-                - lambda: 'id(is_favoritos_open) = false;'
-
+              - script.execute: open_favoritos_panel
 
         # Play/pause: 96px round, bottom-right corner
         - button:
@@ -309,11 +296,7 @@ lvgl:
                           align: center
                           text:  $icon_close
                     on_click:
-                      - script.stop: start_speaker_panel_timeout
-                      - lvgl.widget.update:
-                          id: panel_favoritos
-                          hidden: true
-                      - lambda: 'id(is_favoritos_open) = false;'
+                      - script.execute: close_favoritos_panel
                 # fAVORITOS 1
                 - button:
                     height: 70px
