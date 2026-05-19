@@ -45,6 +45,9 @@ font:
     glyphs:
       - "\U000F040A"  # mdi-play
       - "\U000F03E4"  # mdi-pause
+      - "\U000F0CB8"  # mdi:playlist-music 
+      - "\U000F0335"  # mdi:lightbulb
+      
 
 substitutions:
   play:          "\U000F040A"
