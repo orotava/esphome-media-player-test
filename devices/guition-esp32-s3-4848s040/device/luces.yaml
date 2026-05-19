@@ -139,6 +139,12 @@ binary_sensor:
 #=========================================================
 # Fichero theme button original add
 #=========================================================
+# Definicion estilos botones luces, usado tambien en favoritos
+style_definitions:
+    - id: webhook
+      bg_color: $button_webhook_color
+    - id: control
+      bg_color: $button_control_color
 substitutions:
   icon_font: icon_font
   text_font: roboto19_font
