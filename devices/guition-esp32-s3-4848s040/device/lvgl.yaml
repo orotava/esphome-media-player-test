@@ -975,7 +975,7 @@ lvgl:
                                   
                       - button:
                           height: 100%         # Ocupa todo el alto de la celda
-                          width: 100%          # Ocupa todo el ancho de la celda
+                          width: 110px          # Ocupa todo el ancho de la celda
                           checkable: false
                           styles: control
                           grid_cell_column_pos: 2 
@@ -997,7 +997,7 @@ lvgl:
                  # Cerrar Pantalla Luces
                       - button:
                             height: 100%
-                            width: 100px
+                            width: 110px
                             checkable: false
                             id: close_button
                             styles: control
