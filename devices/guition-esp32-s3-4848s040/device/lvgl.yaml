@@ -706,7 +706,7 @@ lvgl:
               layout: 
                 type: grid
                 grid_columns: [fr(1), fr(1), fr(1)]
-                grid_rows: [fr(1), fr(1), fr(1)]
+                grid_rows: [fr(1), fr(1), fr(1), fr(1)]
               x: 0
               y: 0
               width: 480
@@ -912,7 +912,7 @@ lvgl:
                     id: close_button
                     styles: control
                     grid_cell_column_pos: 2 #Posicion en grid
-                    grid_cell_row_pos: 2 #Posicion en grid
+                    grid_cell_row_pos: 3 #Posicion en grid
                     widgets:
                       - label:
                           text_font: $icon_font
