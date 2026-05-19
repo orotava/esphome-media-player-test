@@ -941,11 +941,9 @@ lvgl:
                             - label:
                                 text_font: $icon_font
                                 align: top_left
-                                id: boton_4_1_icon 
                                 text:  $abre_toldo
                             - label:
                                 align: bottom_left
-                                id: boton_4_1_label 
                                 text: "Abre Toldo"
                           on_click:
                             - homeassistant.service:
@@ -963,11 +961,9 @@ lvgl:
                             - label:
                                 text_font: $icon_font
                                 align: top_left
-                                id: boton_4_1_icon 
                                 text:  $para_toldo
                             - label:
                                 align: bottom_left
-                                id: boton_4_1_label 
                                 text: "Para Toldo"
                           on_click:
                             - homeassistant.service:
@@ -986,11 +982,9 @@ lvgl:
                             - label:
                                 text_font: $icon_font
                                 align: top_left
-                                id: boton_4_1_icon 
                                 text:  $cierra_toldo
                             - label:
                                 align: bottom_left
-                                id: boton_4_1_label 
                                 text: "Cierra Toldo"
                           on_click:
                             - homeassistant.service:
