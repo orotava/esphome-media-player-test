@@ -1,13 +1,22 @@
-################################### 
-# PARA FAVORITOS SONOS
-################################### 
+########################################################################################### 
+# FAVORITES SONOS
+# The Sonos Favorites sensor is required in HA: sensor.sonos_favorites
+# The Sonos favorites sensor (sensor.sonos_favorites) is disabled by default. 
+# It can be found and enabled from the entities associated with the Sonos integration
+# on your Devices & services page.
+# Once the Favorites sensor has been enabled in the Sonos integration, you must create a sensor template using the following template: 
+# template:
+#   - sensor:
+#      - name: “Sonos Favorites Clean”
+#        state: “{{ state_attr(‘sensor.sonos_favorites’, ‘items’).values() | list | join(‘;’) }}”
+########################################################################################### 
 globals:
-  # Declaración limpia que ESPHome valida correctamente
+  # Array declaration
   - id: array_playlists
     type: std::vector<std::string>
     restore_value: no
     
-# Genera el array con la lista de favoritos
+# Generate the array containing the list of favorites
 text_sensor:
   - platform: homeassistant
     id: playlists_sonos_crudo
@@ -17,7 +26,7 @@ text_sensor:
         - lambda: |-
             if (x.empty()) return;
 
-            // 1. Limpiamos y rellenamos el Array (Código que ya te compila)
+            // 1. We clear and refill the array
             id(array_playlists).clear();
             std::string texto = x;
             std::string delimitador = ";";
@@ -36,17 +45,17 @@ text_sensor:
             }
             
             // =========================================================================
-            // LÓGICA DE ACTUALIZACIÓN: TEXTO Y VISIBILIDAD DE BOTONES 
+            // TEXT AND BUTTON VISIBILITY 
             // =========================================================================
             
-            // 1. Array de tus etiquetas de texto (Para inyectar los nombres)
+            // 1. Array of text labels (to insert the names)
             lv_obj_t* etiquetas_texto[] = {
                 id(fav_btn_1), id(fav_btn_2), id(fav_btn_3), id(fav_btn_4), id(fav_btn_5), id(fav_btn_6), id(fav_btn_7), id(fav_btn_8)
                 , id(fav_btn_9), id(fav_btn_10), id(fav_btn_11), id(fav_btn_12), id(fav_btn_13), id(fav_btn_14), id(fav_btn_15)
                 , id(fav_btn_16), id(fav_btn_17)
             };
 
-            // 2. Array de tus botones contenedores (Para controlar la visibilidad del Grid)
+            // 2. Array of container buttons (to control the visibility of the grid)
             lv_obj_t* botones_contenedores[] = {
                 id(favoritos_1), id(favoritos_2), id(favoritos_3), id(favoritos_4), id(favoritos_5), id(favoritos_6), id(favoritos_7), id(favoritos_8)
                 , id(favoritos_9), id(favoritos_10), id(favoritos_11), id(favoritos_12), id(favoritos_13), id(favoritos_14), id(favoritos_15)
@@ -58,29 +67,31 @@ text_sensor:
             for (int i = 0; i < total_botones; i++) {
                 if (i < id(array_playlists).size()) {
                     std::string nombre_favorito = id(array_playlists)[i];
-                    // 1. Generar componentes RGB aleatorios para el fondo de pantalla del boton solo hasta 200, evitar fondos claros, texto en blanco
+                    // 1. Generate random RGB values for the button's background, up to 200; avoid light backgrounds and white text
                     uint8_t r = esp_random() % 200;
                     uint8_t g = esp_random() % 200;
                     uint8_t b = esp_random() % 200;
                     
-                    // Asignamos el texto a la etiqueta correspondiente
+                    // We assign the text to the corresponding label
                     lv_label_set_text(etiquetas_texto[i], nombre_favorito.c_str());
                     
-                    // MOSTRAR BOTÓN: Eliminamos la bandera "HIDDEN" de LVGL de forma dinámica
+                    // SHOW BUTTON: Dynamically remove the “HIDDEN” flag from LVGL
                     lv_obj_clear_flag(botones_contenedores[i], LV_OBJ_FLAG_HIDDEN);
-                    // FONDO BOTÓN: Color aleatorio de fondo del boton forma dinámica
+                    // BUTTON BACKGROUND: Random background color for dynamically shaped buttons
                      lv_obj_set_style_bg_color(botones_contenedores[i], lv_color_make(r, g, b), LV_PART_MAIN );
                     
                 } else {
-                    // Si te quedas sin favoritos en la lista, limpiamos el texto
+                    // If there are no more favorites on the list, we clear the text from the remaining buttons
                     lv_label_set_text(etiquetas_texto[i], "---");
             
-                    // OCULTAR BOTÓN: Añadimos la bandera "HIDDEN" para que el Grid se reorganize
+                    //HIDE BUTTON: We add the “HIDDEN” flag so that empty buttons are not displayed
                     lv_obj_add_flag(botones_contenedores[i], LV_OBJ_FLAG_HIDDEN);
                 }
             }
 
-            ESP_LOGI("custom", "¡Botones actualizados y visibilidad gestionada por el Grid!");
+            ESP_LOGI("custom", "Updated Favourites buttons!");
+
+# Script to play the selected favorites list
 script:
   - id: reproducir_sonos_script
     mode: restart
