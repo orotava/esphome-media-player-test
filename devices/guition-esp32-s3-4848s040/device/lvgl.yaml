@@ -310,7 +310,7 @@ lvgl:
                       - label:
                           align: center
                           id: fav_btn_1
-                          text: "Cargando..." #Nombre label
+                          text: "Loading..." #Nombre label
                           max_height: 65px
                           long_mode: wrap 
                           width: 100%                           
@@ -335,7 +335,7 @@ lvgl:
                       - label:
                           align: center
                           id: fav_btn_2
-                          text: "Cargando..." #Nombre label
+                          text: "Loading..." #Nombre label
                           max_height: 65px
                           long_mode: wrap 
                           width: 100% 
@@ -345,6 +345,7 @@ lvgl:
                                 const char* nombre = lv_label_get_text(id(fav_btn_2));
                                 if (std::string(nombre) != "Cargando..." && std::string(nombre) != "---") {
                                   id(reproducir_sonos_script).execute(nombre); }
+                            - script.execute: close_favoritos_panel                                  
                 # fAVORITOS 3
                 - button:
                     height: 70px
@@ -358,7 +359,7 @@ lvgl:
                       - label:
                           align: center
                           id: fav_btn_3
-                          text: "Cargando..." #Nombre label
+                          text: "Loading..." #Nombre label
                           max_height: 65px
                           long_mode: wrap  
                           width: 100% 
@@ -368,6 +369,7 @@ lvgl:
                                 const char* nombre = lv_label_get_text(id(fav_btn_3));
                                 if (std::string(nombre) != "Cargando..." && std::string(nombre) != "---") {
                                   id(reproducir_sonos_script).execute(nombre); }
+                            - script.execute: close_favoritos_panel                                  
                 # fAVORITOS 4
                 - button:
                     height: 70px
@@ -381,7 +383,7 @@ lvgl:
                       - label:
                           align: center
                           id: fav_btn_4
-                          text: "Cargando..." #Nombre label
+                          text: "Loading..." #Nombre label
                           max_height: 65px
                           long_mode: wrap 
                           width: 100% 
@@ -390,7 +392,8 @@ lvgl:
                             - lambda: |-
                                 const char* nombre = lv_label_get_text(id(fav_btn_4));
                                 if (std::string(nombre) != "Cargando..." && std::string(nombre) != "---") {
-                                  id(reproducir_sonos_script).execute(nombre); }                              
+                                  id(reproducir_sonos_script).execute(nombre); }  
+                            - script.execute: close_favoritos_panel                                  
 
                 # fAVORITOS 5
                 - button:
@@ -405,7 +408,7 @@ lvgl:
                       - label:
                           align: center
                           id: fav_btn_5
-                          text: "Cargando..." #Nombre label
+                          text: "Loading..." #Nombre label
                           max_height: 65px
                           long_mode: wrap
                           width: 100% 
@@ -415,7 +418,7 @@ lvgl:
                                 const char* nombre = lv_label_get_text(id(fav_btn_5));
                                 if (std::string(nombre) != "Cargando..." && std::string(nombre) != "---") {
                                   id(reproducir_sonos_script).execute(nombre); }
-
+                            - script.execute: close_favoritos_panel
                 # fAVORITOS 6
                 - button:
                     height: 70px
@@ -429,7 +432,7 @@ lvgl:
                       - label:
                           align: center
                           id: fav_btn_6
-                          text: "Cargando..." #Nombre label
+                          text: "Loadingo..." #Nombre label
                           max_height: 65px
                           long_mode: wrap  
                           width: 100% 
@@ -439,6 +442,7 @@ lvgl:
                                 const char* nombre = lv_label_get_text(id(fav_btn_6));
                                 if (std::string(nombre) != "Cargando..." && std::string(nombre) != "---") {
                                   id(reproducir_sonos_script).execute(nombre); }
+                            - script.execute: close_favoritos_panel                                  
                 # fAVORITOS 7
                 - button:
                     height: 70px
@@ -452,7 +456,7 @@ lvgl:
                       - label:
                           align: center
                           id: fav_btn_7
-                          text: "Cargando..." #Nombre label
+                          text: "Loading..." #Nombre label
                           max_height: 65px
                           long_mode: wrap  
                           width: 100% 
@@ -462,6 +466,7 @@ lvgl:
                                 const char* nombre = lv_label_get_text(id(fav_btn_7));
                                 if (std::string(nombre) != "Cargando..." && std::string(nombre) != "---") {
                                   id(reproducir_sonos_script).execute(nombre); }
+                            - script.execute: close_favoritos_panel                                  
                 # fAVORITOS 8
                 - button:
                     height: 70px
@@ -475,7 +480,7 @@ lvgl:
                       - label:
                           align: center
                           id: fav_btn_8
-                          text: "Cargando..." #Nombre label
+                          text: "Loading..." #Nombre label
                           max_height: 65px
                           long_mode: wrap  
                           width: 100% 
@@ -485,6 +490,7 @@ lvgl:
                                 const char* nombre = lv_label_get_text(id(fav_btn_8));
                                 if (std::string(nombre) != "Cargando..." && std::string(nombre) != "---") {
                                   id(reproducir_sonos_script).execute(nombre); }   
+                            - script.execute: close_favoritos_panel                                  
                 # fAVORITOS 9
                 - button:
                     height: 70px
@@ -498,7 +504,7 @@ lvgl:
                       - label:
                           align: center
                           id: fav_btn_9
-                          text: "Cargando..." #Nombre label
+                          text: "Loading..." #Nombre label
                           max_height: 65px
                           long_mode: wrap  
                           width: 100% 
@@ -508,6 +514,7 @@ lvgl:
                                 const char* nombre = lv_label_get_text(id(fav_btn_9));
                                 if (std::string(nombre) != "Cargando..." && std::string(nombre) != "---") {
                                   id(reproducir_sonos_script).execute(nombre); }    
+                            - script.execute: close_favoritos_panel                                  
                 # fAVORITOS 10
                 - button:
                     height: 70px
@@ -521,7 +528,7 @@ lvgl:
                       - label:
                           align: center
                           id: fav_btn_10
-                          text: "Cargando..." #Nombre label
+                          text: "Loading..." #Nombre label
                           max_height: 65px
                           long_mode: wrap  
                           width: 100% 
@@ -530,7 +537,8 @@ lvgl:
                             - lambda: |-
                                 const char* nombre = lv_label_get_text(id(fav_btn_10));
                                 if (std::string(nombre) != "Cargando..." && std::string(nombre) != "---") {
-                                  id(reproducir_sonos_script).execute(nombre); }    
+                                  id(reproducir_sonos_script).execute(nombre); }   
+                            - script.execute: close_favoritos_panel                                  
                 # fAVORITOS 11
                 - button:
                     height: 70px
@@ -544,7 +552,7 @@ lvgl:
                       - label:
                           align: center
                           id: fav_btn_11
-                          text: "Cargando..." #Nombre label
+                          text: "Loading..." #Nombre label
                           max_height: 65px
                           long_mode: wrap  
                           width: 100% 
@@ -553,7 +561,8 @@ lvgl:
                             - lambda: |-
                                 const char* nombre = lv_label_get_text(id(fav_btn_11));
                                 if (std::string(nombre) != "Cargando..." && std::string(nombre) != "---") {
-                                  id(reproducir_sonos_script).execute(nombre); }    
+                                  id(reproducir_sonos_script).execute(nombre); }   
+                            - script.execute: close_favoritos_panel                                  
                 # fAVORITOS 12
                 - button:
                     height: 70px
@@ -567,7 +576,7 @@ lvgl:
                       - label:
                           align: center
                           id: fav_btn_12
-                          text: "Cargando..." #Nombre label
+                          text: "Loading..." #Nombre label
                           max_height: 65px
                           long_mode: wrap  
                           width: 100% 
@@ -577,6 +586,7 @@ lvgl:
                                 const char* nombre = lv_label_get_text(id(fav_btn_12));
                                 if (std::string(nombre) != "Cargando..." && std::string(nombre) != "---") {
                                   id(reproducir_sonos_script).execute(nombre); }
+                            - script.execute: close_favoritos_panel                                  
                    # fAVORITOS 13
                 - button:
                     height: 70px
@@ -590,7 +600,7 @@ lvgl:
                       - label:
                           align: center
                           id: fav_btn_13
-                          text: "Cargando..." #Nombre label
+                          text: "Loading..." #Nombre label
                           max_height: 65px
                           long_mode: wrap  
                           width: 100% 
@@ -600,6 +610,7 @@ lvgl:
                                 const char* nombre = lv_label_get_text(id(fav_btn_13));
                                 if (std::string(nombre) != "Cargando..." && std::string(nombre) != "---") {
                                   id(reproducir_sonos_script).execute(nombre); }   
+                            - script.execute: close_favoritos_panel                                  
                    # fAVORITOS 14
                 - button:
                     height: 70px
@@ -613,7 +624,7 @@ lvgl:
                       - label:
                           align: center
                           id: fav_btn_14
-                          text: "Cargando..." #Nombre label
+                          text: "Loading..." #Nombre label
                           max_height: 65px
                           long_mode: wrap  
                           width: 100% 
@@ -622,7 +633,8 @@ lvgl:
                             - lambda: |-
                                 const char* nombre = lv_label_get_text(id(fav_btn_14));
                                 if (std::string(nombre) != "Cargando..." && std::string(nombre) != "---") {
-                                  id(reproducir_sonos_script).execute(nombre); }     
+                                  id(reproducir_sonos_script).execute(nombre); }  
+                            - script.execute: close_favoritos_panel                                  
 
                 # fAVORITOS 15
                 - button:
@@ -637,7 +649,7 @@ lvgl:
                       - label:
                           align: center
                           id: fav_btn_15
-                          text: "Cargando..." #Nombre label
+                          text: "Loading..." #Nombre label
                           max_height: 65px
                           long_mode: wrap  
                           width: 100% 
@@ -647,6 +659,7 @@ lvgl:
                                 const char* nombre = lv_label_get_text(id(fav_btn_15));
                                 if (std::string(nombre) != "Cargando..." && std::string(nombre) != "---") {
                                   id(reproducir_sonos_script).execute(nombre); }
+                            - script.execute: close_favoritos_panel                                  
 
                 # fAVORITOS 16
                 - button:
@@ -661,7 +674,7 @@ lvgl:
                       - label:
                           align: center
                           id: fav_btn_16
-                          text: "Cargando..." #Nombre label
+                          text: "Loading..." #Nombre label
                           max_height: 65px
                           long_mode: wrap  
                           width: 100% 
@@ -671,7 +684,7 @@ lvgl:
                                 const char* nombre = lv_label_get_text(id(fav_btn_16));
                                 if (std::string(nombre) != "Cargando..." && std::string(nombre) != "---") {
                                   id(reproducir_sonos_script).execute(nombre); }
-
+                            - script.execute: close_favoritos_panel
                 # fAVORITOS 17
                 - button:
                     height: 70px
@@ -685,7 +698,7 @@ lvgl:
                       - label:
                           align: center
                           id: fav_btn_17
-                          text: "Cargando..." #Nombre label
+                          text: "Loading..." #Nombre label
                           max_height: 65px
                           long_mode: wrap  
                           width: 100% 
@@ -695,7 +708,7 @@ lvgl:
                                 const char* nombre = lv_label_get_text(id(fav_btn_17));
                                 if (std::string(nombre) != "Cargando..." && std::string(nombre) != "---") {
                                   id(reproducir_sonos_script).execute(nombre); }
-                                  
+                            - script.execute: close_favoritos_panel                                  
     # -----------------------------------------------------------------
     # 4. PANEL CONTENEDOR DE LAS 10 LUCES (ARRANCA OCULTO)
     # -----------------------------------------------------------------
