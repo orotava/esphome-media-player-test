@@ -932,6 +932,7 @@ lvgl:
                       # BOTÓN 1 DE 4 (Columna 0 de la última fila)
                       # -------------------------------------------------------------------
                       - button:
+                          id: boton_toldo_1
                           height: 100%         # Ocupa todo el alto de la celda
                           width: 110px          # Ocupa todo el ancho de la celda
                           checkable: false
@@ -955,6 +956,7 @@ lvgl:
                                 data: 
                                   entity_id: cover.came2
                       - button:
+                          id: boton_toldo_2                      
                           height: 100%         # Ocupa todo el alto de la celda
                           width: 110px         # Ocupa todo el ancho de la celda
                           checkable: false
@@ -980,6 +982,7 @@ lvgl:
                                   entity_id: cover.came2
                                   
                       - button:
+                          id: boton_toldo_2                     
                           height: 100%         # Ocupa todo el alto de la celda
                           width: 110px          # Ocupa todo el ancho de la celda
                           checkable: false
