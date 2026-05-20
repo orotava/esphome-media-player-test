@@ -982,7 +982,7 @@ lvgl:
                                   entity_id: cover.came2
                                   
                       - button:
-                          id: boton_toldo_2                     
+                          id: boton_toldo_3                     
                           height: 100%         # Ocupa todo el alto de la celda
                           width: 110px          # Ocupa todo el ancho de la celda
                           checkable: false
