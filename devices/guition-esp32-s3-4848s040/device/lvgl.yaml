@@ -1022,28 +1022,27 @@ lvgl:
                               - script.execute: close_luces_panel
                               
               # Close button (floating, rendered last for z-order + touch priority)
-              - obj:
-                    - button:
-                        id: close_button_1
-                        align: top_right
-                        x: -12
-                        y: 16
-                        width: 64px
-                        height: 64px
-                        radius: 32
-                        bg_color: 0x262626
-                        bg_opa: 100%
-                        border_width: 0
-                        shadow_width: 0
-                        pad_all: 0
-                        widgets:
-                          - label:
-                              text_font: $icon_font
-                              align: center
-                              text: $icon_close
-                              text_color: 0xFFFFFF
-                        on_press:
-                          - script.execute: close_luces_panel
+                - button:
+                    id: close_button_1
+                    align: top_right
+                    x: -12
+                    y: 16
+                    width: 64px
+                    height: 64px
+                    radius: 32
+                    bg_color: 0x262626
+                    bg_opa: 100%
+                    border_width: 0
+                    shadow_width: 0
+                    pad_all: 0
+                    widgets:
+                      - label:
+                          text_font: $icon_font
+                          align: center
+                          text: $icon_close
+                          text_color: 0xFFFFFF
+                    on_press:
+                      - script.execute: close_luces_panel
 
 
                                  
