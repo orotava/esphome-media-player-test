@@ -946,7 +946,9 @@ lvgl:
                             - label:
                                 align: bottom_left
                                 text: "Abre Toldo"
-                                text_font: roboto20_font
+                            - label:
+                                align: top_right
+                                text: "Toldo"
                           on_click:
                             - homeassistant.service:
                                 service: cover.open_cover
@@ -967,7 +969,7 @@ lvgl:
                             - label:
                                 align: bottom_left
                                 text: "Para Toldo"
-                                text_font: roboto20_font                             
+                     
                           on_click:
                             - homeassistant.service:
                                 service: cover.stop_cover
@@ -989,7 +991,7 @@ lvgl:
                             - label:
                                 align: bottom_left
                                 text: "Cierra Toldo"
-                                text_font: roboto20_font
+
                           on_click:
                             - homeassistant.service:
                                 service: cover.close_cover
@@ -1013,7 +1015,7 @@ lvgl:
                               - label:
                                   align: bottom_left
                                   text: "Cerrar" #Nombre label
-                                  text_font: roboto20_font
+
                             on_click:
                               - script.execute: close_luces_panel
                               
