@@ -945,10 +945,10 @@ lvgl:
                                 text:  $abre_toldo
                             - label:
                                 align: bottom_left
-                                text: "Abre Toldo"
-                            - label:
-                                align: top_right
                                 text: "Toldo"
+                            - label:
+                                align: center
+                                text: "Abrir"
                           on_click:
                             - homeassistant.service:
                                 service: cover.open_cover
