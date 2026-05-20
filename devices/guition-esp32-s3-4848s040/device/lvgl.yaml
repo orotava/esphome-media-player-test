@@ -925,7 +925,7 @@ lvgl:
                     scrollbar_mode: "off"
                     layout:
                       type: grid
-                      grid_columns: [fr(28), fr(28), fr(28), fr(16)] # ¡Aquí dividimos en 4!
+                      grid_columns: [fr(1), fr(1), fr(1), fr(1)] # ¡Aquí dividimos en 4!
                       grid_rows: [fr(1)]
                     widgets:
                       # -------------------------------------------------------------------
@@ -933,7 +933,7 @@ lvgl:
                       # -------------------------------------------------------------------
                       - button:
                           height: 100%         # Ocupa todo el alto de la celda
-                          width: 120px          # Ocupa todo el ancho de la celda
+                          width: 110px          # Ocupa todo el ancho de la celda
                           checkable: false
                           styles: control
                           grid_cell_column_pos: 0 
@@ -946,6 +946,8 @@ lvgl:
                             - label:
                                 align: bottom_left
                                 text: "Abre Toldo"
+                                max_height: 65px
+                                long_mode: wrap 
                           on_click:
                             - homeassistant.service:
                                 service: cover.open_cover
@@ -953,7 +955,7 @@ lvgl:
                                   entity_id: cover.came2
                       - button:
                           height: 100%         # Ocupa todo el alto de la celda
-                          width: 120px         # Ocupa todo el ancho de la celda
+                          width: 110px         # Ocupa todo el ancho de la celda
                           checkable: false
                           styles: control
                           grid_cell_column_pos: 1 
@@ -966,6 +968,8 @@ lvgl:
                             - label:
                                 align: bottom_left
                                 text: "Para Toldo"
+                                max_height: 65px
+                                long_mode: wrap                                 
                           on_click:
                             - homeassistant.service:
                                 service: cover.stop_cover
@@ -974,7 +978,7 @@ lvgl:
                                   
                       - button:
                           height: 100%         # Ocupa todo el alto de la celda
-                          width: 120px          # Ocupa todo el ancho de la celda
+                          width: 110px          # Ocupa todo el ancho de la celda
                           checkable: false
                           styles: control
                           grid_cell_column_pos: 2 
@@ -987,6 +991,8 @@ lvgl:
                             - label:
                                 align: bottom_left
                                 text: "Cierra Toldo"
+                                max_height: 65px
+                                long_mode: wrap 
                           on_click:
                             - homeassistant.service:
                                 service: cover.close_cover
@@ -996,7 +1002,7 @@ lvgl:
                  # Cerrar Pantalla Luces
                       - button:
                             height: 100%
-                            width: 100px
+                            width: 110px
                             checkable: false
                             id: close_button
                             styles: control
@@ -1010,6 +1016,8 @@ lvgl:
                               - label:
                                   align: bottom_left
                                   text: "Cerrar" #Nombre label
+                                  max_height: 65px
+                                  long_mode: wrap 
                             on_click:
                               - script.execute: close_luces_panel
 
