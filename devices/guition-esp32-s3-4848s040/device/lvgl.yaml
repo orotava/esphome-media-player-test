@@ -938,6 +938,7 @@ lvgl:
                           styles: control
                           grid_cell_column_pos: 0 
                           grid_cell_row_pos: 0 
+                          text_font: roboto20_font
                           widgets:
                             - label:
                                 text_font: $icon_font
