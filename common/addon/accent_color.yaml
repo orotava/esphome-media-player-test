@@ -116,6 +116,11 @@ script:
             // Agregados Botones Luces y favoritos color de fondo del boton 
             lv_obj_set_style_bg_color(id(boton_flotante_bombilla), bright_accent, 0);
             lv_obj_set_style_bg_color(id(boton_flotante_favoritos), bright_accent, 0);
+            // Botones del toldo coloreados
+            lv_obj_set_style_bg_color(id(boton_toldo_1), bright_accent, 0);
+            lv_obj_set_style_bg_color(id(boton_toldo_2), bright_accent, 0);
+            lv_obj_set_style_bg_color(id(boton_toldo_3), bright_accent, 0);
+            
 
             auto call = id(accent_color_light).turn_on();
             call.set_rgb(r / 255.0f, g / 255.0f, b / 255.0f);
