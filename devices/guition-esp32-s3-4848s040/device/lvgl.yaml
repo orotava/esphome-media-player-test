@@ -944,10 +944,10 @@ lvgl:
                                 align: top_left
                                 text:  $abre_toldo
                             - label:
-                                align: bottom_mid
+                                align: bottom_right
                                 text: "Toldo"
                             - label:
-                                align: center
+                                align: right_mid
                                 text: "Abrir"
                           on_click:
                             - homeassistant.service:
@@ -967,8 +967,11 @@ lvgl:
                                 align: top_left
                                 text:  $para_toldo
                             - label:
-                                align: bottom_left
-                                text: "Para Toldo"
+                                align: bottom_right
+                                text: "Toldo"
+                            - label:
+                                align: right_mid
+                                text: "Parar"
                      
                           on_click:
                             - homeassistant.service:
@@ -989,8 +992,12 @@ lvgl:
                                 align: top_left
                                 text:  $cierra_toldo
                             - label:
-                                align: bottom_left
-                                text: "Cierra Toldo"
+                            - label:
+                                align: bottom_right
+                                text: "Toldo"
+                            - label:
+                                align: right_mid
+                                text: "Cerrar"
 
                           on_click:
                             - homeassistant.service:
