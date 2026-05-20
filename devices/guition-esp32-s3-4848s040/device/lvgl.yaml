@@ -944,7 +944,7 @@ lvgl:
                                 align: top_left
                                 text:  $abre_toldo
                             - label:
-                                align: bottom_left
+                                align: bottom_mid
                                 text: "Toldo"
                             - label:
                                 align: center
