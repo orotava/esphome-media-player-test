@@ -938,7 +938,6 @@ lvgl:
                           styles: control
                           grid_cell_column_pos: 0 
                           grid_cell_row_pos: 0 
-                          text_font: roboto20_font
                           widgets:
                             - label:
                                 text_font: $icon_font
@@ -947,8 +946,7 @@ lvgl:
                             - label:
                                 align: bottom_left
                                 text: "Abre Toldo"
-                                max_height: 65px
-                                long_mode: wrap 
+                                text_font: roboto20_font
                           on_click:
                             - homeassistant.service:
                                 service: cover.open_cover
@@ -969,8 +967,7 @@ lvgl:
                             - label:
                                 align: bottom_left
                                 text: "Para Toldo"
-                                max_height: 65px
-                                long_mode: wrap                                 
+                                text_font: roboto20_font                             
                           on_click:
                             - homeassistant.service:
                                 service: cover.stop_cover
@@ -992,8 +989,7 @@ lvgl:
                             - label:
                                 align: bottom_left
                                 text: "Cierra Toldo"
-                                max_height: 65px
-                                long_mode: wrap 
+                                text_font: roboto20_font
                           on_click:
                             - homeassistant.service:
                                 service: cover.close_cover
@@ -1017,8 +1013,7 @@ lvgl:
                               - label:
                                   align: bottom_left
                                   text: "Cerrar" #Nombre label
-                                  max_height: 65px
-                                  long_mode: wrap 
+                                  text_font: roboto20_font
                             on_click:
                               - script.execute: close_luces_panel
                               
