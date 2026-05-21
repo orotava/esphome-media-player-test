@@ -209,7 +209,7 @@ output:
   - platform: gpio
     pin: 1
     id: light_output_3
-    inverted: true # Set it to false if the light turns on backwards
+    inverted: false # Set it to true if the light turns on backwards
 
 ###############################################################################
 # Scripts for light panel (panel_luces)
