@@ -954,7 +954,7 @@ lvgl:
                             - homeassistant.service:
                                 service: cover.open_cover
                                 data: 
-                                  entity_id: cover.came2
+                                  entity_id: cover.toldo
                       - button:
                           id: boton_toldo_2                      
                           height: 100%         # Ocupa todo el alto de la celda
@@ -979,7 +979,7 @@ lvgl:
                             - homeassistant.service:
                                 service: cover.stop_cover
                                 data: 
-                                  entity_id: cover.came2
+                                  entity_id: cover.toldo
                                   
                       - button:
                           id: boton_toldo_3                     
@@ -1006,7 +1006,7 @@ lvgl:
                             - homeassistant.service:
                                 service: cover.close_cover
                                 data: 
-                                  entity_id: cover.came2
+                                  entity_id: cover.toldo
                       
                  # Cerrar Pantalla Luces
                       - button:
